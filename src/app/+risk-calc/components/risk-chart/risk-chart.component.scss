@@ -1,0 +1,59 @@
+@import '../../variables';
+
+:host {
+  display: flex;
+  padding: 10px 0;
+}
+
+.post {
+  width: 30px;
+}
+.post__part {
+  width: 100%;
+  padding-bottom: 100%;
+}
+.post__part {
+  @each $name in $trade-type-color-names {
+    &.trade-type--#{$name} { background-color: map-get($trade-type-colors, $name); }
+  }
+}
+
+.post__part + .post__part:before {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.part-price-list {
+  margin-top: -16px;
+  display: table;
+
+  app-part-price {
+    display: table-row;
+  }
+  app-part-price ::ng-deep > * {
+    display: table-cell;
+  }
+}
+
+.take {
+  margin-bottom: 16px;
+
+  &-space {}
+  &-comment {
+    font-weight: lighter;
+    margin-top: -0.4em;
+    display: block;
+
+    @each $name in $trade-type-color-names {
+      &.trade-type--#{$name} { color: map-get($trade-type-colors, $name); }
+    }
+  }
+
+  app-part-price {
+    display: block;
+    margin-top: -14px;
+  }
+}

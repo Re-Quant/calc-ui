@@ -1,0 +1,34 @@
+<ng-container *ngIf="point">
+    <ng-container *ngIf="direction === 'left'">
+
+        <span class="__price"
+              [class.__price--start]="isPointTypeStart(point)"
+        >{{ point.price | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        <span class="__diff"
+              [class.__diff--plus]="point.diff.money > 0"
+              [class.__diff--minus]="point.diff.money < 0"
+        >{{ point.diff.money | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        <span class="__diff"
+              [class.__diff--plus]="point.diff.money > 0"
+              [class.__diff--minus]="point.diff.money < 0"
+        >{{ point.diff.percent | percent: '0.1-1' }}</span>
+        <span class="__x">{{ point.ratio | number : '0.0-2' }}x</span>
+
+    </ng-container>
+    <ng-container *ngIf="direction === 'right'">
+
+        <span class="__x">{{ point.ratio | number : '0.0-2' }}x</span>
+        <span class="__diff"
+              [class.__diff--plus]="point.diff.money > 0"
+              [class.__diff--minus]="point.diff.money < 0"
+        >{{ point.diff.percent | percent: '0.1-1' }}</span>
+        <span class="__diff"
+              [class.__diff--plus]="point.diff.money > 0"
+              [class.__diff--minus]="point.diff.money < 0"
+        >{{ point.diff.money | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        <span class="__price"
+              [class.__price--start]="isPointTypeStart(point)"
+        >{{ point.price | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+
+    </ng-container>
+</ng-container>

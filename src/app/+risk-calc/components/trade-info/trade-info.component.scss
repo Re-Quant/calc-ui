@@ -1,0 +1,23 @@
+.title {
+  margin-bottom: 0;
+  font-weight: normal;
+}
+.name {
+  color: #999;
+  font-weight: lighter;
+  &:after { content: ': '; }
+}
+
+.trade-direction {
+  font-size: 0.9em;
+  font-weight: lighter;
+  &:before { content: '('; }
+  &:after { content: ')'; }
+
+  &--long {
+    color: #0b0;
+  }
+  &--short {
+    color: #e88;
+  }
+}

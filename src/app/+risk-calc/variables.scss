@@ -1,0 +1,8 @@
+$trade-type-colors: (
+    stop: #f88,
+    start: initial,
+    bad-take: #fc8,
+    good-take: #9e9,
+    amazing-take: #9df,
+);
+$trade-type-color-names: map-keys($trade-type-colors);

@@ -1,0 +1,13 @@
+<div class="take">
+    <div class="take-space" [style.height.%]="takeSpacePercent"></div>
+    <app-part-price [point]="take" direction="right"></app-part-price>
+    <span class="take-comment" *ngIf="takeComment" [ngClass]="takeCssClass">{{ takeComment }}</span>
+</div>
+
+<div class="post">
+    <div class="post__part" *ngFor="let fold of folds" [ngClass]="fold.cssClass"></div>
+</div>
+
+<div class="part-price-list">
+    <app-part-price *ngFor="let point of pricePoints" [point]="point"></app-part-price>
+</div>
