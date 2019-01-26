@@ -4,3 +4,4 @@ export * from './fold-type.enum';
 export * from './deposit-diff';
 export * from './risk-income.data';
 export * from './trade-type.enum';
+export * from './universal-fee';

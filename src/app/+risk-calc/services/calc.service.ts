@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { CalculatedData, DepositDiff, EPricePointType, ETradeType, PricePoint, RiskIncomeData } from '../models';
+import { CalculatedData, DepositDiff, EPricePointType, ETradeType, IUniversalFee, PricePoint, RiskIncomeData } from '../models';
 
 interface IDepositPercentOpts {
     risk: number;
@@ -29,20 +29,17 @@ interface IMoneyDiffOpts {
     sellFee: number;
 }
 
-interface IPricePointOpts {
-    /**
-     * The diff will be calculated for the price
-     */
-    price: number;
-    /**
-     * Deposit for this trade(can be different of full deposit)
-     */
-    orderDeposit: number;
-    deposit: number;
-    startPrice: number;
-    stopPrice: number;
+// @todo: remove it
+interface IUniversalFeeOpts {
+    type: ETradeType;
     buyFee: number;
     sellFee: number;
+}
+
+// @todo: remove it
+interface IBreakevenPriceOpts {
+    startPrice: number;
+    fee: IUniversalFee;
 }
 
 @Injectable({
@@ -125,7 +122,7 @@ export class CalcService {
             .reverse();
 
         const takePricePoint = this.getPricePoint({
-            orderDeposit: orderDeposit,
+            orderDeposit,
             buyFee:       income.buyFee,
             sellFee:      income.sellFee,
             price:        income.takePrice,
@@ -141,6 +138,7 @@ export class CalcService {
             orderDeposit,
             takePricePoint,
             leverage,
+            breakevenPricePoint: {} as any,
         };
     }
 
@@ -211,6 +209,24 @@ export class CalcService {
             type: this.getPricePointType(i),
             ratio: i,
         };
+    }
+
+    // private getBreakevenPrice(o: IBreakevenPriceOpts): number {
+    // }
+
+    public getUniversalFee(o: IUniversalFeeOpts): IUniversalFee {
+        return o.type === ETradeType.Long
+               ? { entryFee: o.buyFee, exitFee: o.sellFee }
+               : { entryFee: o.sellFee, exitFee: o.buyFee }
+            ;
+    }
+
+    public getTradeTypeByStartStop(startPrice: number, stopPrice: number): ETradeType {
+        return startPrice >= stopPrice ? ETradeType.Long : ETradeType.Short;
+    }
+
+    public getTradeTypeByStartTake(startPrice: number, takePrice: number): ETradeType {
+        return takePrice >= startPrice ? ETradeType.Long : ETradeType.Short;
     }
 
 }

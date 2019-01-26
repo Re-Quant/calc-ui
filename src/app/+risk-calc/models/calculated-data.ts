@@ -5,6 +5,7 @@ export interface CalculatedData {
     pricePoints: PricePoint[];
 
     takePricePoint: PricePoint;
+    breakevenPricePoint: PricePoint;
 
     /**
      * Part of the deposit for entry to the market

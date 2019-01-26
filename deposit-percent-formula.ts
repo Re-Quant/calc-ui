@@ -141,3 +141,47 @@ const x = r / (p + entryFee + (1 - p) * exitFee);
     const l = newDepo * 0.1;
     console.log(newDepo, d * 0.01, l + c1 + c2, x);
 })();
+
+(orderDeposit / startPrice + orderDeposit * entryFee)
+- (
+    (orderDeposit / startPrice + orderDeposit * entryFee) * endPrice
+    + (orderDeposit / startPrice + orderDeposit * entryFee) * exitFee
+) = 0
+---
+(orderDeposit / startPrice + orderDeposit * entryFee)
+- (orderDeposit / startPrice + orderDeposit * entryFee) * ( endPrice + exitFee ) = 0
+---
+(orderDeposit / startPrice + orderDeposit * entryFee) * (1 - exitFee - endPrice ) = 0
+---
+(orderDeposit / startPrice + orderDeposit * entryFee) * (1 - exitFee - endPrice ) = 0
+
+
+
+orderDeposit * entryFee === (orderDeposit / startPrice * endPrice) * exitFee
+---
+(orderDeposit * entryFee) / (orderDeposit / startPrice * exitFee) === endPrice
+---
+(orderDeposit * entryFee) / ((orderDeposit / startPrice) * exitFee) === endPrice
+---
+(entryFee * startPrice) / (exitFee) === endPrice
+---
+entryFee/exitFee * startPrice === endPrice
+---
+endPrice = entryFee/exitFee * startPrice
+
+
+
+
+orderDeposit === (orderDeposit / startPrice * endPrice) * (1 - exitFee) - (orderDeposit / startPrice * entryFee)
+---
+orderDeposit + (orderDeposit / startPrice * entryFee) === (orderDeposit / startPrice * endPrice) * (1 - exitFee)
+---
+endPrice = (orderDeposit + (orderDeposit / startPrice * entryFee)) / (orderDeposit / startPrice * (1 - exitFee))
+---
+endPrice = (1 + (1 / startPrice * entryFee)) / (1 / startPrice * (1 - exitFee))
+---
+endPrice = (1 + (entryFee / startPrice)) / ((1 - exitFee) / startPrice)
+---
+endPrice = ((1 + (entryFee / startPrice)) * startPrice) / (1 - exitFee)
+
+((1 + 0.002 / 1000) * 1000) / (1 - 0.002) =
