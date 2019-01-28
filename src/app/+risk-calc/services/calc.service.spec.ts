@@ -12,6 +12,31 @@ describe('CalcService', () => {
         expect(calc).toBeTruthy();
     });
 
+    describe('signToTradeType', () => {
+        it('should convert 1 or bigger to Long', () => {
+            expect(calc.signToTradeType(1)).toBe(ETradeType.Long);
+            expect(calc.signToTradeType(100)).toBe(ETradeType.Long);
+            expect(calc.signToTradeType(+Infinity)).toBe(ETradeType.Long);
+        });
+        it('should convert 0 to Long', () => {
+            expect(calc.signToTradeType(0)).toBe(ETradeType.Long);
+        });
+        it('should convert -1 or less to Short', () => {
+            expect(calc.signToTradeType(-1)).toBe(ETradeType.Short);
+            expect(calc.signToTradeType(-100)).toBe(ETradeType.Short);
+            expect(calc.signToTradeType(-Infinity)).toBe(ETradeType.Short);
+        });
+    });
+
+    describe('tradeTypeToSign', () => {
+        it('should convert Long to 1', () => {
+            expect(calc.tradeTypeToSign(ETradeType.Long)).toBe(1);
+        });
+        it('should convert Short to -1', () => {
+            expect(calc.tradeTypeToSign(ETradeType.Short)).toBe(-1);
+        });
+    });
+
     describe('getBreakevenPrice', () => {
         it('should calculate breakeven price for a Long trade', () => {
             // arrange

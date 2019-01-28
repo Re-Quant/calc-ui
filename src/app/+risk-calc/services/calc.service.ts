@@ -8,8 +8,7 @@ interface IDepositPercentOpts {
     risk: number;
     startPrice: number;
     stopPrice: number;
-    buyFee: number;
-    sellFee: number;
+    fee: IUniversalFee;
     leverageAvailable: boolean;
 }
 
@@ -66,9 +65,8 @@ export class CalcService {
     }
 
     private calculateTrade(income: RiskIncomeData): CalculatedData {
-        const tradeType = income.startPrice > income.stopPrice ? ETradeType.Long : ETradeType.Short;
-        /** 1 for long, -1 for short */
-        const sign      = Math.sign(income.takePrice - income.startPrice);
+        const tradeType = this.getTradeTypeByStartStop(income.startPrice, income.stopPrice);
+        const sign = this.tradeTypeToSign(tradeType);
 
         const stopPriceDiff = Math.abs(income.startPrice - income.stopPrice);
         const takePriceDiff = Math.abs(income.startPrice - income.takePrice);
@@ -82,10 +80,10 @@ export class CalcService {
             pricePointsQuantity = this.minPricePointsQuantity;
         }
 
+        const fee = this.getUniversalFee(tradeType, income.startPrice, income.stopPrice);
         const depositPercent = this.getDepositPercentToTrade({
+            fee,
             risk:              income.risk,
-            buyFee:            income.buyFee,
-            sellFee:           income.sellFee,
             startPrice:        income.startPrice,
             stopPrice:         income.stopPrice,
             leverageAvailable: income.leverageAvailable,
@@ -153,15 +151,11 @@ export class CalcService {
             risk: r,
             startPrice: s,
             stopPrice: l,
-            buyFee: bf,
-            sellFee: sf,
+            fee,
         }: IDepositPercentOpts,
     ): number {
-        const isLong = s > l;
         const p = Math.abs(s - l) / s;
-        const marketEntryFee = isLong ? bf : sf;
-        const marketExitFee = isLong ? sf : bf;
-        const res = r / (p + marketEntryFee + (1 - p) * marketExitFee);
+        const res = r / (p + fee.entryFee + (1 - p) * fee.exitFee);
 
         return !leverageAvailable && res > 1 ? 1 : res;
     }
@@ -207,6 +201,14 @@ export class CalcService {
                ? { entryFee: buyFee, exitFee: sellFee }
                : { entryFee: sellFee, exitFee: buyFee }
             ;
+    }
+
+    public signToTradeType(sign: 1 | -1 | number): ETradeType {
+        return sign >= 0 ? ETradeType.Long : ETradeType.Short;
+    }
+
+    public tradeTypeToSign(type: ETradeType): 1 | -1 {
+        return type === ETradeType.Long ? 1 : -1;
     }
 
     public getTradeTypeByStartStop(startPrice: number, stopPrice: number): ETradeType {
