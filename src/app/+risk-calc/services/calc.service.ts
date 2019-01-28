@@ -80,7 +80,7 @@ export class CalcService {
             pricePointsQuantity = this.minPricePointsQuantity;
         }
 
-        const fee = this.getUniversalFee(tradeType, income.startPrice, income.stopPrice);
+        const fee = this.getUniversalFee(tradeType, income.buyFee, income.sellFee);
         const depositPercent = this.getDepositPercentToTrade({
             fee,
             risk:              income.risk,
