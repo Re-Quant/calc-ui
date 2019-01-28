@@ -29,19 +29,6 @@ interface IMoneyDiffOpts {
     sellFee: number;
 }
 
-// @todo: remove it
-interface IUniversalFeeOpts {
-    type: ETradeType;
-    buyFee: number;
-    sellFee: number;
-}
-
-// @todo: remove it
-interface IBreakevenPriceOpts {
-    startPrice: number;
-    fee: IUniversalFee;
-}
-
 @Injectable({
     providedIn: 'root',
 })
@@ -211,13 +198,14 @@ export class CalcService {
         };
     }
 
-    // private getBreakevenPrice(o: IBreakevenPriceOpts): number {
-    // }
+    public getBreakevenPrice(startPrice: number, { entryFee, exitFee }: IUniversalFee): number {
+        return startPrice * (1 + entryFee) / (1 - exitFee);
+    }
 
-    public getUniversalFee(o: IUniversalFeeOpts): IUniversalFee {
-        return o.type === ETradeType.Long
-               ? { entryFee: o.buyFee, exitFee: o.sellFee }
-               : { entryFee: o.sellFee, exitFee: o.buyFee }
+    public getUniversalFee(type: ETradeType, buyFee: number, sellFee: number): IUniversalFee {
+        return type === ETradeType.Long
+               ? { entryFee: buyFee, exitFee: sellFee }
+               : { entryFee: sellFee, exitFee: buyFee }
             ;
     }
 

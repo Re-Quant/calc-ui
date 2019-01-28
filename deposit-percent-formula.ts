@@ -172,16 +172,16 @@ endPrice = entryFee/exitFee * startPrice
 
 
 
-orderDeposit === (orderDeposit / startPrice * endPrice) * (1 - exitFee) - (orderDeposit / startPrice * entryFee)
+orderDeposit === (orderDeposit / startPrice * endPrice) * (1 - exitFee) - (orderDeposit * entryFee)
 ---
-orderDeposit + (orderDeposit / startPrice * entryFee) === (orderDeposit / startPrice * endPrice) * (1 - exitFee)
+orderDeposit + (orderDeposit * entryFee) === (orderDeposit / startPrice * endPrice) * (1 - exitFee)
 ---
-endPrice = (orderDeposit + (orderDeposit / startPrice * entryFee)) / (orderDeposit / startPrice * (1 - exitFee))
+orderDeposit * (1 + entryFee) === (orderDeposit / startPrice * endPrice) * (1 - exitFee)
 ---
-endPrice = (1 + (1 / startPrice * entryFee)) / (1 / startPrice * (1 - exitFee))
+orderDeposit * (1 + entryFee) === (orderDeposit / startPrice * endPrice) * (1 - exitFee)
 ---
-endPrice = (1 + (entryFee / startPrice)) / ((1 - exitFee) / startPrice)
+endPrice = orderDeposit * (1 + entryFee) / (orderDeposit / startPrice * (1 - exitFee))
 ---
-endPrice = ((1 + (entryFee / startPrice)) * startPrice) / (1 - exitFee)
+endPrice = startPrice  * (1 + entryFee) / (1 - exitFee)
 
 ((1 + 0.002 / 1000) * 1000) / (1 - 0.002) =
