@@ -12,6 +12,36 @@ describe('CalcService', () => {
         expect(calc).toBeTruthy();
     });
 
+    describe('getTradePriceDiffRatio', () => {
+        it('should return positive result for Long trade and price increase', () => {
+            expect(calc.getTradePriceDiffRatio(ETradeType.Long, 1000, 1500)).toBe(0.5);
+        });
+        it('should return negative result for Long trade and price decrease', () => {
+            expect(calc.getTradePriceDiffRatio(ETradeType.Long, 1000, 500)).toBe(-0.5);
+        });
+        it('should return negative result for Short trade and price decrease', () => {
+            expect(calc.getTradePriceDiffRatio(ETradeType.Short, 1000, 500)).toBe(0.5);
+        });
+        it('should return positive result for Short trade and price increase', () => {
+            expect(calc.getTradePriceDiffRatio(ETradeType.Short, 1000, 1500)).toBe(-0.5);
+        });
+    });
+
+    describe('getTradePriceDiff', () => {
+        it('should return positive result for Long trade and price increase', () => {
+            expect(calc.getTradePriceDiff(ETradeType.Long, 1000, 1100)).toBe(1100 - 1000);
+        });
+        it('should return negative result for Long trade and price decrease', () => {
+            expect(calc.getTradePriceDiff(ETradeType.Long, 1000, 900)).toBe(900 - 1000);
+        });
+        it('should return negative result for Short trade and price decrease', () => {
+            expect(calc.getTradePriceDiff(ETradeType.Short, 1000, 900)).toBe(1000 - 900);
+        });
+        it('should return positive result for Short trade and price increase', () => {
+            expect(calc.getTradePriceDiff(ETradeType.Short, 1000, 1100)).toBe(1000 - 1100);
+        });
+    });
+
     describe('signToTradeType', () => {
         it('should convert 1 or bigger to Long', () => {
             expect(calc.signToTradeType(1)).toBe(ETradeType.Long);

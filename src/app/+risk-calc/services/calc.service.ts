@@ -24,8 +24,8 @@ interface IMoneyDiffOpts {
     deposit: number;
     startPrice: number;
     stopPrice: number;
-    buyFee: number;
-    sellFee: number;
+    fee: IUniversalFee;
+    tradeType: ETradeType;
 }
 
 @Injectable({
@@ -68,6 +68,7 @@ export class CalcService {
         const tradeType = this.getTradeTypeByStartStop(income.startPrice, income.stopPrice);
         const sign = this.tradeTypeToSign(tradeType);
 
+        // @todo: как-то упростить этот ratio
         const stopPriceDiff = Math.abs(income.startPrice - income.stopPrice);
         const takePriceDiff = Math.abs(income.startPrice - income.takePrice);
         const ratio         = takePriceDiff / stopPriceDiff;
@@ -96,9 +97,9 @@ export class CalcService {
                 const price = income.stopPrice + sign * stopPriceDiff * i;
                 return this.getPricePoint({
                     price,
+                    fee,
+                    tradeType,
                     orderDeposit: orderDeposit,
-                    buyFee:       income.buyFee,
-                    sellFee:      income.sellFee,
                     startPrice:   income.startPrice,
                     stopPrice:    income.stopPrice,
                     deposit:      income.deposit,
@@ -108,8 +109,8 @@ export class CalcService {
 
         const takePricePoint = this.getPricePoint({
             orderDeposit,
-            buyFee:       income.buyFee,
-            sellFee:      income.sellFee,
+            fee,
+            tradeType,
             price:        income.takePrice,
             startPrice:   income.startPrice,
             stopPrice:    income.stopPrice,
@@ -161,13 +162,10 @@ export class CalcService {
     }
 
     private getMoneyDiff(o: IMoneyDiffOpts): DepositDiff {
-        const isLong = o.startPrice > o.stopPrice;
-        const sign = Math.sign(isLong ? o.price - o.startPrice : o.startPrice - o.price);
+        const moneyDiff = o.orderDeposit * this.getTradePriceDiffRatio(o.tradeType, o.startPrice, o.price);
 
-        const moneyDiff = sign * o.orderDeposit * Math.abs(o.price - o.startPrice) / o.startPrice;
-
-        const entryFee = o.orderDeposit * (isLong ? o.buyFee : o.sellFee);
-        const exitFee = (o.orderDeposit + moneyDiff) * (isLong ? o.sellFee : o.buyFee);
+        const entryFee = o.orderDeposit * o.fee.entryFee;
+        const exitFee = (o.orderDeposit + moneyDiff) * o.fee.exitFee;
 
         const money = moneyDiff - entryFee - exitFee;
 
@@ -180,9 +178,8 @@ export class CalcService {
     private getPricePoint(o: IMoneyDiffOpts): PricePoint {
         const diff = this.getMoneyDiff(o);
         const stopPriceDiff = Math.abs(o.startPrice - o.stopPrice);
-        const isLong = o.startPrice > o.stopPrice;
 
-        const i = (isLong ? o.price - o.startPrice : o.startPrice - o.price) / stopPriceDiff;
+        const i = this.getTradePriceDiff(o.tradeType, o.startPrice, o.price) / stopPriceDiff;
 
         return {
             diff,
@@ -190,6 +187,14 @@ export class CalcService {
             type: this.getPricePointType(i),
             ratio: i,
         };
+    }
+
+    public getTradePriceDiffRatio(tradeType: ETradeType, startPrice: number, actualPrice: number): number {
+        return this.getTradePriceDiff(tradeType, startPrice, actualPrice) / startPrice;
+    }
+
+    public getTradePriceDiff(tradeType: ETradeType, startPrice: number, actualPrice: number): number {
+        return tradeType === ETradeType.Long ? actualPrice - startPrice : startPrice - actualPrice;
     }
 
     public getBreakevenPrice(startPrice: number, { entryFee, exitFee }: IUniversalFee): number {
