@@ -65,13 +65,11 @@ export class CalcService {
     }
 
     private calculateTrade(income: RiskIncomeData): CalculatedData {
-        const tradeType = this.getTradeTypeByStartStop(income.startPrice, income.stopPrice);
-        const sign = this.tradeTypeToSign(tradeType);
+        const tradeType = this.getTradeTypeByStartStop(income);
+        const sign = this.tradeTypeToSign({ tradeType });
 
-        // @todo: как-то упростить этот ratio
-        const stopPriceDiff = Math.abs(income.startPrice - income.stopPrice);
-        const takePriceDiff = Math.abs(income.startPrice - income.takePrice);
-        const ratio         = takePriceDiff / stopPriceDiff;
+        const stopPriceDiff = this.getStartStopPriceAbsDiff(income);
+        const ratio = this.getStartAndStopAbsDiffRatio(income);
 
         let pricePointsQuantity = Math.ceil(ratio)
             + this.pricesSpread[EPricePointType.Start]
@@ -81,7 +79,7 @@ export class CalcService {
             pricePointsQuantity = this.minPricePointsQuantity;
         }
 
-        const fee = this.getUniversalFee(tradeType, income.buyFee, income.sellFee);
+        const fee = this.getUniversalFee({ ...income, tradeType });
         const depositPercent = this.getDepositPercentToTrade({
             fee,
             risk:              income.risk,
@@ -138,27 +136,21 @@ export class CalcService {
         const badTakeEnd = start + this.pricesSpread[EPricePointType.BadTake];
         const goodTakeEnd = badTakeEnd + this.pricesSpread[EPricePointType.GoodTake];
 
-        return i < stopEnd     ? EPricePointType.Stop        :
-               i === start     ? EPricePointType.Start       :
-               i < badTakeEnd  ? EPricePointType.BadTake     :
-               i < goodTakeEnd ? EPricePointType.GoodTake    :
+        return i < stopEnd     ? EPricePointType.Stop     :
+               i === start     ? EPricePointType.Start    :
+               i < badTakeEnd  ? EPricePointType.BadTake  :
+               i < goodTakeEnd ? EPricePointType.GoodTake :
                EPricePointType.AmazingTake ;
     }
 
 
     private getDepositPercentToTrade(
-        {
-            leverageAvailable,
-            risk: r,
-            startPrice: s,
-            stopPrice: l,
-            fee,
-        }: IDepositPercentOpts,
+        o: IDepositPercentOpts,
     ): number {
-        const p = Math.abs(s - l) / s;
-        const res = r / (p + fee.entryFee + (1 - p) * fee.exitFee);
+        const p = this.getStartStopPriceAbsDiff(o) / o.startPrice;
+        const res = o.risk / (p + o.fee.entryFee + (1 - p) * o.fee.exitFee);
 
-        return !leverageAvailable && res > 1 ? 1 : res;
+        return !o.leverageAvailable && res > 1 ? 1 : res;
     }
 
     private getMoneyDiff(o: IMoneyDiffOpts): DepositDiff {
@@ -177,7 +169,7 @@ export class CalcService {
 
     private getPricePoint(o: IMoneyDiffOpts): PricePoint {
         const diff = this.getMoneyDiff(o);
-        const stopPriceDiff = Math.abs(o.startPrice - o.stopPrice);
+        const stopPriceDiff = this.getStartStopPriceAbsDiff(o);
 
         const i = this.getTradePriceDiff(o.tradeType, o.startPrice, o.price) / stopPriceDiff;
 
@@ -187,6 +179,20 @@ export class CalcService {
             type: this.getPricePointType(i),
             ratio: i,
         };
+    }
+
+    public getStartAndStopAbsDiffRatio(
+        o: { startPrice: number; stopPrice: number; takePrice: number; },
+    ): number {
+        return this.getStartTakePriceAbsDiff(o) / this.getStartStopPriceAbsDiff(o);
+    }
+
+    public getStartTakePriceAbsDiff(o: { startPrice: number; takePrice: number; }): number {
+        return Math.abs(o.startPrice - o.takePrice);
+    }
+
+    public getStartStopPriceAbsDiff(o: { startPrice: number; stopPrice: number; }): number {
+        return Math.abs(o.startPrice - o.stopPrice);
     }
 
     public getTradePriceDiffRatio(tradeType: ETradeType, startPrice: number, actualPrice: number): number {
@@ -201,10 +207,12 @@ export class CalcService {
         return startPrice * (1 + entryFee) / (1 - exitFee);
     }
 
-    public getUniversalFee(type: ETradeType, buyFee: number, sellFee: number): IUniversalFee {
-        return type === ETradeType.Long
-               ? { entryFee: buyFee, exitFee: sellFee }
-               : { entryFee: sellFee, exitFee: buyFee }
+    public getUniversalFee(
+        o: { tradeType: ETradeType; buyFee: number; sellFee: number; },
+    ): IUniversalFee {
+        return o.tradeType === ETradeType.Long
+               ? { entryFee: o.buyFee, exitFee: o.sellFee }
+               : { entryFee: o.sellFee, exitFee: o.buyFee }
             ;
     }
 
@@ -212,16 +220,16 @@ export class CalcService {
         return sign >= 0 ? ETradeType.Long : ETradeType.Short;
     }
 
-    public tradeTypeToSign(type: ETradeType): 1 | -1 {
-        return type === ETradeType.Long ? 1 : -1;
+    public tradeTypeToSign(o: { tradeType: ETradeType }): 1 | -1 {
+        return o.tradeType === ETradeType.Long ? 1 : -1;
     }
 
-    public getTradeTypeByStartStop(startPrice: number, stopPrice: number): ETradeType {
-        return startPrice >= stopPrice ? ETradeType.Long : ETradeType.Short;
+    public getTradeTypeByStartStop(o: { startPrice: number; stopPrice: number; }): ETradeType {
+        return o.startPrice >= o.stopPrice ? ETradeType.Long : ETradeType.Short;
     }
 
-    public getTradeTypeByStartTake(startPrice: number, takePrice: number): ETradeType {
-        return takePrice >= startPrice ? ETradeType.Long : ETradeType.Short;
+    public getTradeTypeByStartTake(o: { startPrice: number; takePrice: number; }): ETradeType {
+        return o.takePrice >= o.startPrice ? ETradeType.Long : ETradeType.Short;
     }
 
 }
