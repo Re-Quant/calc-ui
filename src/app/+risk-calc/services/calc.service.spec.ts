@@ -12,24 +12,130 @@ describe('CalcService', () => {
         expect(calc).toBeTruthy();
     });
 
-    // describe('getMoneyDiff', () => {
-    //     it('should first', () => {
-    //         // arrange
-    //         const startPrice = 1000;
-    //         const stopPrice = 1000;
-    //
-    //         // act
-    //
-    //         // assert
-    //     });
-    // });
+    describe('getDepositDiffAfterTrade', () => {
+        it('should calculate deposit diff for Long trade and take price bigger then start price', () => {
+            // arrange
+            const tradeType: ETradeType = ETradeType.Long;
+            const fee: IUniversalFee = { entryFee: 0.002, exitFee: 0.003 };
+            const data = {
+                tradeType,
+                fee,
+                startPrice: 1000,
+                stopPrice: 800,
+                takePrice: 1600,
+                deposit: 10000,
+                orderDeposit: 5000,
+            };
+            const ratio = 1 + (data.takePrice - data.startPrice) / data.startPrice;
+            const expectedMoneyDiff = data.orderDeposit * ratio
+                                    - data.orderDeposit
+                                    - data.orderDeposit * fee.entryFee
+                                    - data.orderDeposit * ratio * fee.exitFee
+            ;
+            const expecetdDepositRatio = expectedMoneyDiff / data.deposit;
 
-    describe('getStartAndStopAbsDiffRatio', () => {
+            // act
+            const res = calc.getDepositDiffAfterTrade(data);
+
+            // assert
+            expect(res.money).toBe(expectedMoneyDiff);
+            expect(res.percent).toBe(expecetdDepositRatio);
+        });
+
+        it('should calculate deposit diff for Long trade and take price equal stop price', () => {
+            // arrange
+            const tradeType: ETradeType = ETradeType.Long;
+            const fee: IUniversalFee = { entryFee: 0.002, exitFee: 0.003 };
+            const data = {
+                tradeType,
+                fee,
+                startPrice: 1000,
+                stopPrice: 800,
+                takePrice: 800,
+                deposit: 10000,
+                orderDeposit: 5000,
+            };
+            const ratio = 1 + (data.takePrice - data.startPrice) / data.startPrice;
+            const expectedMoneyDiff = data.orderDeposit * ratio
+                - data.orderDeposit
+                - data.orderDeposit * fee.entryFee
+                - data.orderDeposit * ratio * fee.exitFee
+            ;
+            const expecetdDepositRatio = expectedMoneyDiff / data.deposit;
+
+            // act
+            const res = calc.getDepositDiffAfterTrade(data);
+
+            // assert
+            expect(res.money).toBe(expectedMoneyDiff);
+            expect(res.percent).toBe(expecetdDepositRatio);
+        });
+
+        it('should calculate deposit diff for Short trade and take price bigger then start price', () => {
+            // arrange
+            const tradeType: ETradeType = ETradeType.Short;
+            const fee: IUniversalFee = { entryFee: 0.003, exitFee: 0.002 };
+            const data = {
+                tradeType,
+                fee,
+                startPrice: 1000,
+                stopPrice: 800,
+                takePrice: 1600,
+                deposit: 10000,
+                orderDeposit: 5000,
+            };
+            const ratio = 1 - (data.takePrice - data.startPrice) / data.startPrice;
+            const expectedMoneyDiff = data.orderDeposit * ratio
+                - data.orderDeposit
+                - data.orderDeposit * fee.entryFee
+                - data.orderDeposit * ratio * fee.exitFee
+            ;
+            const expecetdDepositRatio = expectedMoneyDiff / data.deposit;
+
+            // act
+            const res = calc.getDepositDiffAfterTrade(data);
+
+            // assert
+            expect(res.money).toBe(expectedMoneyDiff);
+            expect(res.percent).toBe(expecetdDepositRatio);
+        });
+
+        it('should calculate deposit diff for Short trade and take price equal stop price', () => {
+            // arrange
+            const tradeType: ETradeType = ETradeType.Short;
+            const fee: IUniversalFee = { entryFee: 0.003, exitFee: 0.002 };
+            const data = {
+                tradeType,
+                fee,
+                startPrice: 1000,
+                stopPrice: 800,
+                takePrice: 800,
+                deposit: 10000,
+                orderDeposit: 5000,
+            };
+            const ratio = 1 - (data.takePrice - data.startPrice) / data.startPrice;
+            const expectedMoneyDiff = data.orderDeposit * ratio
+                - data.orderDeposit
+                - data.orderDeposit * fee.entryFee
+                - data.orderDeposit * ratio * fee.exitFee
+            ;
+            const expecetdDepositRatio = expectedMoneyDiff / data.deposit;
+
+            // act
+            const res = calc.getDepositDiffAfterTrade(data);
+
+            // assert
+            expect(res.money).toBe(expectedMoneyDiff);
+            expect(res.percent).toBe(expecetdDepositRatio);
+        });
+    });
+
+    describe('getTakeAndStopAbsDiffRatio', () => {
         it('should calculate ratio for Long trade', () => {
             // arrange
             const data = { startPrice: 1000, stopPrice: 800, takePrice: 1600 };
             // act
-            const res = calc.getStartAndStopAbsDiffRatio(data);
+            const res = calc.getTakeAndStopAbsDiffRatio(data);
             // assert
             expect(res).toBe(3);
         });
@@ -37,18 +143,18 @@ describe('CalcService', () => {
             // arrange
             const data = { startPrice: 1000, stopPrice: 1200, takePrice: 200 };
             // act
-            const res = calc.getStartAndStopAbsDiffRatio(data);
+            const res = calc.getTakeAndStopAbsDiffRatio(data);
             // assert
             expect(res).toBe(4);
         });
     });
 
-    describe('getStartStartPriceAbsDiff', () => {
+    describe('getTakePriceAbsDiff', () => {
         it('should return positive result for Long trade', () => {
             // arrange
             const data = { startPrice: 1000, takePrice: 1600 };
             // act
-            const res = calc.getStartTakePriceAbsDiff(data);
+            const res = calc.getTakePriceAbsDiff(data);
             // assert
             expect(res).toBe(600);
         });
@@ -56,18 +162,18 @@ describe('CalcService', () => {
             // arrange
             const data = { startPrice: 1000, takePrice: 600 };
             // act
-            const res = calc.getStartTakePriceAbsDiff(data);
+            const res = calc.getTakePriceAbsDiff(data);
             // assert
             expect(res).toBe(400);
         });
     });
 
-    describe('getStartStopPriceAbsDiff', () => {
+    describe('getStopPriceAbsDiff', () => {
         it('should return positive result for Long trade', () => {
             // arrange
             const data = { startPrice: 1000, stopPrice: 600 };
             // act
-            const res = calc.getStartStopPriceAbsDiff(data);
+            const res = calc.getStopPriceAbsDiff(data);
             // assert
             expect(res).toBe(400);
         });
@@ -75,7 +181,7 @@ describe('CalcService', () => {
             // arrange
             const data = { startPrice: 1000, stopPrice: 1400 };
             // act
-            const res = calc.getStartStopPriceAbsDiff(data);
+            const res = calc.getStopPriceAbsDiff(data);
             // assert
             expect(res).toBe(400);
         });
@@ -83,31 +189,71 @@ describe('CalcService', () => {
 
     describe('getTradePriceDiffRatio', () => {
         it('should return positive result for Long trade and price increase', () => {
-            expect(calc.getTradePriceDiffRatio(ETradeType.Long, 1000, 1500)).toBe(0.5);
+            // arrange
+            const data = { tradeType: ETradeType.Long, startPrice: 1000, takePrice: 1500 };
+            // act
+            const res = calc.getTradePriceDiffRatio(data);
+            // assert
+            expect(res).toBe(0.5);
         });
         it('should return negative result for Long trade and price decrease', () => {
-            expect(calc.getTradePriceDiffRatio(ETradeType.Long, 1000, 500)).toBe(-0.5);
+            // arrange
+            const data = { tradeType: ETradeType.Long, startPrice: 1000, takePrice: 500 };
+            // act
+            const res = calc.getTradePriceDiffRatio(data);
+            // assert
+            expect(res).toBe(-0.5);
         });
         it('should return negative result for Short trade and price decrease', () => {
-            expect(calc.getTradePriceDiffRatio(ETradeType.Short, 1000, 500)).toBe(0.5);
+            // arrange
+            const data = { tradeType: ETradeType.Short, startPrice: 1000, takePrice: 500 };
+            // act
+            const res = calc.getTradePriceDiffRatio(data);
+            // assert
+            expect(res).toBe(0.5);
         });
         it('should return positive result for Short trade and price increase', () => {
-            expect(calc.getTradePriceDiffRatio(ETradeType.Short, 1000, 1500)).toBe(-0.5);
+            // arrange
+            const data = { tradeType: ETradeType.Short, startPrice: 1000, takePrice: 1500 };
+            // act
+            const res = calc.getTradePriceDiffRatio(data);
+            // assert
+            expect(res).toBe(-0.5);
         });
     });
 
     describe('getTradePriceDiff', () => {
         it('should return positive result for Long trade and price increase', () => {
-            expect(calc.getTradePriceDiff(ETradeType.Long, 1000, 1100)).toBe(1100 - 1000);
+            // arrange
+            const data = { tradeType: ETradeType.Long, startPrice: 1000, takePrice: 1100 };
+            // act
+            const res = calc.getTakePriceDiff(data);
+            // assert
+            expect(res).toBe(1100 - 1000);
         });
         it('should return negative result for Long trade and price decrease', () => {
-            expect(calc.getTradePriceDiff(ETradeType.Long, 1000, 900)).toBe(900 - 1000);
+            // arrange
+            const data = { tradeType: ETradeType.Long, startPrice: 1000, takePrice: 900 };
+            // act
+            const res = calc.getTakePriceDiff(data);
+            // assert
+            expect(res).toBe(900 - 1000);
         });
         it('should return negative result for Short trade and price decrease', () => {
-            expect(calc.getTradePriceDiff(ETradeType.Short, 1000, 900)).toBe(1000 - 900);
+            // arrange
+            const data = { tradeType: ETradeType.Short, startPrice: 1000, takePrice: 900 };
+            // act
+            const res = calc.getTakePriceDiff(data);
+            // assert
+            expect(res).toBe(1000 - 900);
         });
         it('should return positive result for Short trade and price increase', () => {
-            expect(calc.getTradePriceDiff(ETradeType.Short, 1000, 1100)).toBe(1000 - 1100);
+            // arrange
+            const data = { tradeType: ETradeType.Short, startPrice: 1000, takePrice: 1100 };
+            // act
+            const res = calc.getTakePriceDiff(data);
+            // assert
+            expect(res).toBe(1000 - 1100);
         });
     });
 
@@ -187,10 +333,8 @@ describe('CalcService', () => {
             // arrange
             const data = { buyFee: 0.002, sellFee: 0.003, tradeType: ETradeType.Long };
             const expected: IUniversalFee = { entryFee: data.buyFee, exitFee: data.sellFee };
-
             // act
             const res = calc.getUniversalFee(data);
-
             // assert
             expect(res).toEqual(expected);
         });
@@ -199,10 +343,8 @@ describe('CalcService', () => {
             // arrange
             const data = { buyFee: 0.002, sellFee: 0.003, tradeType: ETradeType.Short };
             const expected: IUniversalFee = { entryFee: data.sellFee, exitFee: data.buyFee };
-
             // act
             const res = calc.getUniversalFee(data);
-
             // assert
             expect(res).toEqual(expected);
         });
