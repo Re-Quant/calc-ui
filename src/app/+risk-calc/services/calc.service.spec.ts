@@ -90,14 +90,14 @@ describe('CalcService', () => {
                 - data.orderDeposit * fee.entryFee
                 - data.orderDeposit * ratio * fee.exitFee
             ;
-            const expecetdDepositRatio = expectedMoneyDiff / data.deposit;
+            const expectedDepositRatio = expectedMoneyDiff / data.deposit;
 
             // act
             const res = calc.getDepositDiffAfterTrade(data);
 
             // assert
             expect(res.money).toBe(expectedMoneyDiff);
-            expect(res.percent).toBe(expecetdDepositRatio);
+            expect(res.percent).toBe(expectedDepositRatio);
         });
 
         it('should calculate deposit diff for Short trade and take price equal stop price', () => {
