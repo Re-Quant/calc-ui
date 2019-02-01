@@ -116,13 +116,23 @@ export class CalcService {
         });
         const leverage = (orderDeposit / income.deposit > 1) ? orderDeposit / income.deposit : 1;
 
+        const breakevenPrice = this.getBreakevenPrice(income.startPrice, fee);
+        const breakevenPricePoint = this.getPricePoint({
+            orderDeposit,
+            fee,
+            tradeType,
+            takePrice:  breakevenPrice,
+            startPrice: income.startPrice,
+            stopPrice:  income.stopPrice,
+            deposit:    income.deposit,
+        });
         return {
             tradeType,
             pricePoints,
             orderDeposit,
             takePricePoint,
             leverage,
-            breakevenPricePoint: {} as any,
+            breakevenPricePoint,
         };
     }
 

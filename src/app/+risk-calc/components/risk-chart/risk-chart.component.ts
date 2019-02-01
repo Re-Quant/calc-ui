@@ -13,6 +13,10 @@ export class RiskChartComponent implements OnChanges, OnInit {
     @Input()
     public take: PricePoint;
 
+    /** Breakeven Trade Price Point */
+    @Input()
+    public breakeven: PricePoint;
+
     @Input()
     public pricePoints: PricePoint[];
 
@@ -21,6 +25,8 @@ export class RiskChartComponent implements OnChanges, OnInit {
     public takeSpacePercent = 0;
     public takeComment?: string;
     public takeCssClass?: string;
+
+    public breakevenSpacePercent = 0;
 
     private cssClassesMap = {
         [EPricePointType.Stop]:        'trade-type--stop',
@@ -63,6 +69,14 @@ export class RiskChartComponent implements OnChanges, OnInit {
             const price3 = this.take.price;
 
             this.takeSpacePercent = Math.abs(price1 - price3) * 100 / Math.abs(price1 - price2);
+        }
+        if (changes['pricePoints'] || changes['breakeven']) {
+            // @todo: test short
+            const price1 = this.pricePoints[0].price;
+            const price2 = this.pricePoints[this.pricePoints.length - 1].price;
+            const price3 = this.breakeven.price;
+
+            this.breakevenSpacePercent = Math.abs(price1 - price3) * 100 / Math.abs(price1 - price2);
         }
         if (changes['take']) {
             this.takeComment = this.takeTradeCommentsMap[this.take.type];

@@ -11,6 +11,7 @@
             *ngIf="data$ | async as data"
             [pricePoints]="data.pricePoints"
             [take]="data.takePricePoint"
+            [breakeven]="data.breakevenPricePoint"
         ></app-risk-chart>
     </div>
 </div>

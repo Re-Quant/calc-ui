@@ -1,7 +1,15 @@
-<div class="take">
-    <div class="take-space" [style.height.%]="takeSpacePercent"></div>
-    <app-part-price [point]="take" direction="right"></app-part-price>
-    <span class="take-comment" *ngIf="takeComment" [ngClass]="takeCssClass">{{ takeComment }}</span>
+<div class="left">
+    <div class="take">
+        <div class="take-space" [style.height.%]="takeSpacePercent"></div>
+        <app-part-price [point]="take" direction="right"></app-part-price>
+        <span class="take-comment" *ngIf="takeComment" [ngClass]="takeCssClass">{{ takeComment }}</span>
+    </div>
+
+    <div class="breakeven">
+        <div class="breakeven-space" [style.height.%]="breakevenSpacePercent"></div>
+        <app-part-price [point]="breakeven" direction="right"></app-part-price>
+        <span class="breakeven-comment">Breakeven Price</span>
+    </div>
 </div>
 
 <div class="post">
