@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { EPricePointType, PricePoint } from '../../models';
 
 @Component({
@@ -7,7 +7,7 @@ import { EPricePointType, PricePoint } from '../../models';
     styleUrls: [ './risk-chart.component.scss' ],
     templateUrl: './risk-chart.component.html',
 })
-export class RiskChartComponent implements OnChanges, OnInit {
+export class RiskChartComponent implements OnChanges {
 
     /** Take Trade Price Point */
     @Input()
@@ -40,9 +40,6 @@ export class RiskChartComponent implements OnChanges, OnInit {
         [EPricePointType.GoodTake]:    'Good Trade',
         [EPricePointType.AmazingTake]: 'Amazing Trade',
     };
-
-    public ngOnInit(): void {
-    }
 
     public ngOnChanges(changes: SimpleChanges) {
 
