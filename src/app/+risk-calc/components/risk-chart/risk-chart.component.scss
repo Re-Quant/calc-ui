@@ -38,8 +38,13 @@
   }
 }
 
+.left {
+  position: relative;
+}
 .take, .breakeven {
-  margin-bottom: 16px;
+  box-sizing: border-box;
+  padding-bottom: 16px;
+  height: 100%;
 
   &-space {}
   &-comment {
@@ -56,4 +61,10 @@
     display: block;
     margin-top: -14px;
   }
+}
+.breakeven {
+  right: 0;
+  top: 0;
+  height: 100%;
+  position: absolute;
 }
