@@ -14,3 +14,11 @@ script:
   - ng lint
   - npm run test-headless
   - ng build --prod --base-href https://korniychuk.github.io/trading-helper/
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/trading-helper
+  on:
+    branch: master
