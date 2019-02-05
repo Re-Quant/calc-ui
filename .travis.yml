@@ -12,4 +12,5 @@ before_script:
 
 script:
   - ng lint
+  - npm run test-headless
   - ng build --prod --base-href https://korniychuk.github.io/trading-helper/
