@@ -7,13 +7,15 @@ branches:
   only:
     - master
 
-before_script:
+install:
   - npm install -g @angular/cli
 
-script:
+before_script:
   - ng lint
   - npm run test-headless
-  - ng build --prod --base-href https://korniychuk.github.io/trading-helper/
+
+script:
+  - ng build --prod
 
 deploy:
   provider: pages
