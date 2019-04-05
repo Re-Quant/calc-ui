@@ -10,15 +10,14 @@ branches:
     - develop
 
 install:
-  - npm install -g @angular/cli
   - npm install
 
 before_script:
-  - ng lint
+  - npm run lint
   - npm run test-headless
 
 script:
-  - ng build --prod --aot
+  - npm run build:prod
 
 deploy:
   - provider: script
