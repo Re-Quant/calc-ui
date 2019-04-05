@@ -50,7 +50,7 @@ function main() {
   #
   # Build docker image
   #
-  echo docker build -t "${imageFullId}" $(realpath "${SCRIPT_PATH}/../..")
+  echo docker build -t "${imageFullId}" $(readlink -f "${SCRIPT_PATH}/../..")
   exit;
 
   #
