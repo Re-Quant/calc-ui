@@ -3,9 +3,11 @@ node_js:
   - "10"
 dist: trusty
 sudo: required
+
 branches:
   only:
     - master
+    - develop
 
 install:
   - npm install -g @angular/cli
@@ -15,12 +17,25 @@ before_script:
   - npm run test-headless
 
 script:
-  - ng build --prod
+  - ng build --prod --aot
+
+after_script:
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist/trading-helper
-  on:
-    branch: master
+  - provider: script
+    script: bash config/ci/deploy.sh prod || travis_terminate 1;
+    on:
+      branch: master
+
+  - provider: script
+    script: bash config/ci/deploy.sh dev || travis_terminate 1;
+    on:
+      branch: develop
+
+#deploy:
+#  provider: pages
+#  skip_cleanup: true
+#  github_token: $GITHUB_TOKEN
+#  local_dir: dist/trading-helper
+#  on:
+#    branch: master
