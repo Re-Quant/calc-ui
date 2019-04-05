@@ -50,7 +50,8 @@ function main() {
   #
   # Build docker image
   #
-  docker build -t "${imageFullId}" $(realpath "${SCRIPT_PATH}/../..")
+  echo docker build -t "${imageFullId}" $(realpath "${SCRIPT_PATH}/../..")
+  exit;
 
   #
   # Pushing docker image to the registry
