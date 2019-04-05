@@ -8,6 +8,6 @@ RUN rm -rf /usr/share/nginx/html/* \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
 
-COPY ./dist /usr/share/nginx/html
+COPY ./dist/* /usr/share/nginx/html/
 
 CMD ["nginx", "-g", "daemon off;"]

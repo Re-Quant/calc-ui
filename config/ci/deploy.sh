@@ -50,7 +50,8 @@ function main() {
   #
   # Build docker image
   #
-  docker build -t "${imageFullId}" $(readlink -f "${SCRIPT_PATH}/../..")
+  cd "${SCRIPT_PATH}/../.."
+  docker build -t "${imageFullId}" .
 
   #
   # Pushing docker image to the registry
