@@ -21,11 +21,13 @@ script:
 
 deploy:
   - provider: script
+    skip_cleanup: true
     script: bash config/ci/deploy.sh prod
     on:
       branch: master
 
   - provider: script
+    skip_cleanup: true
     script: bash config/ci/deploy.sh dev
     on:
       branch: develop
