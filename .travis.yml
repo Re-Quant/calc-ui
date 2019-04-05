@@ -22,12 +22,12 @@ script:
 
 deploy:
   - provider: script
-    script: bash config/ci/deploy.sh prod || travis_terminate 1;
+    script: bash config/ci/deploy.sh prod
     on:
       branch: master
 
   - provider: script
-    script: bash config/ci/deploy.sh dev || travis_terminate 1;
+    script: bash config/ci/deploy.sh dev
     on:
       branch: develop
 
