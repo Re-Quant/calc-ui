@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euxo pipefail
+
 declare -r SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 function calculateContainerTag() {

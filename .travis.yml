@@ -20,8 +20,6 @@ before_script:
 script:
   - ng build --prod --aot
 
-after_script:
-
 deploy:
   - provider: script
     script: bash config/ci/deploy.sh prod || travis_terminate 1;
