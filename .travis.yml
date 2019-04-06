@@ -32,10 +32,9 @@ deploy:
     on:
       branch: develop
 
-#deploy:
-#  provider: pages
-#  skip_cleanup: true
-#  github_token: $GITHUB_TOKEN
-#  local_dir: dist/trading-helper
-#  on:
-#    branch: master
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    local_dir: gh-pages
+    on:
+      branch: master
