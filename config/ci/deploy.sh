@@ -22,7 +22,7 @@ function deploy() {
 
   local res=$( \
       curl \
-          -X POST "http://${DEPLOY_TRIGGER_URL}/${endpoint}" \
+          -X POST "${DEPLOY_TRIGGER_URL}/${endpoint}" \
           -u "${DEPLOY_BASEAUTH_USER}:${DEPLOY_BASEAUTH_PASSWORD}" \
           --silent \
           -i
