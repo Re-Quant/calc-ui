@@ -18,6 +18,22 @@
     </div>
 
     <div fxLayout="row" fxLayoutGap="15px">
+        <div fxFlex="33.33" class="mat-form-field-wrapper">
+            <mat-button-toggle-group formControlName="orderStartTypeOfFee" (change)="onChange()">
+                <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
+                <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+        <div fxFlex="33.33" class="mat-form-field-wrapper">
+            <mat-button-toggle-group formControlName="stopLossTypeOfFee" (change)="onChange()">
+                <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
+                <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="15px">
         <mat-form-field fxFlex="50">
             <span matPrefix>$&nbsp;</span>
             <input type="number" step="100" matInput formControlName="deposit" placeholder="Deposit">
@@ -42,6 +58,18 @@
         <mat-form-field fxFlex="50">
             <input type="number" step="0.1" matInput formControlName="sellFee"
                    placeholder="Sell Fee">
+            <span matSuffix>&nbsp;%</span>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="15px">
+        <mat-form-field fxFlex="50">
+            <input type="number" step="0.1" matInput formControlName="marketMakerFee" placeholder="Market Maker Fee">
+            <span matSuffix>&nbsp;%</span>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="50">
+            <input type="number" step="0.1" matInput formControlName="marketTakerFee" placeholder="Market Taker Fee">
             <span matSuffix>&nbsp;%</span>
         </mat-form-field>
     </div>
