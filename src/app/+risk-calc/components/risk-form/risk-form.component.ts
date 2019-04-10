@@ -15,8 +15,8 @@ export interface RiskIncomeFormData {
     buyFee: string;
     sellFee: string;
 
-  orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
-  stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+    orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+    stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
 
     marketMakerFee?: string;
     marketTakerFee?: string;
