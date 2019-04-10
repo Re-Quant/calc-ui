@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RiskIncomeData } from '../../models';
 
-export interface RiskIncomeData {
+export interface RiskIncomeFormData {
     startPrice: string;
     stopPrice: string;
     takePrice: string;
@@ -10,8 +10,13 @@ export interface RiskIncomeData {
     deposit: string;
     risk: string;
 
+    leverageAvailable: boolean;
+
     buyFee: string;
     sellFee: string;
+
+  orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+  stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
 
     marketMakerFee?: string;
     marketTakerFee?: string;
@@ -61,7 +66,7 @@ export class RiskFormComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        const config: { [key in keyof RiskIncomeData]: any } = {
+        const config: { [key in keyof RiskIncomeFormData]: any } = {
             startPrice: ['3800', [Validators.required, Validators.min(0)]],
             stopPrice:  ['3725', [Validators.required, Validators.min(0)]],
             takePrice: [
@@ -94,24 +99,26 @@ export class RiskFormComponent implements OnInit {
 
     public onChange(): void {
         if (this.form.valid) {
+            const value: RiskIncomeFormData = this.form.value;
+
             const data: RiskIncomeData = {
-                startPrice: +this.form.value['startPrice'],
-                stopPrice:  +this.form.value['stopPrice'],
-                takePrice:  +this.form.value['takePrice'],
+                startPrice: +value.startPrice,
+                stopPrice:  +value.stopPrice,
+                takePrice:  +value.takePrice,
 
-                deposit: +this.form.value['deposit'],
-                risk:    +this.form.value['risk'] / 100,
+                deposit: +value.deposit,
+                risk:    +value.risk / 100,
 
-                leverageAvailable: !!+this.form.value['leverageAvailable'],
+                leverageAvailable: !!+value.leverageAvailable,
 
-                buyFee:  +this.form.value['buyFee'] / 100,
-                sellFee: +this.form.value['sellFee'] / 100,
+                buyFee:  +value.buyFee / 100,
+                sellFee: +value.sellFee / 100,
 
                 orderStartTypeOfFee: this.form.value['orderStartTypeOfFee'],
                 stopLossTypeOfFee: this.form.value['stopLossTypeOfFee'],
 
-                marketMakerFee: +this.form.value['marketMakerFee'] / 100,
-                marketTakerFee: +this.form.value['marketTakerFee'] / 100,
+                marketMakerFee: +value.marketMakerFee / 100,
+                marketTakerFee: +value.marketTakerFee / 100,
             };
 
             this.dataChange.emit(data);
