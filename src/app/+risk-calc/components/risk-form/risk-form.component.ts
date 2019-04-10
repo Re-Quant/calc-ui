@@ -114,8 +114,8 @@ export class RiskFormComponent implements OnInit {
                 buyFee:  +value.buyFee / 100,
                 sellFee: +value.sellFee / 100,
 
-                orderStartTypeOfFee: this.form.value['orderStartTypeOfFee'],
-                stopLossTypeOfFee: this.form.value['stopLossTypeOfFee'],
+                orderStartTypeOfFee: value.orderStartTypeOfFee,
+                stopLossTypeOfFee: value.stopLossTypeOfFee,
 
                 marketMakerFee: +value.marketMakerFee / 100,
                 marketTakerFee: +value.marketTakerFee / 100,
