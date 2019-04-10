@@ -10,4 +10,10 @@ export interface RiskIncomeData {
 
     buyFee: number;
     sellFee: number;
+
+    orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+    stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+
+    marketMakerFee?: number;
+    marketTakerFee?: number;
 }

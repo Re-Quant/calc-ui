@@ -14,6 +14,12 @@ export interface RiskIncomeFormData {
 
     buyFee: string;
     sellFee: string;
+
+    orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+    stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+
+    marketMakerFee?: string;
+    marketTakerFee?: string;
 }
 
 function takePrice(startPriceControlName: string, stopPriceControlName: string) {
@@ -79,6 +85,12 @@ export class RiskFormComponent implements OnInit {
 
             buyFee:  ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
             sellFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
+
+            orderStartTypeOfFee: ['marketMakerFee'],
+            stopLossTypeOfFee: ['marketMakerFee'],
+
+            marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
+            marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
         };
         this.form = this.fb.group(config as any);
 
@@ -101,9 +113,15 @@ export class RiskFormComponent implements OnInit {
 
                 buyFee:  +value.buyFee / 100,
                 sellFee: +value.sellFee / 100,
+
+                orderStartTypeOfFee: value.orderStartTypeOfFee,
+                stopLossTypeOfFee: value.stopLossTypeOfFee,
+
+                marketMakerFee: +value.marketMakerFee / 100,
+                marketTakerFee: +value.marketTakerFee / 100,
             };
+
             this.dataChange.emit(data);
         }
     }
-
 }
