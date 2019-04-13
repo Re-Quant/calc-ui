@@ -9,6 +9,8 @@ function calculateContainerTag() {
       echo 'latest'
   elif [[ "${TRAVIS_BRANCH}" == "develop" ]]; then
       echo 'develop'
+  elif [[ "${TRAVIS_BRANCH}" == "test" ]]; then
+      echo 'test'
   else
       echo "branch-${TRAVIS_BRANCH}"
   fi
