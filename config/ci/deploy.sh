@@ -24,6 +24,7 @@ function deploy() {
       curl \
           -X POST "${DEPLOY_TRIGGER_URL}/${endpoint}" \
           -u "${DEPLOY_BASEAUTH_USER}:${DEPLOY_BASEAUTH_PASSWORD}" \
+          --http1.1 \
           --silent \
           -i
   )
