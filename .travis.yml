@@ -8,6 +8,7 @@ branches:
   only:
     - master
     - develop
+    - test
 
 install:
   - npm install
@@ -31,6 +32,12 @@ deploy:
     script: bash config/ci/deploy.sh dev
     on:
       branch: develop
+
+  - provider: script
+    skip_cleanup: true
+    script: bash config/ci/deploy.sh test
+    on:
+      branch: test
 
   - provider: pages
     skip_cleanup: true
