@@ -17,6 +17,7 @@ export interface RiskIncomeFormData {
 
     orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
     stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+    takeProfitPriceTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
 
     marketMakerFee?: string;
     marketTakerFee?: string;
@@ -88,6 +89,7 @@ export class RiskFormComponent implements OnInit {
 
             orderStartTypeOfFee: ['marketMakerFee'],
             stopLossTypeOfFee: ['marketTakerFee'],
+            takeProfitPriceTypeOfFee: ['marketMakerFee'],
 
             marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
             marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -116,6 +118,7 @@ export class RiskFormComponent implements OnInit {
 
                 orderStartTypeOfFee: value.orderStartTypeOfFee,
                 stopLossTypeOfFee: value.stopLossTypeOfFee,
+                takeProfitPriceTypeOfFee: value.stopLossTypeOfFee,
 
                 marketMakerFee: +value.marketMakerFee / 100,
                 marketTakerFee: +value.marketTakerFee / 100,

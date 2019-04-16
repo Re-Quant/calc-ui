@@ -31,6 +31,13 @@
                 <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
+
+        <div fxFlex="33.33" class="mat-form-field-wrapper">
+            <mat-button-toggle-group formControlName="takeProfitPriceTypeOfFee" (change)="onChange()">
+                <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
+                <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
     </div>
 
     <div fxLayout="row" fxLayoutGap="15px">

@@ -13,6 +13,7 @@ export interface RiskIncomeData {
 
     orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
     stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+    takeProfitPriceTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
 
     marketMakerFee?: number;
     marketTakerFee?: number;
