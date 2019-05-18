@@ -89,7 +89,7 @@ export class RiskFormComponent implements OnInit {
 
             orderStartTypeOfFee: ['marketMakerFee'],
             stopLossTypeOfFee: ['marketTakerFee'],
-            takeProfitPriceTypeOfFee: ['marketMakerFee'],
+            takeProfitPriceTypeOfFee: ['marketTakerFee'],
 
             marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
             marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
