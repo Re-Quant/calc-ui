@@ -1,3 +1,5 @@
+import { TypeFee } from './fee';
+
 export interface RiskIncomeData {
     startPrice: number;
     stopPrice: number;
@@ -8,13 +10,10 @@ export interface RiskIncomeData {
 
     leverageAvailable: boolean;
 
-    buyFee: number;
-    sellFee: number;
+    orderStartTypeOfFee: TypeFee;
+    stopLossTypeOfFee: TypeFee;
+    takeProfitPriceTypeOfFee: TypeFee;
 
-    orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
-    stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
-    takeProfitPriceTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
-
-    marketMakerFee?: number;
-    marketTakerFee?: number;
+    marketMakerFee: number;
+    marketTakerFee: number;
 }

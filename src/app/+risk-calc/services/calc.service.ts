@@ -2,13 +2,24 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { CalculatedData, DepositDiff, EPricePointType, ETradeType, IUniversalFee, PricePoint, RiskIncomeData } from '../models';
+import {
+    CalculatedData,
+    DepositDiff,
+    EPricePointType,
+    ETradeType,
+    ExitTypeOfFee,
+    MarketFee,
+    OrderFee,
+    PricePoint,
+    RiskIncomeData,
+    TypeFee
+} from '../models';
 
 interface IDepositPercentOpts {
     risk: number;
     startPrice: number;
     stopPrice: number;
-    fee: IUniversalFee;
+    fee: OrderFee;
     leverageAvailable: boolean;
 }
 
@@ -24,8 +35,9 @@ interface IMoneyDiffOpts {
      * Deposit for this trade(can be different of full deposit)
      */
     orderDeposit: number;
-    fee: IUniversalFee;
+    fee: OrderFee;
     tradeType: ETradeType;
+    exitTypeOfFee: ExitTypeOfFee;
 }
 
 @Injectable({
@@ -79,7 +91,7 @@ export class CalcService {
             pricePointsQuantity = this.minPricePointsQuantity;
         }
 
-        const fee = this.getUniversalFee({ ...income, tradeType });
+        const fee = this.getOrderFee(income);
         const depositPercent = this.getDepositPercentToTrade({
             fee,
             risk:              income.risk,
@@ -93,14 +105,16 @@ export class CalcService {
             .fill(1)
             .map((v, i): PricePoint => {
                 const price = income.stopPrice + sign * stopPriceDiff * i;
+
                 return this.getPricePoint({
-                    takePrice: price,
+                    orderDeposit,
                     fee,
                     tradeType,
-                    orderDeposit: orderDeposit,
-                    startPrice:   income.startPrice,
-                    stopPrice:    income.stopPrice,
-                    deposit:      income.deposit,
+                    takePrice:      price,
+                    startPrice:     income.startPrice,
+                    stopPrice:      income.stopPrice,
+                    deposit:        income.deposit,
+                    exitTypeOfFee:  i === 0 ? ExitTypeOfFee.stopLoss : ExitTypeOfFee.takeProfit,
                 });
             })
             .reverse();
@@ -109,10 +123,11 @@ export class CalcService {
             orderDeposit,
             fee,
             tradeType,
-            takePrice:  income.takePrice,
-            startPrice: income.startPrice,
-            stopPrice:  income.stopPrice,
-            deposit:    income.deposit,
+            takePrice:      income.takePrice,
+            startPrice:     income.startPrice,
+            stopPrice:      income.stopPrice,
+            deposit:        income.deposit,
+            exitTypeOfFee:  ExitTypeOfFee.takeProfit,
         });
         const leverage = (orderDeposit / income.deposit > 1) ? orderDeposit / income.deposit : 1;
 
@@ -121,11 +136,13 @@ export class CalcService {
             orderDeposit,
             fee,
             tradeType,
-            takePrice:  breakevenPrice,
-            startPrice: income.startPrice,
-            stopPrice:  income.stopPrice,
-            deposit:    income.deposit,
+            takePrice:      breakevenPrice,
+            startPrice:     income.startPrice,
+            stopPrice:      income.stopPrice,
+            deposit:        income.deposit,
+            exitTypeOfFee:  ExitTypeOfFee.takeProfit,
         });
+
         return {
             tradeType,
             pricePoints,
@@ -158,7 +175,7 @@ export class CalcService {
         o: IDepositPercentOpts,
     ): number {
         const p = this.getStopPriceAbsDiff(o) / o.startPrice;
-        const res = o.risk / (p + o.fee.entryFee + (1 - p) * o.fee.exitFee);
+        const res = o.risk / (p + o.fee.orderStart + (1 - p) * o.fee.stopLoss);
 
         return !o.leverageAvailable && res > 1 ? 1 : res;
     }
@@ -166,8 +183,8 @@ export class CalcService {
     public getDepositDiffAfterTrade(o: IMoneyDiffOpts): DepositDiff {
         const moneyDiff = o.orderDeposit * this.getTradePriceDiffRatio(o);
 
-        const entryFee = o.orderDeposit * o.fee.entryFee;
-        const exitFee = (o.orderDeposit + moneyDiff) * o.fee.exitFee;
+        const entryFee = o.orderDeposit * o.fee.orderStart;
+        const exitFee = (o.orderDeposit + moneyDiff) * o.fee[o.exitTypeOfFee];
 
         const money = moneyDiff - entryFee - exitFee;
 
@@ -191,17 +208,27 @@ export class CalcService {
         };
     }
 
-    public getBreakevenPrice(startPrice: number, { entryFee, exitFee }: IUniversalFee): number {
-        return startPrice * (1 + entryFee) / (1 - exitFee);
+    public getBreakevenPrice(startPrice: number, fee: OrderFee): number {
+        return startPrice * (1 + fee.orderStart) / (1 - fee.takeProfit);
     }
 
-    public getUniversalFee(
-        o: { tradeType: ETradeType; buyFee: number; sellFee: number; },
-    ): IUniversalFee {
-        return o.tradeType === ETradeType.Long
-               ? { entryFee: o.buyFee, exitFee: o.sellFee }
-               : { entryFee: o.sellFee, exitFee: o.buyFee }
-            ;
+    public getMarketFee(
+        o: RiskIncomeData,
+    ): MarketFee {
+        return {
+            marketMaker: o.marketMakerFee,
+            marketTaker: o.marketTakerFee,
+        };
+    }
+
+    public getOrderFee(riskData: RiskIncomeData): OrderFee {
+        const marketFee = this.getMarketFee(riskData);
+
+        return {
+            orderStart: riskData.orderStartTypeOfFee === TypeFee.MarketMakerFee ? marketFee.marketMaker : marketFee.marketTaker,
+            stopLoss: riskData.stopLossTypeOfFee === TypeFee.MarketMakerFee ? marketFee.marketMaker : marketFee.marketTaker,
+            takeProfit: riskData.takeProfitPriceTypeOfFee === TypeFee.MarketMakerFee ? marketFee.marketMaker : marketFee.marketTaker,
+        };
     }
 
     public getTakeAndStopAbsDiffRatio(

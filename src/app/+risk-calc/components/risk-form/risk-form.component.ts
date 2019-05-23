@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RiskIncomeData } from '../../models';
+import { RiskIncomeData, TypeFee } from '../../models';
 
 export interface RiskIncomeFormData {
     startPrice: string;
@@ -12,12 +12,9 @@ export interface RiskIncomeFormData {
 
     leverageAvailable: boolean;
 
-    buyFee: string;
-    sellFee: string;
-
-    orderStartTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
-    stopLossTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
-    takeProfitPriceTypeOfFee: 'marketMakerFee' | 'marketTakerFee';
+    orderStartTypeOfFee: TypeFee;
+    stopLossTypeOfFee: TypeFee;
+    takeProfitPriceTypeOfFee: TypeFee;
 
     marketMakerFee?: string;
     marketTakerFee?: string;
@@ -84,12 +81,9 @@ export class RiskFormComponent implements OnInit {
 
             leverageAvailable: [true],
 
-            buyFee:  ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
-            sellFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
-
-            orderStartTypeOfFee: ['marketMakerFee'],
-            stopLossTypeOfFee: ['marketTakerFee'],
-            takeProfitPriceTypeOfFee: ['marketTakerFee'],
+            orderStartTypeOfFee: [TypeFee.MarketMakerFee],
+            stopLossTypeOfFee: [TypeFee.MarketTakerFee],
+            takeProfitPriceTypeOfFee: [TypeFee.MarketTakerFee],
 
             marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
             marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -113,12 +107,9 @@ export class RiskFormComponent implements OnInit {
 
                 leverageAvailable: !!+value.leverageAvailable,
 
-                buyFee:  +value.buyFee / 100,
-                sellFee: +value.sellFee / 100,
-
                 orderStartTypeOfFee: value.orderStartTypeOfFee,
                 stopLossTypeOfFee: value.stopLossTypeOfFee,
-                takeProfitPriceTypeOfFee: value.stopLossTypeOfFee,
+                takeProfitPriceTypeOfFee: value.takeProfitPriceTypeOfFee,
 
                 marketMakerFee: +value.marketMakerFee / 100,
                 marketTakerFee: +value.marketTakerFee / 100,
