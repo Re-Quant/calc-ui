@@ -4,30 +4,31 @@ import { CalculatedData, RiskIncomeData } from './models';
 import { CalcService } from './services/calc.service';
 
 @Component({
-    selector: 'app-risk-calc',
-    templateUrl: './risk-calc.component.html',
-    styleUrls: [ './risk-calc.component.scss' ],
+  selector: 'app-risk-calc',
+  templateUrl: './risk-calc.component.html',
+  styleUrls: ['./risk-calc.component.scss'],
 })
 export class RiskCalcComponent implements OnInit {
 
-    public data$: Observable<CalculatedData | undefined>;
+  public data$: Observable<CalculatedData | undefined>;
 
-    public constructor(
-        private calc: CalcService,
-    ) {}
+  public constructor(
+    private calc: CalcService,
+  ) {
+  }
 
-    public ngOnInit() {
-        this.data$ = this.calc.data$;
+  public ngOnInit() {
+    this.data$ = this.calc.data$;
 
-        this.calc.data$.subscribe((data) => {
-            console.table(data.pricePoints);
-            console.table(data);
-        });
-    }
+    this.calc.data$.subscribe((data) => {
+      console.table(data.pricePoints);
+      console.table(data);
+    });
+  }
 
-    public formDataChanged(data: RiskIncomeData): void {
-        this.calc.updateData(data);
-    }
+  public formDataChanged(data: RiskIncomeData): void {
+    this.calc.updateData(data);
+  }
 
 }
 

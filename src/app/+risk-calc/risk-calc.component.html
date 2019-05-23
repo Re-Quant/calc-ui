@@ -1,17 +1,17 @@
 <div fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="space-between">
-    <div class="left">
-        <h2>Risk Calculator</h2>
+  <div class="left">
+    <h2>Risk Calculator</h2>
 
-        <app-risk-form (dataChange)="formDataChanged($event)"></app-risk-form>
-        <app-trade-info *ngIf="data$ | async as data" [data]="data"></app-trade-info>
-    </div>
+    <app-risk-form (dataChange)="formDataChanged($event)"></app-risk-form>
+    <app-trade-info *ngIf="data$ | async as data" [data]="data"></app-trade-info>
+  </div>
 
-    <div class="chart">
-        <app-risk-chart
-            *ngIf="data$ | async as data"
-            [pricePoints]="data.pricePoints"
-            [take]="data.takePricePoint"
-            [breakeven]="data.breakevenPricePoint"
-        ></app-risk-chart>
-    </div>
+  <div class="chart">
+    <app-risk-chart
+      *ngIf="data$ | async as data"
+      [pricePoints]="data.pricePoints"
+      [take]="data.takePricePoint"
+      [breakeven]="data.breakevenPricePoint"
+    ></app-risk-chart>
+  </div>
 </div>
