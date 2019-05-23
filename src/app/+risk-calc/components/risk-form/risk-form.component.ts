@@ -73,7 +73,7 @@ export class RiskFormComponent implements OnInit {
       startPrice: ['3800', [Validators.required, Validators.min(0)]],
       stopPrice: ['3725', [Validators.required, Validators.min(0)]],
       takePrice: [
-        '4000',
+        '4100',
         [
           Validators.required,
           Validators.min(1),
