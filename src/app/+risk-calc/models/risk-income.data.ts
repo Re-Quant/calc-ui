@@ -1,19 +1,19 @@
 import { TypeFee } from './fee';
 
 export interface RiskIncomeData {
-    startPrice: number;
-    stopPrice: number;
-    takePrice: number;
+  startPrice: number;
+  stopPrice: number;
+  takePrice: number;
 
-    deposit: number;
-    risk: number;
+  deposit: number;
+  risk: number;
 
-    leverageAvailable: boolean;
+  leverageAvailable: boolean;
 
-    orderStartTypeOfFee: TypeFee;
-    stopLossTypeOfFee: TypeFee;
-    takeProfitPriceTypeOfFee: TypeFee;
+  orderStartTypeOfFee: TypeFee;
+  stopLossTypeOfFee: TypeFee;
+  takeProfitPriceTypeOfFee: TypeFee;
 
-    marketMakerFee: number;
-    marketTakerFee: number;
+  marketMakerFee: number;
+  marketTakerFee: number;
 }

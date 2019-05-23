@@ -10,11 +10,11 @@ export interface MarketFee {
 }
 
 export enum TypeFee {
-    MarketMakerFee = 'marketMakerFee',
-    MarketTakerFee = 'marketTakerFee',
+  MarketMakerFee = 'marketMakerFee',
+  MarketTakerFee = 'marketTakerFee',
 }
 
 export enum ExitTypeOfFee {
-    stopLoss = 'stopLoss',
-    takeProfit = 'takeProfit',
+  stopLoss = 'stopLoss',
+  takeProfit = 'takeProfit',
 }
