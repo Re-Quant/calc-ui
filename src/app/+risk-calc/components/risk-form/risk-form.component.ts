@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RiskIncomeData, TypeFee } from '../../models';
+import { ETradeType, RiskIncomeData, TypeFee } from '../../models';
 
 export interface RiskIncomeFormData {
+  tradeType: ETradeType;
+
   startPrice: string;
   stopPrice: string;
   takePrice: string;
@@ -70,6 +72,8 @@ export class RiskFormComponent implements OnInit {
 
   public ngOnInit(): void {
     const config: { [key in keyof RiskIncomeFormData]: any } = {
+      tradeType: [ETradeType.Long, [Validators.required]],
+
       startPrice: ['3800', [Validators.required, Validators.min(0)]],
       stopPrice: ['3725', [Validators.required, Validators.min(0)]],
       takePrice: [
@@ -103,6 +107,8 @@ export class RiskFormComponent implements OnInit {
       const value: RiskIncomeFormData = this.form.value;
 
       const data: RiskIncomeData = {
+        tradeType: value.tradeType,
+
         startPrice: +value.startPrice,
         stopPrice: +value.stopPrice,
         takePrice: +value.takePrice,

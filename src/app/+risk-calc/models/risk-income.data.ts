@@ -1,6 +1,9 @@
 import { TypeFee } from './fee';
+import { ETradeType } from './trade-type.enum';
 
 export interface RiskIncomeData {
+  tradeType: ETradeType;
+
   startPrice: number;
   stopPrice: number;
   takePrice: number;
