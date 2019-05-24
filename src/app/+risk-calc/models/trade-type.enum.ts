@@ -1,4 +1,4 @@
 export enum ETradeType {
-    Long = 'long',
-    Short = 'short',
+  Long = 'long',
+  Short = 'short',
 }

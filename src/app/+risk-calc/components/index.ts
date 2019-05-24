@@ -4,8 +4,8 @@ import { RiskChartComponent } from './risk-chart/risk-chart.component';
 import { TradeInfoComponent } from './trade-info/trade-info.component';
 
 export const components: any[] = [
-    PartPriceComponent,
-    RiskFormComponent,
-    RiskChartComponent,
-    TradeInfoComponent,
+  PartPriceComponent,
+  RiskFormComponent,
+  RiskChartComponent,
+  TradeInfoComponent,
 ];

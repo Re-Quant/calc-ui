@@ -1,4 +1,4 @@
 export interface DepositDiff {
-    money: number;
-    percent: number;
+  money: number;
+  percent: number;
 }

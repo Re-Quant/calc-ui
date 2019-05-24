@@ -1,16 +1,16 @@
 <table>
-    <caption class="title">Trade Info
-        <span class="trade-direction"
-              [ngClass]="tradeDirectionCssClass"
-        >{{ isTradeTypeLong ? 'Long' : 'Short' }}</span>
-    </caption>
+  <caption class="title">Trade Info
+    <span class="trade-direction"
+          [ngClass]="tradeDirectionCssClass"
+    >{{ isTradeTypeLong ? 'Long' : 'Short' }}</span>
+  </caption>
 
-    <tr>
-        <td class="name">Leverage</td>
-        <td class="value">{{ data.leverage | number : '0.0-2' }}</td>
-    </tr>
-    <tr>
-        <td class="name">Trade Sum</td>
-        <td class="value">{{ data.orderDeposit | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
-    </tr>
+  <tr>
+    <td class="name">Leverage</td>
+    <td class="value">{{ data.leverage | number : '0.0-2' }}</td>
+  </tr>
+  <tr>
+    <td class="name">Trade Sum</td>
+    <td class="value">{{ data.orderDeposit | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+  </tr>
 </table>
