@@ -76,8 +76,7 @@ export class CalcService {
   }
 
   private calculateTrade(income: RiskIncomeData): CalculatedData {
-    const tradeType = this.getTradeTypeByStartStop(income);
-    const sign = this.tradeTypeToSign({tradeType});
+    const sign = this.tradeTypeToSign({ tradeType: income.tradeType });
 
     const stopPriceDiff = this.getStopPriceAbsDiff(income);
     const ratio = this.getTakeAndStopAbsDiffRatio(income);
@@ -108,8 +107,8 @@ export class CalcService {
         return this.getPricePoint({
           orderDeposit,
           fee,
-          tradeType,
           takePrice: price,
+          tradeType: income.tradeType,
           startPrice: income.startPrice,
           stopPrice: income.stopPrice,
           deposit: income.deposit,
@@ -121,7 +120,7 @@ export class CalcService {
     const takePricePoint = this.getPricePoint({
       orderDeposit,
       fee,
-      tradeType,
+      tradeType: income.tradeType,
       takePrice: income.takePrice,
       startPrice: income.startPrice,
       stopPrice: income.stopPrice,
@@ -134,8 +133,8 @@ export class CalcService {
     const breakevenPricePoint = this.getPricePoint({
       orderDeposit,
       fee,
-      tradeType,
       takePrice: breakevenPrice,
+      tradeType: income.tradeType,
       startPrice: income.startPrice,
       stopPrice: income.stopPrice,
       deposit: income.deposit,
@@ -143,12 +142,12 @@ export class CalcService {
     });
 
     return {
-      tradeType,
       pricePoints,
       orderDeposit,
       takePricePoint,
       leverage,
       breakevenPricePoint,
+      tradeType: income.tradeType,
     };
   }
 
@@ -258,10 +257,6 @@ export class CalcService {
 
   public tradeTypeToSign(o: { tradeType: ETradeType }): 1 | -1 {
     return o.tradeType === ETradeType.Long ? 1 : -1;
-  }
-
-  public getTradeTypeByStartStop(o: { startPrice: number; stopPrice: number; }): ETradeType {
-    return o.startPrice >= o.stopPrice ? ETradeType.Long : ETradeType.Short;
   }
 
   public getTradeTypeByStartTake(o: { startPrice: number; takePrice: number; }): ETradeType {
