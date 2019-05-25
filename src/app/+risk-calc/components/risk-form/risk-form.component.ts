@@ -35,6 +35,10 @@ function tradeType(startPriceControlName, stopPriceControlName, takePriceControl
     const stopControl = parent.get(stopPriceControlName);
     const takeControl = parent.get(takePriceControlName);
 
+    if (!startControl || !stopControl || !takeControl) {
+      return null;
+    }
+
     const startControlValue = +startControl.value;
     const stopControlValue = +stopControl.value;
     const takeControlValue = +takeControl.value;
@@ -83,6 +87,10 @@ function startPrice(tradeTypeControlName, stopPriceControlName) {
     const tradeTypeControl = parent.get(tradeTypeControlName);
     const stopControl = parent.get(stopPriceControlName);
 
+    if (!tradeTypeControl || !stopControl) {
+      return null;
+    }
+
     const tradeTypeControlValue = tradeTypeControl.value;
     const stopControlValue = +stopControl.value;
 
@@ -112,6 +120,10 @@ function stopPrice(tradeTypeControlName, startPriceControlName) {
     const tradeTypeControl = parent.get(tradeTypeControlName);
     const startControl = parent.get(startPriceControlName);
 
+    if (!tradeTypeControl || !startControl) {
+      return null;
+    }
+
     const tradeTypeControlValue = tradeTypeControl.value;
     const startControlValue = +startControl.value;
 
@@ -129,7 +141,7 @@ function stopPrice(tradeTypeControlName, startPriceControlName) {
   };
 }
 
-function takePrice(tradeTypeControlName, startPriceControlName: string, stopPriceControlName: string) {
+function takePrice(tradeTypeControlName, startPriceControlName: string) {
   return (control: AbstractControl) => {
     const parent = control.parent;
     if (!parent) {
@@ -138,15 +150,13 @@ function takePrice(tradeTypeControlName, startPriceControlName: string, stopPric
 
     const tradeTypeControl = parent.get(tradeTypeControlName);
     const startControl = parent.get(startPriceControlName);
-    const stopControl = parent.get(stopPriceControlName);
 
-    if (!startControl || !stopControl) {
+    if (!tradeTypeControl || !startControl) {
       return null;
     }
 
     const tradeTypeValue = tradeTypeControl.value;
     const startValue = +startControl.value;
-    const stopValue = +stopControl.value;
     const takeValue = +control.value;
 
     if (tradeTypeValue === ETradeType.Long && takeValue <= startValue) {
@@ -209,7 +219,7 @@ export class RiskFormComponent implements OnInit {
         [
           Validators.required,
           Validators.min(1),
-          takePrice('tradeType', 'startPrice', 'stopPrice'),
+          takePrice('tradeType', 'startPrice'),
         ],
       ],
 
