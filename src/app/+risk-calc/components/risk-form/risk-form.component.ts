@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ETradeType, RiskIncomeData, TypeFee } from '../../models';
 
 export interface RiskIncomeFormData {
@@ -20,6 +20,68 @@ export interface RiskIncomeFormData {
 
   marketMakerFee?: string;
   marketTakerFee?: string;
+}
+
+function startPrice(tradeTypeControlName, stopPriceControlName) {
+  return (AC: AbstractControl) => {
+    const parent = AC.parent;
+
+    if (!parent) {
+      return null;
+    }
+
+    const currentValue = +AC.value;
+    const tradeTypeControl = parent.get(tradeTypeControlName);
+    const stopControl = parent.get(stopPriceControlName);
+
+    const tradeTypeControlValue = tradeTypeControl.value;
+    const stopControlValue = +stopControl.value;
+
+    if (tradeTypeControlValue === ETradeType.Long
+      && stopControlValue >= currentValue) {
+      return { startIsLessOrEqualStart: true };
+    }
+
+    if (tradeTypeControlValue !== ETradeType.Long
+      && stopControlValue <= currentValue) {
+      return {startIsBiggerOrEqualStart: true};
+    }
+
+    console.log(true);
+
+    return null;
+  };
+}
+
+function stopPrice(tradeTypeControlName, startPriceControlName) {
+  return (AC: AbstractControl) => {
+    const parent = AC.parent;
+
+    if (!parent) {
+      return null;
+    }
+
+    const currentValue = +AC.value;
+    const tradeTypeControl = parent.get(tradeTypeControlName);
+    const startControl = parent.get(startPriceControlName);
+
+    const tradeTypeControlValue = tradeTypeControl.value;
+    const startControlValue = +startControl.value;
+
+    if (tradeTypeControlValue === ETradeType.Long
+      && startControlValue <= currentValue) {
+      return { stopIsLessOrEqualStart: true };
+    }
+
+    if (tradeTypeControlValue !== ETradeType.Long
+      && startControlValue >= currentValue) {
+      return {stopIsBiggerOrEqualStart: true};
+    }
+
+    console.log(true);
+
+    return null;
+  };
 }
 
 function takePrice(startPriceControlName: string, stopPriceControlName: string) {
@@ -74,8 +136,22 @@ export class RiskFormComponent implements OnInit {
     const config: { [key in keyof RiskIncomeFormData]: any } = {
       tradeType: [ETradeType.Long, [Validators.required]],
 
-      startPrice: ['3800', [Validators.required, Validators.min(0)]],
-      stopPrice: ['3725', [Validators.required, Validators.min(0)]],
+      startPrice: [
+        '3800',
+        [
+          Validators.required,
+          Validators.min(0),
+          startPrice('tradeType', 'stopPrice')
+        ],
+      ],
+      stopPrice: [
+        '3725',
+        [
+          Validators.required,
+          Validators.min(0),
+          stopPrice('tradeType', 'startPrice')
+        ],
+      ],
       takePrice: [
         '4100',
         [
@@ -127,6 +203,18 @@ export class RiskFormComponent implements OnInit {
       };
 
       this.dataChange.emit(data);
+    } else {
+      this.validateAllFormFields(this.form);
     }
+  }
+
+  private validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      if (field === 'startPrice' || field === 'stopPrice' || field === 'takePrice' || field === 'tradeType') {
+        const control = formGroup.get(field);
+
+        control.updateValueAndValidity();
+      }
+    });
   }
 }
