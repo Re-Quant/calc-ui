@@ -47,8 +47,6 @@ function startPrice(tradeTypeControlName, stopPriceControlName) {
       return {startIsBiggerOrEqualStart: true};
     }
 
-    console.log(true);
-
     return null;
   };
 }
@@ -77,8 +75,6 @@ function stopPrice(tradeTypeControlName, startPriceControlName) {
       && startControlValue >= currentValue) {
       return {stopIsBiggerOrEqualStart: true};
     }
-
-    console.log(true);
 
     return null;
   };
