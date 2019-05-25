@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ETradeType, RiskIncomeData, TypeFee } from '../../models';
 
 export interface RiskIncomeFormData {
