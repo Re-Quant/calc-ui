@@ -1,0 +1,30 @@
+.title {
+  margin-bottom: 0;
+  font-weight: normal;
+}
+.label {
+  color: #999;
+  font-weight: lighter;
+  &:after {
+    content: ': ';
+  }
+}
+
+.trade-direction {
+  font-weight: lighter;
+
+  &--long {
+    color: #0b0;
+  }
+  &--short {
+    color: #e88;
+  }
+}
+
+.cell-wrap {
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+}
