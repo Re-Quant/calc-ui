@@ -1,0 +1,38 @@
+<form [formGroup]="form" (change)="onChange()" class="risk-form mat-elevation-z8">
+  <div fxLayout="row" fxLayoutAlign="left center" fxLayoutAlign.sm="start" fxLayoutAlign.xs="start" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutGap="15px">
+    <mat-form-field fxFlex="15">
+      <span matPrefix>$&nbsp;</span>
+      <input type="number" step="100" matInput formControlName="deposit" placeholder="Deposit">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="10">
+      <input type="number" matInput formControlName="risk" placeholder="Risk">
+      <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+
+    <div class="leverage-wrapper" fxFlex="10">
+      <mat-checkbox formControlName="leverageAvailable" (change)="onChange()">Leverage</mat-checkbox>
+    </div>
+
+    <div fxFlex="7">
+      <mat-checkbox formControlName="feeAvailable" (change)="onChange()">Fee</mat-checkbox>
+    </div>
+
+    <mat-form-field fxFlex="10">
+      <input type="number" step="0.1" matInput formControlName="marketMakerFee" placeholder="Market Maker Fee">
+      <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="10">
+      <input type="number" step="0.1" matInput formControlName="marketTakerFee" placeholder="Market Taker Fee">
+      <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+
+    <div fxFlex="15" class="mat-form-field-wrapper">
+      <mat-button-toggle-group formControlName="tradeType" (change)="onChange()">
+        <mat-button-toggle value="long">Long</mat-button-toggle>
+        <mat-button-toggle value="short">Short</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+</form>
