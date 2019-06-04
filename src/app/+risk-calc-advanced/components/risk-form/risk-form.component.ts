@@ -32,7 +32,7 @@ export class RiskFormComponent implements OnInit {
 
       leverageAvailable: [true],
 
-      feeAvailable: [true],
+      feeEnabled: [true],
 
       marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
       marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -54,7 +54,7 @@ export class RiskFormComponent implements OnInit {
         risk: +value.risk / 100,
 
         leverageAvailable: !!+value.leverageAvailable,
-        feeAvailable: !!+value.feeAvailable,
+        feeEnabled: !!+value.feeEnabled,
 
         marketMakerFee: +value.marketMakerFee / 100,
         marketTakerFee: +value.marketTakerFee / 100,

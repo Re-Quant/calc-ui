@@ -8,7 +8,7 @@ export interface RiskIncomeFormData {
 
   leverageAvailable: boolean;
 
-  feeAvailable: boolean;
+  feeEnabled: boolean;
 
   marketMakerFee?: string;
   marketTakerFee?: string;

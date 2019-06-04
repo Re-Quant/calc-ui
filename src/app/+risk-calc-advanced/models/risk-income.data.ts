@@ -1,22 +1,22 @@
 import { TypeFee } from './fee';
 import { ETradeType } from './trade-type.enum';
 
-export interface ItemPrice {
+export interface Order {
   price: number;
   percent: number;
   typeOfFee: TypeFee;
 }
 
 export interface RiskIncomeData {
-  entryPrice: ItemPrice[];
-  stopPrice: ItemPrice[];
-  takePrice: ItemPrice[];
+  entryPrice: Order[];
+  stopPrice: Order[];
+  takePrice: Order[];
 
   deposit: number;
   risk: number;
 
   leverageAvailable: boolean;
-  feeAvailable: boolean;
+  feeEnabled: boolean;
 
   marketMakerFee: number;
   marketTakerFee: number;
