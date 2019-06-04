@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { containers } from './containers';
 import { components } from './components';
@@ -32,6 +33,7 @@ import { RiskCalcAdvancedComponent } from './risk-calc-advanced.component';
     MatButtonModule,
     MatButtonToggleModule,
     MatTableModule,
+    MatDividerModule,
   ],
   exports: [],
   declarations: [
