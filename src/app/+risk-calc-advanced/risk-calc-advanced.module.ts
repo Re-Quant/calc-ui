@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 
+import { containers } from './containers';
 import { components } from './components';
 import { pipes } from './pipes';
 
@@ -35,6 +36,7 @@ import { RiskCalcAdvancedComponent } from './risk-calc-advanced.component';
   exports: [],
   declarations: [
     RiskCalcAdvancedComponent,
+    ...containers,
     ...components,
     ...pipes,
   ],

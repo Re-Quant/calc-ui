@@ -145,3 +145,10 @@
 //     return null;
 //   };
 // }
+
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class TradeFormValidatorsService {
+
+}
