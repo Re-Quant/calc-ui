@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'rc-stop-loss',
-  templateUrl: './stop-loss.component.html',
-  styleUrls: ['./stop-loss.component.scss']
+  selector: 'rc-take-profit',
+  templateUrl: './take-profit.component.html',
+  styleUrls: ['./take-profit.component.scss']
 })
-export class StopLossComponent implements OnInit {
+export class TakeProfitComponent implements OnInit {
   @Input()
   public group: FormGroup;
 

@@ -1,0 +1,20 @@
+<div class="common-panel" [formGroup]="group">
+  <div fxLayout="row" fxLayoutAlign="left center" fxLayoutAlign.sm="start" fxLayoutAlign.xs="start" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutGap="15px">
+    <mat-form-field fxFlex="15">
+      <span matPrefix>$&nbsp;</span>
+      <input type="number" step="100" matInput formControlName="price" placeholder="Price">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="10">
+      <input type="number" matInput formControlName="percent" placeholder="Percent">
+      <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+
+    <div fxFlex="33" class="mat-form-field-wrapper">
+      <mat-button-toggle-group formControlName="typeOfFee" (change)="onChange()">
+        <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
+        <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+</div>

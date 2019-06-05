@@ -27,11 +27,21 @@ export class TradeFormService {
       percent: ['25', [Validators.required]],
       typeOfFee: [TypeFee.marketMaker, [Validators.required]],
     });
+    const stopLossConfig = this.fb.group({
+      price: ['100', [Validators.required]],
+      percent: ['25', [Validators.required]],
+      typeOfFee: [TypeFee.marketMaker, [Validators.required]],
+    });
+    const takeProfitConfig = this.fb.group({
+      price: ['100', [Validators.required]],
+      percent: ['25', [Validators.required]],
+      typeOfFee: [TypeFee.marketMaker, [Validators.required]],
+    });
     const config: any = {
       commonPanel: commonPanelConfig,
       entryPrice: entryPriceConfig,
-      stopLoss: null,
-      takeProfit: null,
+      stopLoss: stopLossConfig,
+      takeProfit: takeProfitConfig,
     };
     this.form = this.fb.group(config as any);
   }
