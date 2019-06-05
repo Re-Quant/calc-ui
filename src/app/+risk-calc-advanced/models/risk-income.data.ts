@@ -24,16 +24,26 @@ export interface RiskIncomeData {
   tradeType: ETradeType;
 }
 
+export interface OrderFormData {
+  price: string;
+  percent: string;
+  percentRange: string;
+  typeOfFee: TypeFee;
+}
+
 export interface RiskIncomeFormData {
-  tradeType: ETradeType;
+  entryPrice: Order[];
+  stopPrice: Order[];
+  takePrice: Order[];
 
   deposit: string;
   risk: string;
 
   leverageAvailable: boolean;
-
   feeEnabled: boolean;
 
-  marketMakerFee?: string;
-  marketTakerFee?: string;
+  marketMakerFee: string;
+  marketTakerFee: string;
+
+  tradeType: ETradeType;
 }
