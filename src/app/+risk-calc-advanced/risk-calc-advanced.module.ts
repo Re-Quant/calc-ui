@@ -12,6 +12,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { containers } from './containers';
 import { components } from './components';
 import { pipes } from './pipes';
@@ -34,6 +36,8 @@ import { RiskCalcAdvancedComponent } from './risk-calc-advanced.component';
     MatButtonToggleModule,
     MatTableModule,
     MatDividerModule,
+
+    FontAwesomeModule,
   ],
   exports: [],
   declarations: [

@@ -1,0 +1,13 @@
+.active-item {
+  position: relative;
+  &__menu {
+    //display: none;
+  }
+
+  &:hover & {
+    &__menu {
+      display: block;
+      //position: absolute;
+    }
+  }
+}
