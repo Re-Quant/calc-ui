@@ -30,12 +30,12 @@ export class TradeFormService {
     const stopLossConfig = this.fb.group({
       price: ['100', [Validators.required]],
       percent: ['25', [Validators.required]],
-      typeOfFee: [TypeFee.marketMaker, [Validators.required]],
+      typeOfFee: [TypeFee.marketTaker, [Validators.required]],
     });
     const takeProfitConfig = this.fb.group({
       price: ['100', [Validators.required]],
       percent: ['25', [Validators.required]],
-      typeOfFee: [TypeFee.marketMaker, [Validators.required]],
+      typeOfFee: [TypeFee.marketTaker, [Validators.required]],
     });
     const config: any = {
       commonPanel: commonPanelConfig,
