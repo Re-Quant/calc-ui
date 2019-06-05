@@ -1,5 +1,9 @@
 <div class="common-panel" [formGroup]="group">
   <div fxLayout="row" fxLayoutAlign="left center" fxLayoutAlign.sm="start" fxLayoutAlign.xs="start" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutGap="15px">
+    <div fxFlex="2">
+      <mat-checkbox formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
+    </div>
+
     <mat-form-field fxFlex="15">
       <span matPrefix>$&nbsp;</span>
       <input type="number" step="100" matInput formControlName="price" placeholder="Price">
@@ -10,7 +14,7 @@
       <span matSuffix>&nbsp;%</span>
     </mat-form-field>
 
-    <div fxFlex="20" fxFlex.md="35" class="mat-form-field-wrapper">
+    <div fxFlex="20" fxFlex.md="35" fxFlex.lg="25" class="mat-form-field-wrapper">
       <mat-button-toggle-group formControlName="percentRange" (change)="onChange()">
         <mat-button-toggle value="10">10</mat-button-toggle>
         <mat-button-toggle value="20">20</mat-button-toggle>
