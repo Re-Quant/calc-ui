@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'rc-order-item',
+  selector: 'app-order-item',
   templateUrl: './order-item.component.html',
   styleUrls: ['./order-item.component.scss']
 })

@@ -4,7 +4,7 @@ import { TradeFormService } from '../../services/trade-form.service';
 import { TradeFormValidatorsService } from '../../services/trade-form-validators.service';
 
 @Component({
-  selector: 'rc-trade-form',
+  selector: 'app-trade-form',
   templateUrl: './trade-form.component.html',
   styleUrls: ['./trade-form.component.scss'],
   providers: [

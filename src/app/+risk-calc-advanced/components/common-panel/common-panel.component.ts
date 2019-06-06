@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'rc-common-panel',
+  selector: 'app-common-panel',
   templateUrl: './common-panel.component.html',
   styleUrls: ['./common-panel.component.scss']
 })

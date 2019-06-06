@@ -19,7 +19,7 @@ const ELEMENT_DATA: TradeInfo = {
   };
 
 @Component({
-  selector: 'rc-trade-info',
+  selector: 'app-trade-info',
   templateUrl: './trade-info.component.html',
   styleUrls: ['./trade-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

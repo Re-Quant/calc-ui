@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'rc-take-profit',
+  selector: 'app-take-profit',
   templateUrl: './take-profit.component.html',
   styleUrls: ['./take-profit.component.scss']
 })

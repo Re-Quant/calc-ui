@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'rc-entry-price',
+  selector: 'app-entry-price',
   templateUrl: './entry-price.component.html',
   styleUrls: ['./entry-price.component.scss']
 })

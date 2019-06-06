@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'rc-stop-loss',
+  selector: 'app-stop-loss',
   templateUrl: './stop-loss.component.html',
   styleUrls: ['./stop-loss.component.scss']
 })
