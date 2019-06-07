@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-take-profit',
   templateUrl: './take-profit.component.html',
-  styleUrls: ['./take-profit.component.scss']
+  styleUrls: ['./take-profit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TakeProfitComponent implements OnInit {
   @Input()

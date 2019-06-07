@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-common-panel',
   templateUrl: './common-panel.component.html',
-  styleUrls: ['./common-panel.component.scss']
+  styleUrls: ['./common-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommonPanelComponent implements OnInit {
   @Input()

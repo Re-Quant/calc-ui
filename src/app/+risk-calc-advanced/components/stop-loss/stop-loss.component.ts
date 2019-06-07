@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-stop-loss',
   templateUrl: './stop-loss.component.html',
-  styleUrls: ['./stop-loss.component.scss']
+  styleUrls: ['./stop-loss.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StopLossComponent implements OnInit {
   @Input()

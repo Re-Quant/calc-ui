@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-order-item',
   templateUrl: './order-item.component.html',
-  styleUrls: ['./order-item.component.scss']
+  styleUrls: ['./order-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderItemComponent implements OnInit {
   @Input()

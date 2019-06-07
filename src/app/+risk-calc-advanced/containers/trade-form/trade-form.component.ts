@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TradeFormService } from '../../services/trade-form.service';
 import { TradeFormValidatorsService } from '../../services/trade-form-validators.service';
@@ -10,7 +10,8 @@ import { TradeFormValidatorsService } from '../../services/trade-form-validators
   providers: [
     TradeFormService,
     TradeFormValidatorsService,
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TradeFormComponent implements OnInit {
   constructor(

@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-entry-price',
   templateUrl: './entry-price.component.html',
-  styleUrls: ['./entry-price.component.scss']
+  styleUrls: ['./entry-price.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EntryPriceComponent implements OnInit {
   @Input()
