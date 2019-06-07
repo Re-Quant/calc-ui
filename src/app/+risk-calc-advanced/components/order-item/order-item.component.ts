@@ -16,6 +16,7 @@ export class OrderItemComponent implements OnInit {
   public faChevronDown = faChevronDown;
   public faPlusCircle = faPlusCircle;
   public faMinusCircle = faMinusCircle;
+  public percentRange: string[] = ['10', '20', '25', '50', '75', '80', '100'];
 
   @Output()
   public dataChange = new EventEmitter<void>();
@@ -41,7 +42,7 @@ export class OrderItemComponent implements OnInit {
     console.log('clear');
   }
 
-  public setPercentage(value: number) {
+  public setPercentage(value: string) {
     this.group.controls['percent'].setValue(value);
   }
 }
