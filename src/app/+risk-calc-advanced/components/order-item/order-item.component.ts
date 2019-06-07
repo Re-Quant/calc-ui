@@ -41,5 +41,7 @@ export class OrderItemComponent implements OnInit {
     console.log('clear');
   }
 
-  public setPercentage() {}
+  public setPercentage(value: number) {
+    this.group.controls['percent'].setValue(value);
+  }
 }
