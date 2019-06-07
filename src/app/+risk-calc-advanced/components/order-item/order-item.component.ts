@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-order-item',
@@ -11,7 +11,10 @@ export class OrderItemComponent implements OnInit {
   @Input()
   public group: FormGroup;
 
-  public faAngleUp = faAngleUp;
+  public faChevronUp = faChevronUp;
+  public faChevronDown = faChevronDown;
+  public faPlusCircle = faPlusCircle;
+  public faMinusCircle = faMinusCircle;
 
   @Output()
   public dataChange = new EventEmitter<void>();
