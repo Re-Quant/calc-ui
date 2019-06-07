@@ -6,19 +6,19 @@
         <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
         <div class="active-item__menu">
           <div class="">
-            <div class="">
-              <fa-icon class='active-item__icon' [icon]="faChevronUp" size="lg"></fa-icon>
-              <fa-icon class='active-item__icon' [icon]="faPlusCircle" size="lg"></fa-icon>
+            <div class="" (click)="addItemToTheTop()">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
+              <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
             </div>
 
-            <div class="">
-              <fa-icon class='active-item__icon' [icon]="faPlusCircle" size="lg"></fa-icon>
-              <fa-icon class='active-item__icon' [icon]="faChevronDown" size="lg"></fa-icon>
+            <div class="" (click)="addItemToTheBottom()">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
+              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
             </div>
           </div>
 
-          <div class="">
-            <fa-icon class='active-item__icon' [icon]="faMinusCircle" size="lg"></fa-icon>
+          <div class="" (click)="removeItem()">
+            <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
           </div>
         </div>
       </div>

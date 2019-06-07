@@ -27,4 +27,16 @@ export class OrderItemComponent implements OnInit {
   public onChange() {
     this.dataChange.emit();
   }
+
+  public addItemToTheTop() {
+    console.log('top');
+  }
+
+  public addItemToTheBottom() {
+    console.log('bottom');
+  }
+
+  public removeItem() {
+    console.log('clear');
+  }
 }
