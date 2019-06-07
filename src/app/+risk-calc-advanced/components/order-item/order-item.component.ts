@@ -39,4 +39,6 @@ export class OrderItemComponent implements OnInit {
   public removeItem() {
     console.log('clear');
   }
+
+  public setPercentage() {}
 }

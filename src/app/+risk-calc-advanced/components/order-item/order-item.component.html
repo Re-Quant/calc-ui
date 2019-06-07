@@ -1,8 +1,7 @@
 <div class="common-panel" [formGroup]="group">
   <div fxLayout="row" fxLayoutAlign="left center" fxLayoutAlign.sm="start" fxLayoutAlign.xs="start" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutGap="15px">
-    <div fxFlex="2">
+    <div fxFlex="2" fxFlex.lg="2">
       <div class="active-item">
-
         <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
         <div class="active-item__menu">
           <div class="">
@@ -24,29 +23,27 @@
       </div>
     </div>
 
-    <mat-form-field fxFlex="15">
+    <mat-form-field fxFlex="8" fxFlex.lg="8">
       <span matPrefix>$&nbsp;</span>
       <input type="number" step="100" matInput formControlName="price" placeholder="Price">
     </mat-form-field>
 
-    <mat-form-field fxFlex="10">
+    <mat-form-field fxFlex="8" fxFlex.lg="8">
       <input type="number" matInput formControlName="percent" placeholder="Percent">
       <span matSuffix>&nbsp;%</span>
     </mat-form-field>
 
-    <div fxFlex="20" fxFlex.md="35" fxFlex.lg="25" class="mat-form-field-wrapper">
-      <mat-button-toggle-group formControlName="percentRange" (change)="onChange()">
-        <mat-button-toggle value="10">10</mat-button-toggle>
-        <mat-button-toggle value="20">20</mat-button-toggle>
-        <mat-button-toggle value="25">25</mat-button-toggle>
-        <mat-button-toggle value="50">50</mat-button-toggle>
-        <mat-button-toggle value="75">75</mat-button-toggle>
-        <mat-button-toggle value="80">80</mat-button-toggle>
-        <mat-button-toggle value="100">100</mat-button-toggle>
-      </mat-button-toggle-group>
+    <div fxFlex="40" fxFlex.md="40" fxFlex.lg="29" class="mat-form-field-wrapper">
+      <button mat-stroked-button (click)="setPercentage()">10</button>
+      <button mat-stroked-button (click)="setPercentage()">20</button>
+      <button mat-stroked-button (click)="setPercentage()">25</button>
+      <button mat-stroked-button (click)="setPercentage()">50</button>
+      <button mat-stroked-button (click)="setPercentage()">75</button>
+      <button mat-stroked-button (click)="setPercentage()">80</button>
+      <button mat-stroked-button (click)="setPercentage()">100</button>
     </div>
 
-    <div fxFlex="20" class="mat-form-field-wrapper">
+    <div fxFlex="10" fxFlex.lg="10" class="mat-form-field-wrapper">
       <mat-button-toggle-group formControlName="typeOfFee" (change)="onChange()">
         <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
         <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>

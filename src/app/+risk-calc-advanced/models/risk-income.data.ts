@@ -27,7 +27,6 @@ export interface RiskIncomeData {
 export interface OrderFormData {
   price: string;
   percent: string;
-  percentRange: string;
   typeOfFee: TypeFee;
 }
 

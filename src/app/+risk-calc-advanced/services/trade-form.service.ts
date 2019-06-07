@@ -26,21 +26,18 @@ export class TradeFormService {
       activeOrder: [true],
       price: ['100', [Validators.required]],
       percent: ['25', [Validators.required]],
-      percentRange: ['20'],
       typeOfFee: [TypeFee.marketMaker, [Validators.required]],
     });
     const stopLossConfig = this.fb.group({
       activeOrder: [true],
       price: ['100', [Validators.required]],
       percent: ['5', [Validators.required]],
-      percentRange: ['25'],
       typeOfFee: [TypeFee.marketTaker, [Validators.required]],
     });
     const takeProfitConfig = this.fb.group({
       activeOrder: [true],
       price: ['100', [Validators.required]],
       percent: ['25', [Validators.required]],
-      percentRange: ['25'],
       typeOfFee: [TypeFee.marketTaker, [Validators.required]],
     });
     const config: any = {

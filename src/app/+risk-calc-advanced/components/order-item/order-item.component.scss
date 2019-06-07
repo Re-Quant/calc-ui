@@ -7,7 +7,18 @@ $color-pink: mat-palette($mat-pink);
   position: relative;
 
   &__menu {
-    display: none;
+    //display: none;
+
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -32px;
+    left: 25px;
+    width: 45px;
+
+    z-index: 9999;
+
+    background-color: rgba(255,255,255, 0.85);
   }
 
   &__icon {
@@ -22,16 +33,16 @@ $color-pink: mat-palette($mat-pink);
 
   &:hover & {
     &__menu {
-      display: flex;
-      align-items: center;
-      position: absolute;
-      top: -32px;
-      left: 25px;
-      width: 45px;
-
-      z-index: 9999;
-
-      background-color: rgba(255,255,255, 0.85);
+      //display: flex;
+      //align-items: center;
+      //position: absolute;
+      //top: -32px;
+      //left: 25px;
+      //width: 45px;
+      //
+      //z-index: 9999;
+      //
+      //background-color: rgba(255,255,255, 0.85);
     }
   }
 }
