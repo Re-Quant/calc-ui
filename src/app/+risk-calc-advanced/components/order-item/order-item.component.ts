@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +8,7 @@ import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortaw
   styleUrls: ['./order-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderItemComponent implements OnInit {
+export class OrderItemComponent {
   @Input()
   public group: FormGroup;
 
@@ -22,9 +22,6 @@ export class OrderItemComponent implements OnInit {
   public dataChange = new EventEmitter<void>();
 
   constructor() { }
-
-  public ngOnInit() {
-  }
 
   public onChange() {
     this.dataChange.emit();
