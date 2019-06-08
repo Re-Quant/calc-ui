@@ -8,9 +8,9 @@ export interface Order {
 }
 
 export interface RiskIncomeData {
-  entryPrice: Order[];
-  stopPrice: Order[];
-  takePrice: Order[];
+  entries: Order[];
+  stopLosses: Order[];
+  takeProfits: Order[];
 
   deposit: number;
   risk: number;
@@ -30,10 +30,17 @@ export interface OrderFormData {
   typeOfFee: TypeFee;
 }
 
+export interface OrderFormData {
+  activeOrder: boolean;
+  price: string;
+  percent: string;
+  typeOfFee: TypeFee;
+}
+
 export interface RiskIncomeFormData {
-  entryPrice: Order[];
-  stopPrice: Order[];
-  takePrice: Order[];
+  entries: OrderFormData[];
+  stopLosses: OrderFormData[];
+  takeProfits: OrderFormData[];
 
   deposit: string;
   risk: string;

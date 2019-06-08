@@ -28,4 +28,19 @@ export class TradeFormComponent implements OnInit {
   public onChange() {
 
   }
+
+  public addOrderItemAbove(entity: string, index: number) {
+    console.log(entity, index);
+    this.tradeFormService.addOrderItemAbove(entity, index);
+  }
+
+  public addOrderItemBelow(entity: string, index: number) {
+    console.log(entity, index);
+    this.tradeFormService.addOrderItemBelow(entity, index);
+  }
+
+  public removeOrderItem(entity: string, index: number) {
+    console.log(entity, index);
+    this.tradeFormService.removeOrderItem(entity, index);
+  }
 }

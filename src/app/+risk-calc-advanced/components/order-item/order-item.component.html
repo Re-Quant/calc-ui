@@ -1,50 +1,61 @@
 <div class="common-panel" [formGroup]="group">
-  <div fxLayout="row" fxLayoutAlign="left center" fxLayoutAlign.sm="start" fxLayoutAlign.xs="start" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutGap="15px">
-    <div fxFlex="2" fxFlex.lg="2">
-      <div class="active-item">
-        <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
-        <div class="active-item__menu">
-          <div class="">
-            <div class="" (click)="addItemToTheTop()">
-              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
-              <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
+  <div *ngFor="let item of group.controls; let i = index;">
+    <div fxLayout="row"
+         fxLayoutAlign="left center"
+         fxLayoutAlign.sm="start"
+         fxLayoutAlign.xs="start"
+         fxLayout.xs="column"
+         fxLayout.sm="column"
+         fxFlexFill
+         fxLayoutGap="15px"
+         [formGroupName]="i"
+    >
+      <div fxFlex="2" fxFlex.lg="2">
+        <div class="active-item">
+          <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
+          <div class="active-item__menu">
+            <div class="">
+              <div class="" (click)="addItemAbove(i)">
+                <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
+                <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
+              </div>
+
+              <div class="" (click)="addItemBelow(i)">
+                <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
+                <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
+              </div>
             </div>
 
-            <div class="" (click)="addItemToTheBottom()">
-              <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
-              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
+            <div class="" (click)="removeItem(i)">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
             </div>
-          </div>
-
-          <div class="" (click)="removeItem()">
-            <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
           </div>
         </div>
       </div>
-    </div>
 
-    <mat-form-field fxFlex="12" fxFlex.lg="12">
-      <span matPrefix>$&nbsp;</span>
-      <input type="number" step="100" matInput formControlName="price" placeholder="Price">
-    </mat-form-field>
+      <mat-form-field fxFlex="12" fxFlex.lg="12">
+        <span matPrefix>$&nbsp;</span>
+        <input type="number" step="100" matInput formControlName="price" placeholder="Price">
+      </mat-form-field>
 
-    <mat-form-field fxFlex="4" fxFlex.lg="4">
-      <input type="number" matInput formControlName="percent" placeholder="Percent">
-      <span matSuffix>&nbsp;%</span>
-    </mat-form-field>
+      <mat-form-field fxFlex="4" fxFlex.lg="4">
+        <input type="number" matInput formControlName="percent" placeholder="Percent">
+        <span matSuffix>&nbsp;%</span>
+      </mat-form-field>
 
-    <div fxFlex="40" fxFlex.md="40" fxFlex.lg="29" class="mat-form-field-wrapper">
-      <button mat-stroked-button
-              *ngFor="let percent of percentRange"
-              (click)="setPercentage(percent)"
-      >{{percent}}</button>
-    </div>
+      <div fxFlex="40" fxFlex.md="40" fxFlex.lg="29" class="mat-form-field-wrapper">
+        <button mat-stroked-button
+                *ngFor="let percent of percentRange"
+                (click)="setPercentage(percent, item)"
+        >{{percent}}</button>
+      </div>
 
-    <div fxFlex="10" fxFlex.lg="10" class="mat-form-field-wrapper">
-      <mat-button-toggle-group formControlName="typeOfFee" (change)="onChange()">
-        <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
-        <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
-      </mat-button-toggle-group>
+      <div fxFlex="10" fxFlex.lg="10" class="mat-form-field-wrapper">
+        <mat-button-toggle-group formControlName="typeOfFee" (change)="onChange()">
+          <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
+          <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
     </div>
   </div>
 </div>
