@@ -38,12 +38,12 @@
         <input type="number" step="100" matInput formControlName="price" placeholder="Price">
       </mat-form-field>
 
-      <mat-form-field fxFlex="4" fxFlex.lg="4">
+      <mat-form-field fxFlex="4" fxFlex.md="6" fxFlex.lg="4">
         <input type="number" matInput formControlName="percent" placeholder="Percent">
         <span matSuffix>&nbsp;%</span>
       </mat-form-field>
 
-      <div fxFlex="40" fxFlex.md="40" fxFlex.lg="29" class="mat-form-field-wrapper">
+      <div fxFlex="40" fxFlex.md="28" fxFlex.lg="29" class="mat-form-field-wrapper">
         <button mat-stroked-button
                 *ngFor="let percent of percentRange"
                 (click)="setPercentage(percent, item)"
