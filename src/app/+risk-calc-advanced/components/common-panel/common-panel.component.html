@@ -1,5 +1,11 @@
 <div class="common-panel" [formGroup]="group">
-  <div fxLayout="row" fxLayoutAlign="left center" fxLayoutAlign.sm="start" fxLayoutAlign.xs="start" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutGap="15px">
+  <div fxLayout="column"
+       fxLayoutAlign="start"
+       fxLayoutAlign.lg="left center"
+       fxLayout.lg="row"
+       fxFlexFill
+       fxLayoutGap="15px"
+  >
     <mat-form-field fxFlex="15">
       <span matPrefix>$&nbsp;</span>
       <input type="number" step="100" matInput formControlName="deposit" placeholder="Deposit">
