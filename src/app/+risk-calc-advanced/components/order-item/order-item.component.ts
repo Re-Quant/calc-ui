@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -53,5 +53,29 @@ export class OrderItemComponent {
 
   public setPercentage(value: string, item: any) {
     item.controls['percent'].setValue(value);
+  }
+
+  public equalizePercentage(): void {
+    const controls = this.group.controls;
+    const countFormGroup: any = controls.length;
+    const valueForOneCell: string = this.roundPercentage(countFormGroup);
+
+    for (const index of Object.keys(controls)) {
+      controls[index]['controls']['percent'].setValue(valueForOneCell);
+    }
+  }
+
+  private roundPercentage(count: number): string {
+    const initValue = '100';
+
+    if (count === 1) {
+      return initValue;
+    }
+
+    if (count % 2 === 0) {
+      return (100 / count).toString();
+    }
+
+    return (100 / count).toFixed(3);
   }
 }
