@@ -27,6 +27,9 @@ export class OrderItemComponent {
   @Output()
   public removeOrderItem = new EventEmitter<number>();
 
+  @Output()
+  public equalizePercentage = new EventEmitter<string>();
+
   public faChevronUp = faChevronUp;
   public faChevronDown = faChevronDown;
   public faPlusCircle = faPlusCircle;
@@ -55,27 +58,7 @@ export class OrderItemComponent {
     item.controls['percent'].setValue(value);
   }
 
-  public equalizePercentage(): void {
-    const controls = this.group.controls;
-    const countFormGroup: any = controls.length;
-    const valueForOneCell: string = this.roundPercentage(countFormGroup);
-
-    for (const index of Object.keys(controls)) {
-      controls[index]['controls']['percent'].setValue(valueForOneCell);
-    }
-  }
-
-  private roundPercentage(count: number): string {
-    const initValue = '100';
-
-    if (count === 1) {
-      return initValue;
-    }
-
-    if (count % 2 === 0) {
-      return (100 / count).toString();
-    }
-
-    return (100 / count).toFixed(3);
+  public equalize(): void {
+    this.equalizePercentage.emit(this.formName);
   }
 }

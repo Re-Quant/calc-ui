@@ -58,6 +58,7 @@ export class TradeFormService {
         typeOfFee: TypeFee.marketTaker,
       })
     ]);
+    // takeProfitConfig.controls.forEach(v => v.patchValue({percent: 33}));
     const config: any = {
       commonPanel: commonPanelConfig,
       entries: entryPriceConfig,
@@ -90,6 +91,23 @@ export class TradeFormService {
   public removeOrderItem(entity: string, index: number): void {
     this[entity] = this.form.get(entity) as FormArray;
     this[entity].removeAt(index);
+  }
+
+  public equalizePercentage(entity: string) {
+    this[entity] = this.form.get(entity) as FormArray;
+
+    const countFormGroup: any = this[entity].length;
+    const valueForOneCell: string = this.roundPercentage(countFormGroup);
+
+    this[entity].controls.forEach(v => {
+     v.controls.percent.setValue(valueForOneCell);
+    });
+  }
+
+  private roundPercentage(count: number): string {
+    const initValue = '100';
+
+    return count === 1 ? initValue : (100 / count).toString();
   }
 
   get isValid(): boolean {

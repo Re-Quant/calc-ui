@@ -11,6 +11,7 @@
                     (addOrderItemAbove)="addOrderItemAbove('entries', $event)"
                     (addOrderItemBelow)="addOrderItemBelow('entries', $event)"
                     (removeOrderItem)="removeOrderItem('entries', $event)"
+                    (equalizePercentage)="equalizePercentage($event)"
     ></app-order-item>
   </div>
 
@@ -22,6 +23,7 @@
                     (addOrderItemAbove)="addOrderItemAbove('stopLosses', $event)"
                     (addOrderItemBelow)="addOrderItemBelow('stopLosses', $event)"
                     (removeOrderItem)="removeOrderItem('stopLosses', $event)"
+                    (equalizePercentage)="equalizePercentage($event)"
     ></app-order-item>
   </div>
 
@@ -33,6 +35,7 @@
                     (addOrderItemAbove)="addOrderItemAbove('takeProfits', $event)"
                     (addOrderItemBelow)="addOrderItemBelow('takeProfits', $event)"
                     (removeOrderItem)="removeOrderItem('takeProfits', $event)"
+                    (equalizePercentage)="equalizePercentage($event)"
     ></app-order-item>
   </div>
 </form>
