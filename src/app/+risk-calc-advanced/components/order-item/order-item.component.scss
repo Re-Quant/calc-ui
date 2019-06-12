@@ -7,8 +7,7 @@ $color-pink: mat-palette($mat-pink);
   position: relative;
 
   &__menu {
-    //display: none;
-    display: flex;
+    display: none;
 
     align-items: center;
     position: absolute;
