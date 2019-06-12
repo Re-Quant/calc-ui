@@ -16,19 +16,19 @@
         <div class="active-item">
           <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
           <div class="active-item__menu">
-            <div class="">
-              <div class="" (click)="addItemAbove(i)">
+            <div>
+              <div class="active-item__item active-item__item-wrapper" (click)="addItemAbove(i)">
                 <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
                 <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
               </div>
 
-              <div class="" (click)="addItemBelow(i)">
+              <div class="active-item__item active-item__item-wrapper" (click)="addItemBelow(i)">
                 <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
                 <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
               </div>
             </div>
 
-            <div class="" (click)="removeItem(i)">
+            <div class="active-item__item" (click)="removeItem(i)">
               <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
             </div>
           </div>

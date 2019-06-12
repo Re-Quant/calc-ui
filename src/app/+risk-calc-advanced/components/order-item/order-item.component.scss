@@ -7,20 +7,31 @@ $color-pink: mat-palette($mat-pink);
   position: relative;
 
   &__menu {
-    display: none;
+    //display: none;
+    display: flex;
 
     align-items: center;
     position: absolute;
-    top: -32px;
+    top: -36px;
     left: 16px;
-    width: 45px;
+    width: 51px;
     z-index: 1;
     padding: 0 5px;
     background-color: rgba(255,255,255, 0.85);
   }
 
+  &__item-wrapper {
+    margin: 4px;
+  }
+
   &__icon {
     color: mat-color($color-pink);
+  }
+
+  &__item:hover & {
+    &__icon {
+      color: darken( mat-color($color-pink), 10% );
+    }
   }
 
   &:hover & {
