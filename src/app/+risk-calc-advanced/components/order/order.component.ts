@@ -3,17 +3,20 @@ import { FormGroup } from '@angular/forms';
 import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-order-item',
-  templateUrl: './order-item.component.html',
-  styleUrls: ['./order-item.component.scss'],
+  selector: 'app-order',
+  templateUrl: './order.component.html',
+  styleUrls: ['./order.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderItemComponent {
+export class OrderComponent {
   @Input()
   public group: FormGroup;
 
   @Input()
   public formName: string;
+
+  @Input()
+  public calculationData: object;
 
   @Output()
   public dataChange = new EventEmitter<void>();

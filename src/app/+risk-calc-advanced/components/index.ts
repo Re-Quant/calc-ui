@@ -3,7 +3,7 @@ import { CommonPanelComponent } from './common-panel/common-panel.component';
 import { EntryPriceComponent } from './entry-price/entry-price.component';
 import { StopLossComponent } from './stop-loss/stop-loss.component';
 import { TakeProfitComponent } from './take-profit/take-profit.component';
-import { OrderItemComponent } from './order-item/order-item.component';
+import { OrderComponent } from './order/order.component';
 
 export const components: any[] = [
   TradeInfoComponent,
@@ -11,5 +11,5 @@ export const components: any[] = [
   EntryPriceComponent,
   StopLossComponent,
   TakeProfitComponent,
-  OrderItemComponent,
+  OrderComponent,
 ];

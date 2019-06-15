@@ -6,36 +6,36 @@
   <div class="trade-form mat-elevation-z8">
     <h4>Entries</h4>
     <!--<rc-entry-price [group]="form.get('entryPrice')"></rc-entry-price>-->
-    <app-order-item formName="entries"
+    <app-order formName="entries"
                     [group]="form.get('entries')"
                     (addOrderItemAbove)="addOrderItemAbove('entries', $event)"
                     (addOrderItemBelow)="addOrderItemBelow('entries', $event)"
                     (removeOrderItem)="removeOrderItem('entries', $event)"
                     (equalizePercentage)="equalizePercentage($event)"
-    ></app-order-item>
+    ></app-order>
   </div>
 
   <div class="trade-form mat-elevation-z8">
     <h4>Stop Losses</h4>
     <!--<rc-stop-loss [group]="form.get('stopLoss')"></rc-stop-loss>-->
-    <app-order-item formName="stopLosses"
+    <app-order formName="stopLosses"
                     [group]="form.get('stopLosses')"
                     (addOrderItemAbove)="addOrderItemAbove('stopLosses', $event)"
                     (addOrderItemBelow)="addOrderItemBelow('stopLosses', $event)"
                     (removeOrderItem)="removeOrderItem('stopLosses', $event)"
                     (equalizePercentage)="equalizePercentage($event)"
-    ></app-order-item>
+    ></app-order>
   </div>
 
   <div class="trade-form mat-elevation-z8">
     <h4>Take Profits</h4>
     <!--<rc-take-profit [group]="form.get('takeProfit')"></rc-take-profit>-->
-    <app-order-item formName="takeProfits"
+    <app-order formName="takeProfits"
                     [group]="form.get('takeProfits')"
                     (addOrderItemAbove)="addOrderItemAbove('takeProfits', $event)"
                     (addOrderItemBelow)="addOrderItemBelow('takeProfits', $event)"
                     (removeOrderItem)="removeOrderItem('takeProfits', $event)"
                     (equalizePercentage)="equalizePercentage($event)"
-    ></app-order-item>
+    ></app-order>
   </div>
 </form>
