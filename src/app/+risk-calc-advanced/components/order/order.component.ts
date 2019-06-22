@@ -16,7 +16,10 @@ export class OrderComponent {
   public formName: string;
 
   @Input()
-  public calculationData: object;
+  public formGroupIndex: number;
+
+  @Input()
+  public calculationData: object[];
 
   @Output()
   public dataChange = new EventEmitter<void>();
@@ -31,7 +34,7 @@ export class OrderComponent {
   public removeOrderItem = new EventEmitter<number>();
 
   @Output()
-  public equalizePercentage = new EventEmitter<string>();
+  public setOrderItemPercentage = new EventEmitter<string>();
 
   public faChevronUp = faChevronUp;
   public faChevronDown = faChevronDown;
@@ -57,11 +60,7 @@ export class OrderComponent {
     this.removeOrderItem.emit(index);
   }
 
-  public setPercentage(value: string, item: any) {
-    item.controls['percent'].setValue(value);
-  }
-
-  public equalize(): void {
-    this.equalizePercentage.emit(this.formName);
+  public setPercentage(value: string) {
+    this.setOrderItemPercentage.emit(value);
   }
 }

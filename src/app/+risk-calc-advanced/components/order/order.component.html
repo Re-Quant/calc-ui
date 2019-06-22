@@ -1,34 +1,30 @@
-<div class="common-panel" [formGroup]="group">
+<div [formGroup]="group">
   <div class="mat-form-field-wrapper">
-    <button mat-stroked-button fxFlexOffset="14.5" (click)="equalize()">Equalize</button>
-  </div>
-
-  <div *ngFor="let item of group.controls; let i = index;" class="mat-form-field-wrapper">
     <div fxLayout="column"
          fxLayoutAlign="start"
          fxLayoutAlign.lg="left center"
          fxLayout.lg="row"
          fxFlexFill
          fxLayoutGap="15px"
-         [formGroupName]="i"
+         [formGroupName]="formGroupIndex"
     >
       <div fxFlex="2" fxFlex.lg="2">
         <div class="active-item">
           <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
           <div class="active-item__menu">
             <div>
-              <div class="active-item__item active-item__item-wrapper" (click)="addItemAbove(i)">
+              <div class="active-item__item active-item__item-wrapper" (click)="addItemAbove(formGroupIndex)">
                 <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
                 <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
               </div>
 
-              <div class="active-item__item active-item__item-wrapper" (click)="addItemBelow(i)">
+              <div class="active-item__item active-item__item-wrapper" (click)="addItemBelow(formGroupIndex)">
                 <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
                 <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
               </div>
             </div>
 
-            <div class="active-item__item" (click)="removeItem(i)">
+            <div class="active-item__item" (click)="removeItem(formGroupIndex)">
               <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
             </div>
           </div>
@@ -48,7 +44,7 @@
       <div fxFlex="40" fxFlex.lg="29" >
         <button mat-stroked-button
                 *ngFor="let percent of percentRange"
-                (click)="setPercentage(percent, item)"
+                (click)="setPercentage(percent, formGroupIndex)"
         >{{percent}}</button>
       </div>
 
@@ -59,5 +55,7 @@
         </mat-button-toggle-group>
       </div>
     </div>
-  </div>
+
+    <ng-content></ng-content>
+ </div>
 </div>

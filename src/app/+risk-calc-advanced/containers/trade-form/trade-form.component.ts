@@ -41,6 +41,10 @@ export class TradeFormComponent implements OnInit {
     this.tradeFormService.removeOrderItem(entity, index);
   }
 
+  public onSetOrderItemPercentage(data: { value: string; item: FormGroup }) {
+    this.tradeFormService.setOrderItemPercentage(data);
+  }
+
   public equalizePercentage(entity: string) {
     this.tradeFormService.equalizePercentage(entity);
   }
