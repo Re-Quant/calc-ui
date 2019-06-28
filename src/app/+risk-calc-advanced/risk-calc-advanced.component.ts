@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { zMath, ZMath, zRisk, ZRisk } from '@z-brain/calc';
 
 @Component({
   selector: 'app-risk-calc-advanced',
@@ -11,7 +12,7 @@ export class RiskCalcAdvancedComponent implements OnInit {
   }
 
   public ngOnInit() {
-
+    console.log('ZMath: .1 + .2 === .3', zMath.eq(.1 + .2, .3));
   }
 }
 

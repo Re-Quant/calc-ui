@@ -28,7 +28,7 @@
     "@fortawesome/fontawesome-svg-core": "~1.2.19",
     "@fortawesome/free-regular-svg-icons": "~5.9.0",
     "@fortawesome/free-solid-svg-icons": "~5.9.0",
-    "@z-brain/calc": "dev",
+    "@z-brain/calc": "0.0.21-dev.14",
     "angular-font-awesome": "~3.1.2",
     "core-js": "~3.1.4",
     "lodash": "~4.17.11",
@@ -37,14 +37,14 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.0",
-    "@angular/cli": "~8.0.4",
-    "@angular/compiler-cli": "~8.0.2",
-    "@angular/language-service": "~8.0.2",
-    "@types/node": "~8.9.4",
+    "@angular-devkit/build-angular": "~0.800.6",
+    "@angular/cli": "~8.0.6",
+    "@angular/compiler-cli": "~8.0.3",
+    "@angular/language-service": "~8.0.3",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash": "~4.14.134",
+    "@types/node": "~8.9.4",
     "codelyzer": "~5.1.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -56,6 +56,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.5"
   }
 }
