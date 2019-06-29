@@ -1,5 +1,5 @@
 import { TypeFee } from './fee';
-import { ETradeType } from './trade-type.enum';
+import { ETradeType } from '@z-brain/calc';
 
 export interface Order {
   price: number;

@@ -1,4 +1,4 @@
-import { ETradeType } from './trade-type.enum';
+import { ETradeType } from '@z-brain/calc';
 
 interface RiskRate {
   risk: number;

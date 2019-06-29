@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { TradeInfo, ETradeType } from '../../models';
+import { TradeInfo } from '../../models';
+import { ETradeType } from '@z-brain/calc';
 
 const ELEMENT_DATA: TradeInfo = {
     tradeSum: {
