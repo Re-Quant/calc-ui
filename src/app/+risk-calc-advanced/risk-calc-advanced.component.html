@@ -2,7 +2,7 @@
   <div class="left">
     <h2>Risk Calculator Advanced</h2>
 
-    <app-trade-form></app-trade-form>
+    <app-trade-form (dataChange)="formDataChanged($event)"></app-trade-form>
     <app-trade-info></app-trade-info>
   </div>
 </div>

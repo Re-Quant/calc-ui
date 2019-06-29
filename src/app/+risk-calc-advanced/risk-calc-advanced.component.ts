@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { zMath, ZMath, zRisk, ZRisk } from '@z-brain/calc';
+import { RiskIncomeData } from './models';
+import { RiskCalcService } from './services/risk-calc.service';
 
 @Component({
   selector: 'app-risk-calc-advanced',
@@ -8,11 +9,14 @@ import { zMath, ZMath, zRisk, ZRisk } from '@z-brain/calc';
 })
 export class RiskCalcAdvancedComponent implements OnInit {
   public constructor(
+    private riskCalcService: RiskCalcService,
   ) {
   }
 
-  public ngOnInit() {
-    console.log('ZMath: .1 + .2 === .3', zMath.eq(.1 + .2, .3));
+  public ngOnInit() {}
+
+  public formDataChanged(data: RiskIncomeData): void {
+    this.riskCalcService.calculateTrade(data);
   }
 }
 

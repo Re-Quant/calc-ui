@@ -2,6 +2,7 @@ import { TypeFee } from './fee';
 import { ETradeType } from '@z-brain/calc';
 
 export interface Order {
+  activeOrder: boolean;
   price: number;
   percent: number;
   typeOfFee: TypeFee;
@@ -28,26 +29,15 @@ export interface RiskIncomeData {
 }
 
 export interface OrderFormData {
-  price: string;
-  percent: string;
-  typeOfFee: TypeFee;
-}
-
-export interface OrderFormData {
   activeOrder: boolean;
   price: string;
   percent: string;
   typeOfFee: TypeFee;
 }
 
-export interface RiskIncomeFormData {
-  entries: OrderFormData[];
-  stopLosses: OrderFormData[];
-  takeProfits: OrderFormData[];
-
+export interface CommonRiskFormData {
   deposit: string;
   risk: string;
-
   leverageAvailable: boolean;
   maxLeverage: string;
   feeEnabled: boolean;
@@ -58,4 +48,11 @@ export interface RiskIncomeFormData {
   maxTradeSum: string;
 
   tradeType: ETradeType;
+}
+
+export interface RiskIncomeFormData {
+  commonPanel: CommonRiskFormData;
+  entries: OrderFormData[];
+  stopLosses: OrderFormData[];
+  takeProfits: OrderFormData[];
 }

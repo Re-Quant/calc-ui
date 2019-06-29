@@ -1,6 +1,8 @@
 <form [formGroup]="form" (change)="onChange()">
   <div class="trade-form mat-elevation-z8">
-    <app-common-panel [group]="form.get('commonPanel')"></app-common-panel>
+    <app-common-panel [group]="form.get('commonPanel')"
+                      (dataChange)="onChange()"
+    ></app-common-panel>
   </div>
 
   <div class="trade-form mat-elevation-z8">
@@ -14,6 +16,7 @@
                      (removeOrderItem)="removeOrderItem('entries', $event)"
                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
                      (equalizePercentage)="equalizePercentage('entries')"
+                     (dataChange)="onChange()"
     ></app-entry-price>
   </div>
 
@@ -28,6 +31,7 @@
                      (removeOrderItem)="removeOrderItem('stopLosses', $event)"
                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
                      (equalizePercentage)="equalizePercentage('stopLosses')"
+                     (dataChange)="onChange()"
     ></app-stop-loss>
   </div>
 
@@ -42,6 +46,7 @@
                      (removeOrderItem)="removeOrderItem('takeProfits', $event)"
                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
                      (equalizePercentage)="equalizePercentage('takeProfits')"
+                     (dataChange)="onChange()"
     ></app-take-profit>
   </div>
 </form>

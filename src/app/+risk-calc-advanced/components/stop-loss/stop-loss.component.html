@@ -11,6 +11,7 @@
                (addOrderItemBelow)="onAddItemBelow($event)"
                (removeOrderItem)="onRemoveItem($event)"
                (setOrderItemPercentage)="onSetOrderItemPercentage($event, item)"
+               (dataChange)="onChange()"
     >
       <div>
         <div>V quoted: {{ calculationData[i].Vq }}</div>

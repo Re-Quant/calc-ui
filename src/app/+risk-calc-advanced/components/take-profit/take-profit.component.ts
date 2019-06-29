@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./take-profit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TakeProfitComponent implements OnInit {
+export class TakeProfitComponent {
   @Input()
   public group: FormGroup;
 
@@ -36,9 +36,6 @@ export class TakeProfitComponent implements OnInit {
   public setOrderItemPercentage = new EventEmitter<{ value: string; item: FormGroup }>();
 
   constructor() { }
-
-  public ngOnInit() {
-  }
 
   public onChange() {
     this.dataChange.emit();

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./common-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommonPanelComponent implements OnInit {
+export class CommonPanelComponent {
   @Input()
   public group: FormGroup;
 
@@ -15,9 +15,6 @@ export class CommonPanelComponent implements OnInit {
   public dataChange = new EventEmitter<void>();
 
   constructor() { }
-
-  public ngOnInit() {
-  }
 
   public onChange() {
     this.dataChange.emit();
