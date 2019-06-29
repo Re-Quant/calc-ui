@@ -16,10 +16,13 @@ export interface RiskIncomeData {
   risk: number;
 
   leverageAvailable: boolean;
+  maxLeverage: number;
   feeEnabled: boolean;
 
   marketMakerFee: number;
   marketTakerFee: number;
+
+  maxTradeSum: number;
 
   tradeType: ETradeType;
 }
@@ -46,10 +49,13 @@ export interface RiskIncomeFormData {
   risk: string;
 
   leverageAvailable: boolean;
+  maxLeverage: string;
   feeEnabled: boolean;
 
   marketMakerFee: string;
   marketTakerFee: string;
+
+  maxTradeSum: string;
 
   tradeType: ETradeType;
 }

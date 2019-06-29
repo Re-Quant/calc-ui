@@ -25,9 +25,11 @@ export class TradeFormService {
       deposit: ['1000', [Validators.required, Validators.min(0.1)]],
       risk: ['1', [Validators.required, Validators.min(0), Validators.max(100)]],
       leverageAvailable: [true],
+      maxLeverage: ['5'],
       feeEnabled: [true],
       marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
       marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
+      maxTradeSum: ['5000'],
     });
     const entryPriceConfig = this.fb.array([
       this.createOrderItem({

@@ -20,6 +20,10 @@
       <mat-checkbox formControlName="leverageAvailable" (change)="onChange()">Leverage</mat-checkbox>
     </div>
 
+    <mat-form-field fxFlex="5">
+      <input type="number" step="1" matInput formControlName="maxLeverage" placeholder="Max Leverage">
+    </mat-form-field>
+
     <div fxFlex="7">
       <mat-checkbox formControlName="feeEnabled" (change)="onChange()">Fee</mat-checkbox>
     </div>
@@ -32,6 +36,11 @@
     <mat-form-field fxFlex="10">
       <input type="number" step="0.1" matInput formControlName="marketTakerFee" placeholder="Market Taker Fee">
       <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="10">
+      <span matPrefix>$&nbsp;</span>
+      <input type="number" step="100" matInput formControlName="maxTradeSum" placeholder="Max Trade Sum">
     </mat-form-field>
 
     <div fxFlex="15" class="mat-form-field-wrapper">
