@@ -23,29 +23,29 @@
   <div class="trade-form mat-elevation-z8">
     <h4>Stop Losses</h4>
 
-    <app-stop-loss formName="stopLosses"
-                     [group]="form.get('stopLosses')"
-                     [calculationData]="[{Vq:1, Vb:2}, {Vq:1, Vb:2}]"
-                     (addOrderItemAbove)="addOrderItemAbove('stopLosses', $event)"
-                     (addOrderItemBelow)="addOrderItemBelow('stopLosses', $event)"
-                     (removeOrderItem)="removeOrderItem('stopLosses', $event)"
-                     (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
-                     (equalizePercentage)="equalizePercentage('stopLosses')"
-                     (dataChange)="onChange()"
+    <app-stop-loss formName="stops"
+                   [group]="form.get('stops')"
+                   [calculationData]="[{Vq:1, Vb:2}, {Vq:1, Vb:2}]"
+                   (addOrderItemAbove)="addOrderItemAbove('stops', $event)"
+                   (addOrderItemBelow)="addOrderItemBelow('stops', $event)"
+                   (removeOrderItem)="removeOrderItem('stops', $event)"
+                   (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
+                   (equalizePercentage)="equalizePercentage('stops')"
+                   (dataChange)="onChange()"
     ></app-stop-loss>
   </div>
 
   <div class="trade-form mat-elevation-z8">
     <h4>Take Profits</h4>
 
-    <app-take-profit formName="takeProfits"
-                     [group]="form.get('takeProfits')"
+    <app-take-profit formName="takes"
+                     [group]="form.get('takes')"
                      [calculationData]="[{Vq:1, Vb:2}, {Vq:1, Vb:2}]"
-                     (addOrderItemAbove)="addOrderItemAbove('takeProfits', $event)"
-                     (addOrderItemBelow)="addOrderItemBelow('takeProfits', $event)"
-                     (removeOrderItem)="removeOrderItem('takeProfits', $event)"
+                     (addOrderItemAbove)="addOrderItemAbove('takes', $event)"
+                     (addOrderItemBelow)="addOrderItemBelow('takes', $event)"
+                     (removeOrderItem)="removeOrderItem('takes', $event)"
                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
-                     (equalizePercentage)="equalizePercentage('takeProfits')"
+                     (equalizePercentage)="equalizePercentage('takes')"
                      (dataChange)="onChange()"
     ></app-take-profit>
   </div>

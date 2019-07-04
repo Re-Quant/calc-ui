@@ -34,8 +34,8 @@ export class TradeFormComponent {
         tradeType: value.commonPanel.tradeType,
 
         entries: this.formatOrderData(value.entries),
-        stopLosses: this.formatOrderData(value.stopLosses),
-        takeProfits: this.formatOrderData(value.takeProfits),
+        stops: this.formatOrderData(value.stops),
+        takes: this.formatOrderData(value.takes),
 
         deposit: +value.commonPanel.deposit,
         risk: +value.commonPanel.risk / 100,

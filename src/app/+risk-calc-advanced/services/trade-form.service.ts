@@ -64,8 +64,8 @@ export class TradeFormService {
     const config: any = {
       commonPanel: commonPanelConfig,
       entries: entryPriceConfig,
-      stopLosses: stopLossConfig,
-      takeProfits: takeProfitConfig,
+      stops: stopLossConfig,
+      takes: takeProfitConfig,
     };
     this.form = this.fb.group(config as any);
   }

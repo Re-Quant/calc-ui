@@ -10,8 +10,8 @@ export interface Order {
 
 export interface RiskIncomeData {
   entries: Order[];
-  stopLosses: Order[];
-  takeProfits: Order[];
+  stops: Order[];
+  takes: Order[];
 
   deposit: number;
   risk: number;
@@ -53,6 +53,6 @@ export interface CommonRiskFormData {
 export interface RiskIncomeFormData {
   commonPanel: CommonRiskFormData;
   entries: OrderFormData[];
-  stopLosses: OrderFormData[];
-  takeProfits: OrderFormData[];
+  stops: OrderFormData[];
+  takes: OrderFormData[];
 }
