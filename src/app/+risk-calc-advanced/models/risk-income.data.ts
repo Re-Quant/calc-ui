@@ -2,9 +2,9 @@ import { TypeFee } from './fee';
 import { ETradeType } from '@z-brain/calc';
 
 export interface Order {
-  activeOrder: boolean;
+  activeOrder?: boolean;
   price: number;
-  percent: number;
+  volumePart: number;
   typeOfFee: TypeFee;
 }
 
@@ -45,7 +45,7 @@ export interface CommonRiskFormData {
   marketMakerFee: string;
   marketTakerFee: string;
 
-  maxTradeSum: string;
+  maxTradeVolumeQuoted: string;
 
   tradeType: ETradeType;
 }

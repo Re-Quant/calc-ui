@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 import { FormGroup } from '@angular/forms';
 import { TradeFormService } from '../../services/trade-form.service';
 import { TradeFormValidatorsService } from '../../services/trade-form-validators.service';
-import { Order, OrderFormData, RiskIncomeData, RiskIncomeFormData } from '../../models';
+import { CommonRiskFormData, OrderFormData, RiskIncomeFormData, TypeFee } from '../../models';
+import { TradeInfoArgs, TradeOrderArg } from '@z-brain/calc';
 
 @Component({
   selector: 'app-trade-form',
@@ -16,7 +17,7 @@ import { Order, OrderFormData, RiskIncomeData, RiskIncomeFormData } from '../../
 })
 export class TradeFormComponent {
   @Output()
-  public dataChange = new EventEmitter<RiskIncomeData>();
+  public dataChange = new EventEmitter<TradeInfoArgs>();
 
   constructor(
     private tradeFormService: TradeFormService,
@@ -30,24 +31,27 @@ export class TradeFormComponent {
     if (this.form.valid) {
       const value: RiskIncomeFormData = this.form.value;
 
-      const data: RiskIncomeData = {
-        tradeType: value.commonPanel.tradeType,
-
-        entries: this.formatOrderData(value.entries),
-        stops: this.formatOrderData(value.stops),
-        takes: this.formatOrderData(value.takes),
-
+      const data: TradeInfoArgs = {
+      // const data: any = {
         deposit: +value.commonPanel.deposit,
         risk: +value.commonPanel.risk / 100,
 
-        leverageAvailable: !!+value.commonPanel.leverageAvailable,
-        feeEnabled: !!+value.commonPanel.feeEnabled,
+        leverage: {
+          allow: !!+value.commonPanel.leverageAvailable,
+          max: +value.commonPanel.maxLeverage,
+        },
 
-        maxLeverage: +value.commonPanel.maxLeverage,
-        maxTradeSum: +value.commonPanel.maxTradeSum,
+        tradeType: value.commonPanel.tradeType,
 
-        marketMakerFee: +value.commonPanel.marketMakerFee / 100,
-        marketTakerFee: +value.commonPanel.marketTakerFee / 100,
+        breakeven: {
+          fee: 0.001, // TODO need new element
+        },
+
+        entries: this.formatOrderData(value.entries, value.commonPanel),
+        stops: this.formatOrderData(value.stops, value.commonPanel),
+        takes: this.formatOrderData(value.takes, value.commonPanel),
+
+        maxTradeVolumeQuoted: +value.commonPanel.maxTradeVolumeQuoted,
       };
 
       this.dataChange.emit(data);
@@ -81,14 +85,26 @@ export class TradeFormComponent {
     this.onChange();
   }
 
-  private formatOrderData(data: OrderFormData[]): Order[] {
-    return data.map((item: OrderFormData) => {
-      return {
-        activeOrder: !!item.activeOrder,
-        price: +item.price,
-        percent: +item.percent,
-        typeOfFee: item.typeOfFee,
-      };
+  private formatOrderData(orderInfo: OrderFormData[], commonData: CommonRiskFormData): TradeOrderArg[] { // TradeOrderArg
+    return orderInfo.map((item: OrderFormData) => {
+      if (!!item.activeOrder) {
+        return {
+          // activeOrder: !!item.activeOrder,
+          price: +item.price,
+          volumePart: +item.percent / 100,
+          fee: this.getFee(item, commonData),
+        };
+      }
     });
+  }
+
+  private getFee(item: OrderFormData, commonData: CommonRiskFormData) {
+    let fee = 0;
+
+    if (!!+commonData.feeEnabled) {
+      fee = item.typeOfFee === TypeFee.marketMaker ? +commonData.marketMakerFee : +commonData.marketTakerFee;
+    }
+
+    return fee;
   }
 }

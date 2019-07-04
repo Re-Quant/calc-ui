@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RiskIncomeData } from './models';
 import { RiskCalcService } from './services/risk-calc.service';
+import { TradeInfoArgs } from '@z-brain/calc';
 
 @Component({
   selector: 'app-risk-calc-advanced',
@@ -15,7 +15,7 @@ export class RiskCalcAdvancedComponent implements OnInit {
 
   public ngOnInit() {}
 
-  public formDataChanged(data: RiskIncomeData): void {
+  public formDataChanged(data: TradeInfoArgs): void {
     this.riskCalcService.calculateTrade(data);
   }
 }
