@@ -58,22 +58,27 @@ export class TradeFormComponent {
 
   public addOrderItemAbove(entity: string, index: number) {
     this.tradeFormService.addOrderItemAbove(entity, index);
+    this.onChange();
   }
 
   public addOrderItemBelow(entity: string, index: number) {
     this.tradeFormService.addOrderItemBelow(entity, index);
+    this.onChange();
   }
 
   public removeOrderItem(entity: string, index: number) {
     this.tradeFormService.removeOrderItem(entity, index);
+    this.onChange();
   }
 
   public onSetOrderItemPercentage(data: { value: string; item: FormGroup }) {
     this.tradeFormService.setOrderItemPercentage(data);
+    this.onChange();
   }
 
   public equalizePercentage(entity: string) {
     this.tradeFormService.equalizePercentage(entity);
+    this.onChange();
   }
 
   private formatOrderData(data: OrderFormData[]): Order[] {
