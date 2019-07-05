@@ -15,7 +15,7 @@ import { TradeInfoArgs } from '@z-brain/calc';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TradeFormComponent implements OnInit{
+export class TradeFormComponent implements OnInit {
   @Output()
   public dataChange = new EventEmitter<TradeInfoArgs>();
 
