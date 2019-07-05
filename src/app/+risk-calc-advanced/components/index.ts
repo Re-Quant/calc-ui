@@ -1,9 +1,9 @@
-import { TradeInfoComponent } from './trade-info/trade-info.component';
-import { CommonPanelComponent } from './common-panel/common-panel.component';
-import { EntryPriceComponent } from './entry-price/entry-price.component';
-import { StopLossComponent } from './stop-loss/stop-loss.component';
-import { TakeProfitComponent } from './take-profit/take-profit.component';
-import { OrderComponent } from './order/order.component';
+import { TradeInfoComponent } from './trade-form/trade-info/trade-info.component';
+import { CommonPanelComponent } from './trade-form/common-panel/common-panel.component';
+import { EntryPriceComponent } from './trade-form/entry-price/entry-price.component';
+import { StopLossComponent } from './trade-form/stop-loss/stop-loss.component';
+import { TakeProfitComponent } from './trade-form/take-profit/take-profit.component';
+import { OrderComponent } from './trade-form/order/order.component';
 
 export const components: any[] = [
   TradeInfoComponent,

@@ -1,4 +1,4 @@
-import { TradeFormComponent } from './trade-form/trade-form.component';
+import { TradeFormComponent } from '../components/trade-form/trade-form.component';
 
 export const containers: any[] = [
   TradeFormComponent,

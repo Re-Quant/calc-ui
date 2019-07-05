@@ -51,4 +51,6 @@
                      (dataChange)="onChange()"
     ></app-take-profit>
   </div>
+
+  <app-trade-info *ngIf="data$ | async as data" [data]="data"></app-trade-info>
 </form>
