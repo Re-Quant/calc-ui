@@ -10,7 +10,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { containers } from './containers';
 import { components } from './components';
 import { pipes } from './pipes';
 
@@ -31,10 +35,14 @@ import { RiskCalcAdvancedComponent } from './risk-calc-advanced.component';
     MatButtonModule,
     MatButtonToggleModule,
     MatTableModule,
+    MatDividerModule,
+
+    FontAwesomeModule,
   ],
   exports: [],
   declarations: [
     RiskCalcAdvancedComponent,
+    ...containers,
     ...components,
     ...pipes,
   ],

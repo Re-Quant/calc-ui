@@ -10,8 +10,8 @@ export interface MarketFee {
 }
 
 export enum TypeFee {
-  marketMakerFee = 'marketMakerFee',
-  marketTakerFee = 'marketTakerFee',
+  marketMaker = 'marketMakerFee',
+  marketTaker = 'marketTakerFee',
 }
 
 export enum ExitTypeOfFee {
