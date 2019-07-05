@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { TradeOrderBase } from '@z-brain/calc';
 
 @Component({
   selector: 'app-orders-panel',
@@ -15,7 +16,7 @@ export class OrdersPanelComponent {
   public formName: string;
 
   @Input()
-  public calculationData: object[];
+  public tradeOrderBase: TradeOrderBase[];
 
   @Output()
   public dataChange = new EventEmitter<void>();

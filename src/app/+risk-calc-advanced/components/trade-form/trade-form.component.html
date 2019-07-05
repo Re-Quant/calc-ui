@@ -12,7 +12,7 @@
 
     <app-orders-panel formName="entries"
                       [group]="form.get('entries')"
-                      [calculationData]="[{Vq:1, Vb:2}, {Vq:1, Vb:2}]"
+                      [tradeOrderBase]="tradeInfo?.entries"
                       (addOrderItemAbove)="addOrderItemAbove('entries', $event)"
                       (addOrderItemBelow)="addOrderItemBelow('entries', $event)"
                       (removeOrderItem)="removeOrderItem('entries', $event)"
@@ -27,7 +27,7 @@
 
     <app-orders-panel formName="stops"
                       [group]="form.get('stops')"
-                      [calculationData]="[{Vq:1, Vb:2}, {Vq:1, Vb:2}]"
+                      [tradeOrderBase]="tradeInfo?.stops"
                       (addOrderItemAbove)="addOrderItemAbove('stops', $event)"
                       (addOrderItemBelow)="addOrderItemBelow('stops', $event)"
                       (removeOrderItem)="removeOrderItem('stops', $event)"
@@ -42,7 +42,7 @@
 
     <app-orders-panel formName="takes"
                       [group]="form.get('takes')"
-                      [calculationData]="[{Vq:1, Vb:2}, {Vq:1, Vb:2}]"
+                      [tradeOrderBase]="tradeInfo?.takes"
                       (addOrderItemAbove)="addOrderItemAbove('takes', $event)"
                       (addOrderItemBelow)="addOrderItemBelow('takes', $event)"
                       (removeOrderItem)="removeOrderItem('takes', $event)"

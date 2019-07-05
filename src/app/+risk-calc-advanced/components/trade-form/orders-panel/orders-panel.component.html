@@ -13,6 +13,7 @@
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event, item)"
                       (dataChange)="onChange()"
     ></app-order-inputs>
-    <app-order-outputs></app-order-outputs>
+
+    <app-order-outputs *ngIf="tradeOrderBase" [data]="tradeOrderBase[i]"></app-order-outputs>
   </div>
 </div>
