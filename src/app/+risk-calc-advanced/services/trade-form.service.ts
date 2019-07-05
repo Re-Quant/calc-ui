@@ -147,14 +147,12 @@ export class TradeFormService {
 
   private formatOrderData(orderInfo: OrderFormData[], commonData: CommonRiskFormData): TradeOrderArg[] {
     return orderInfo.map((item: OrderFormData) => {
-      // if (!!item.activeOrder) {
       return {
         // activeOrder: !!item.activeOrder,
         price: +item.price,
         volumePart: +item.percent / 100,
         fee: this.getOrderFee(item, commonData),
       };
-      // }
     });
   }
 

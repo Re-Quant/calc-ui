@@ -6,7 +6,7 @@ import { TradeInfo, TradeInfoArgs, zRisk } from '@z-brain/calc';
   providedIn: 'root',
 })
 export class RiskCalcService {
-  public data$: Observable<any>; // CalculatedData
+  public data$: Observable<any>;
 
   public calculateTrade(income: TradeInfoArgs): TradeInfo {
     return zRisk.getTradeInfo(income);
