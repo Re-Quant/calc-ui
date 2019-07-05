@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TradeFormService } from '../../services/trade-form.service';
+import { TradeFormService } from './trade-form.service';
 import { TradeFormValidatorsService } from '../../services/trade-form-validators.service';
 import { RiskIncomeFormData } from '../../models';
 import { TradeInfoArgs } from '@z-brain/calc';
