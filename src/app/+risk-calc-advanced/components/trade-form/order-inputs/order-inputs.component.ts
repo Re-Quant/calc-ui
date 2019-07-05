@@ -3,12 +3,12 @@ import { FormGroup } from '@angular/forms';
 import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
+  selector: 'app-order-inputs',
+  templateUrl: './order-inputs.component.html',
+  styleUrls: ['./order-inputs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderComponent {
+export class OrderInputsComponent {
   @Input()
   public group: FormGroup;
 

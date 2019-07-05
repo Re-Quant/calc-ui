@@ -4,7 +4,7 @@
   </div>
 
   <div *ngFor="let item of group.controls; let i = index;">
-    <app-order [group]="group"
+    <app-order-inputs [group]="group"
                [formName]="formName"
                [formGroupIndex]="i"
                (addOrderItemAbove)="onAddItemAbove($event)"
@@ -17,6 +17,6 @@
         <div>V quoted: {{ calculationData[i].Vq }}</div>
         <div>V base: {{ calculationData[i].Vb }}</div>
       </div>
-    </app-order>
+    </app-order-inputs>
   </div>
 </div>
