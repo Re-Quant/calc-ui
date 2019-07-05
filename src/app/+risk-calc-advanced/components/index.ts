@@ -4,6 +4,8 @@ import { EntryPriceComponent } from './trade-form/entry-price/entry-price.compon
 import { StopLossComponent } from './trade-form/stop-loss/stop-loss.component';
 import { TakeProfitComponent } from './trade-form/take-profit/take-profit.component';
 import { OrderInputsComponent } from './trade-form/order-inputs/order-inputs.component';
+import { OrderOutputsComponent } from './trade-form/order-outputs/order-outputs.component';
+import { OrdersPanelComponent } from './trade-form/orders-panel/orders-panel.component';
 
 export const components: any[] = [
   TradeInfoComponent,
@@ -12,4 +14,6 @@ export const components: any[] = [
   StopLossComponent,
   TakeProfitComponent,
   OrderInputsComponent,
+  OrderOutputsComponent,
+  OrdersPanelComponent
 ];
