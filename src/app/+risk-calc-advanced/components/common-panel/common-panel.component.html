@@ -49,5 +49,13 @@
         <mat-button-toggle value="short">Short</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
+
+    <div fxFlex="10" fxFlex.lg="10" >
+      Breakeven Order Type
+      <mat-button-toggle-group formControlName="breakevenOrderType" (change)="onChange()">
+        <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
+        <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
   </div>
 </div>

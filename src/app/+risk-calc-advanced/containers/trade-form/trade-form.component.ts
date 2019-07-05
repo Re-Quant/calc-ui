@@ -32,7 +32,6 @@ export class TradeFormComponent {
       const value: RiskIncomeFormData = this.form.value;
 
       const data: TradeInfoArgs = {
-      // const data: any = {
         deposit: +value.commonPanel.deposit,
         risk: +value.commonPanel.risk / 100,
 
@@ -44,7 +43,7 @@ export class TradeFormComponent {
         tradeType: value.commonPanel.tradeType,
 
         breakeven: {
-          fee: 0.001, // TODO need new element
+          fee: this.getBreakevenFee(value.commonPanel),
         },
 
         entries: this.formatOrderData(value.entries, value.commonPanel),
@@ -85,24 +84,34 @@ export class TradeFormComponent {
     this.onChange();
   }
 
-  private formatOrderData(orderInfo: OrderFormData[], commonData: CommonRiskFormData): TradeOrderArg[] { // TradeOrderArg
+  private formatOrderData(orderInfo: OrderFormData[], commonData: CommonRiskFormData): TradeOrderArg[] {
     return orderInfo.map((item: OrderFormData) => {
-      if (!!item.activeOrder) {
+      // if (!!item.activeOrder) {
         return {
           // activeOrder: !!item.activeOrder,
           price: +item.price,
           volumePart: +item.percent / 100,
-          fee: this.getFee(item, commonData),
+          fee: this.getOrderFee(item, commonData),
         };
-      }
+      // }
     });
   }
 
-  private getFee(item: OrderFormData, commonData: CommonRiskFormData) {
+  private getOrderFee(item: OrderFormData, commonData: CommonRiskFormData) {
     let fee = 0;
 
     if (!!+commonData.feeEnabled) {
       fee = item.typeOfFee === TypeFee.marketMaker ? +commonData.marketMakerFee : +commonData.marketTakerFee;
+    }
+
+    return fee;
+  }
+
+  private getBreakevenFee(commonData: CommonRiskFormData) {
+    let fee = 0;
+
+    if (!!+commonData.feeEnabled) {
+      fee = commonData.breakevenOrderType === TypeFee.marketMaker ? +commonData.marketMakerFee : +commonData.marketTakerFee;
     }
 
     return fee;

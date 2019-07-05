@@ -48,6 +48,7 @@ export interface CommonRiskFormData {
   maxTradeVolumeQuoted: string;
 
   tradeType: ETradeType;
+  breakevenOrderType: TypeFee;
 }
 
 export interface RiskIncomeFormData {
