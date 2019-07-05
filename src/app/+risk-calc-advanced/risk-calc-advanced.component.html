@@ -2,7 +2,9 @@
   <div class="left">
     <h2>Risk Calculator Advanced</h2>
 
-    <app-trade-form (dataChange)="formDataChanged($event)"></app-trade-form>
-    <app-trade-info *ngIf="data$ | async as data" [data]="data"></app-trade-info>
+    <app-trade-form (dataChange)="formDataChanged($event)"
+                    [tradeInfo]="data$ | async"
+    ></app-trade-form>
+<!--    <app-trade-info *ngIf="data$ | async as data" [data]="data"></app-trade-info>-->
   </div>
 </div>

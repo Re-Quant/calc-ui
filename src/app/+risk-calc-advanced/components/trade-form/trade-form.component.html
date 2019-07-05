@@ -52,5 +52,5 @@
     ></app-take-profit>
   </div>
 
-  <app-trade-info *ngIf="data$ | async as data" [data]="data"></app-trade-info>
+  <app-trade-info *ngIf="tradeInfo" [data]="tradeInfo"></app-trade-info>
 </form>
