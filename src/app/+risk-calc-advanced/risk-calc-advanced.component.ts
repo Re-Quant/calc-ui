@@ -16,7 +16,8 @@ export class RiskCalcAdvancedComponent implements OnInit {
   public ngOnInit() {}
 
   public formDataChanged(data: TradeInfoArgs): void {
-    this.riskCalcService.calculateTrade(data);
+    const tradeInfo = this.riskCalcService.calculateTrade(data);
+    console.log(tradeInfo);
   }
 }
 

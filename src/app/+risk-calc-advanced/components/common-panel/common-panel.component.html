@@ -44,6 +44,8 @@
     </mat-form-field>
 
     <div fxFlex="15" class="mat-form-field-wrapper">
+      <div class="">Trade Type</div>
+      
       <mat-button-toggle-group formControlName="tradeType" (change)="onChange()">
         <mat-button-toggle value="long">Long</mat-button-toggle>
         <mat-button-toggle value="short">Short</mat-button-toggle>
@@ -51,7 +53,7 @@
     </div>
 
     <div fxFlex="10" fxFlex.lg="10" >
-      Breakeven Order Type
+      <div class="">Breakeven Order Type</div>
       <mat-button-toggle-group formControlName="breakevenOrderType" (change)="onChange()">
         <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
         <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TradeInfoArgs } from '@z-brain/calc';
+import { TradeInfo, TradeInfoArgs, zRisk } from '@z-brain/calc';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { TradeInfoArgs } from '@z-brain/calc';
 export class RiskCalcService {
   public data$: Observable<any>; // CalculatedData
 
-  public calculateTrade(income: TradeInfoArgs): void {
-    console.log(income);
+  public calculateTrade(income: TradeInfoArgs): TradeInfo {
+    return zRisk.getTradeInfo(income);
   }
 }

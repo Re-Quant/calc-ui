@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TradeFormService } from '../../services/trade-form.service';
 import { TradeFormValidatorsService } from '../../services/trade-form-validators.service';
@@ -15,7 +15,7 @@ import { TradeInfoArgs } from '@z-brain/calc';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TradeFormComponent {
+export class TradeFormComponent implements OnInit{
   @Output()
   public dataChange = new EventEmitter<TradeInfoArgs>();
 
@@ -25,6 +25,10 @@ export class TradeFormComponent {
 
   get form(): FormGroup {
     return this.tradeFormService.form;
+  }
+
+  ngOnInit() {
+    this.onChange();
   }
 
   public onChange(): void {

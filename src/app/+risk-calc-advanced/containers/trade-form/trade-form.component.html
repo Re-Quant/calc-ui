@@ -1,5 +1,7 @@
 <form [formGroup]="form" (change)="onChange()">
   <div class="trade-form mat-elevation-z8">
+    <h4>Common</h4>
+
     <app-common-panel [group]="form.get('commonPanel')"
                       (dataChange)="onChange()"
     ></app-common-panel>
