@@ -48,7 +48,6 @@ export class TradeFormService {
     private fb: FormBuilder
   ) {
     this.initForm();
-    this.fillFormUsingInitialData();
 
     this.tradeInfo$ = this.form.valueChanges.pipe(
       startWith(this.form.value as TradeFormData),
@@ -124,7 +123,7 @@ export class TradeFormService {
       leverageAvailable: [true],
       maxLeverage: ['5'],
       feeEnabled: [true],
-      marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
+      marketMakerFee: ['0.1', [Validators.required, Validators.min(0), Validators.max(100)]],
       marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
       maxTradeVolumeQuoted: ['5000'],
       tradeType: [ETradeType.Long, [Validators.required]],
@@ -139,15 +138,13 @@ export class TradeFormService {
     };
 
     this.form = this.fb.group(config);
-  }
 
-  private fillFormUsingInitialData(): void {
     this.addOrder({
       form: this.entriesSubForm,
       data: {
         activeOrder: true,
         price: '100',
-        percent: '10',
+        percent: '100',
         typeOfFee: TypeFee.marketMaker,
       },
     });
@@ -157,7 +154,7 @@ export class TradeFormService {
       data: {
         activeOrder: true,
         price: '90',
-        percent: '5',
+        percent: '100',
         typeOfFee: TypeFee.marketTaker,
       },
     });
@@ -167,7 +164,7 @@ export class TradeFormService {
       data: {
         activeOrder: true,
         price: '150',
-        percent: '25',
+        percent: '100',
         typeOfFee: TypeFee.marketTaker,
       },
     });
@@ -197,22 +194,18 @@ export class TradeFormService {
   }
 
   private getOrderFee(item: OrderFormData, commonData: CommonFormData) {
-    let fee = 0;
+    if (!commonData.feeEnabled) { return 0; }
 
-    if (!!+commonData.feeEnabled) {
-      fee = item.typeOfFee === TypeFee.marketMaker ? +commonData.marketMakerFee : +commonData.marketTakerFee;
-    }
-
-    return fee;
+    return (item.typeOfFee === TypeFee.marketMaker
+             ? +commonData.marketMakerFee
+             : +commonData.marketTakerFee) / 100;
   }
 
   private getBreakevenFee(commonData: CommonFormData) {
-    let fee = 0;
+    if (!commonData.feeEnabled) { return 0; }
 
-    if (!!+commonData.feeEnabled) {
-      fee = commonData.breakevenOrderType === TypeFee.marketMaker ? +commonData.marketMakerFee : +commonData.marketTakerFee;
-    }
-
-    return fee;
+    return (commonData.breakevenOrderType === TypeFee.marketMaker
+           ? +commonData.marketMakerFee
+           : +commonData.marketTakerFee) / 100;
   }
 }
