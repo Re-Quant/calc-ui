@@ -3,36 +3,46 @@
 
   <table>
     <tr>
-      <th>Volumes</th>
-      <th>AVG Prices</th>
-      <th></th>
+      <th colspan="4">Volumes:</th>
+      <th colspan="2">AVG Price:</th>
+      <th colspan="2"></th>
+      <th colspan="2"></th>
     </tr>
     <tr>
-      <td class="">T
-        Trade Sum:
-        <span>{{ data.totalVolume.entries.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
-        <span> {{ data.totalVolume.entries.orders.base | number: '0.0-2' }}</span>
-      </td>
-      <td class="">
-        Entry: <span>{{ data.avgPrices.entry | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
-      </td>
-      <td class="">Actual Leverage: <span>{{ data.leverage.actual }}</span></td>
+      <td>Trade Sum:</td>
+      <td>{{ data.totalVolume.entries.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>{{ data.totalVolume.entries.orders.base | number: '0.0-2' }}</td>
+      <td>{{ data.totalVolume.entries.fees.quoted | percent: '0.0-2' }}</td>
+      <td>Entry:</td>
+      <td>{{ data.avgPrices.entry | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>Actual Leverage:</td>
+      <td>{{ data.leverage.actual }}</td>
+      <td>Margin Cell Price:</td>
+      <td></td>
     </tr>
     <tr>
-      <td class="">
-        Max Loss: <span>{{ data.totalVolume.stops.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
-      </td>
-      <td class="">Stop: <span>{{ data.avgPrices.stop | currency : 'USD' : 'symbol' : '0.0-2' }}</span></td>
-      <td class="">
-        Risk Rate: {{ data.risk * 100 }} :
-      </td>
+      <td>Max Loss:</td>
+      <td>{{ data.totalVolume.stops.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>{{ data.totalVolume.stops.fees.quoted | percent: '0.0-2' }}</td>
+      <td></td>
+      <td>Stop:</td>
+      <td>{{ data.avgPrices.stop | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>Risk Ratio:</td>
+      <td>{{ data.risk * 100 }} : </td>
+      <td>Breakeven Price: </td>
+      <td></td>
     </tr>
     <tr>
-      <td class="">
-        Max Profit: <span>{{ data.totalVolume.takes.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
-      </td>
-      <td class="">Take: <span>{{ data.avgPrices.take | currency : 'USD' : 'symbol' : '0.0-2' }}</span></td>
-      <td class="">Breakeven Price: <span>{{ data.breakeven.price | currency : 'USD' : 'symbol' : '0.0-2' }}</span></td>
+      <td>Max Profit:</td>
+      <td>{{ data.totalVolume.takes.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>{{ data.totalVolume.takes.fees.quoted | percent: '0.0-2' }}</td>
+      <td></td>
+      <td>Take:</td>
+      <td>{{ data.avgPrices.take | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
   </table>
 </div>

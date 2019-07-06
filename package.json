@@ -28,7 +28,7 @@
     "@fortawesome/fontawesome-svg-core": "~1.2.19",
     "@fortawesome/free-regular-svg-icons": "~5.9.0",
     "@fortawesome/free-solid-svg-icons": "~5.9.0",
-    "@z-brain/calc": "0.0.21-dev.25",
+    "@z-brain/calc": "dev",
     "angular-font-awesome": "~3.1.2",
     "core-js": "~3.1.4",
     "lodash": "~4.17.11",
