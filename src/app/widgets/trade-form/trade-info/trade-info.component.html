@@ -10,8 +10,9 @@
     <tr>
       <td class="">T
         Trade Sum:
-        <span>{{ data.totalVolume.entries.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
-        <span> {{ data.totalVolume.entries.orders.base | number: '0.0-2' }}</span>
+        <span>{{ tv.entries.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        <span> {{ tv.entries.orders.base | number: '0.0-2' }}</span>
+        <span> {{ tv.entries.orders.percent | percent: '0.0-2' }}</span>
       </td>
       <td class="">
         Entry: <span>{{ data.avgPrices.entry | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
@@ -20,16 +21,19 @@
     </tr>
     <tr>
       <td class="">
-        Max Loss: <span>{{ data.totalVolume.stops.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        Max Loss: <span>{{ tv.loss.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        <span> {{ tv.loss.percent | percent: '0.0-2' }}</span>
       </td>
       <td class="">Stop: <span>{{ data.avgPrices.stop | currency : 'USD' : 'symbol' : '0.0-2' }}</span></td>
       <td class="">
-        Risk Rate: {{ data.risk * 100 }} :
+        Risk Ratio: 1 : {{ tv.riskRatio | number : '0.0-2' }}
       </td>
     </tr>
     <tr>
       <td class="">
-        Max Profit: <span>{{ data.totalVolume.takes.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        Max Profit:
+        <span>{{ tv.profit.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</span>
+        <span> {{ tv.profit.percent | percent: '0.0-2' }}</span>
       </td>
       <td class="">Take: <span>{{ data.avgPrices.take | currency : 'USD' : 'symbol' : '0.0-2' }}</span></td>
       <td class="">Breakeven Price: <span>{{ data.breakeven.price | currency : 'USD' : 'symbol' : '0.0-2' }}</span></td>

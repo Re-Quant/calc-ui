@@ -11,6 +11,10 @@ export class TradeInfoComponent implements OnInit {
   @Input()
   public data: TradeInfo;
 
+  public get tv(): TradeInfo['totalVolume'] {
+    return this.data.totalVolume;
+  }
+
   public ngOnInit(): void {
     console.log(this.data);
   }

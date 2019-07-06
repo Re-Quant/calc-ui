@@ -1,6 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
-import { TradeOrderBase } from '@z-brain/calc';
+import { AbstractControl, FormArray } from '@angular/forms';
+
+import { TradeOrderBase, zMath } from '@z-brain/calc';
+import { OrderFormData } from '../trade-form.models';
+
+export interface AddOrderEvent {
+  index: number;
+  place: 'above' | 'below';
+}
+
 
 @Component({
   selector: 'app-orders-panel',
@@ -9,45 +17,30 @@ import { TradeOrderBase } from '@z-brain/calc';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersPanelComponent {
-  @Input()
-  public group: FormGroup;
 
   @Input()
-  public formName: string;
+  public form: FormArray;
 
+  // @todo: replace with TradeOrder after update @z-brain/calc
   @Input()
-  public tradeOrderBase: TradeOrderBase[];
+  public tradeOrders?: TradeOrderBase[];
 
   @Output()
-  public dataChange = new EventEmitter<void>();
-
-  @Output()
-  public addOrderItemAbove = new EventEmitter<number>();
-
-  @Output()
-  public addOrderItemBelow = new EventEmitter<number>();
+  public addOrder = new EventEmitter<AddOrderEvent>();
 
   @Output()
   public removeOrderItem = new EventEmitter<number>();
 
   @Output()
-  public equalizePercentage = new EventEmitter<string>();
+  public equalizePercentage = new EventEmitter<void>();
 
   @Output()
   public setOrderItemPercentage = new EventEmitter<{ value: string; item: AbstractControl }>();
 
   constructor() { }
 
-  public onChange() {
-    this.dataChange.emit();
-  }
-
-  public onAddItemAbove(index: number): void {
-    this.addOrderItemAbove.emit(index);
-  }
-
-  public onAddItemBelow(index: number): void {
-    this.addOrderItemBelow.emit(index);
+  public onAddOrder(index: number, place: 'above' | 'below'): void {
+    this.addOrder.emit({ index, place });
   }
 
   public onRemoveItem(index: number): void {
@@ -59,6 +52,28 @@ export class OrdersPanelComponent {
   }
 
   public equalize(): void {
-    this.equalizePercentage.emit(this.formName);
+    this.equalizePercentage.emit();
   }
+
+  public getTradeOrder(index: number): TradeOrderBase | undefined {
+    if (!this.tradeOrders || !this.isOrderValidAndActive(index)) {
+      return undefined;
+    }
+
+    const actualIndex = zMath.sigmaSum(index, i => +this.isOrderValidAndActive(i)) - 1;
+    const order = this.tradeOrders[actualIndex];
+
+    if (!order) {
+      console.warn('getTradeOrder() Wrong actualIndex: ', actualIndex);
+    }
+
+    return order;
+  }
+
+  private isOrderValidAndActive(index: number): boolean {
+    const controlName: keyof OrderFormData = 'activeOrder';
+    const order = this.form.get([index]);
+    return order.valid && order.get(controlName).value;
+  }
+
 }
