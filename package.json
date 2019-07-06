@@ -31,6 +31,7 @@
     "@z-brain/calc": "dev",
     "angular-font-awesome": "~3.1.2",
     "core-js": "~3.1.4",
+    "font-awesome": "^4.7.0",
     "lodash": "~4.17.11",
     "rxjs": "~6.5.2",
     "tslib": "~1.9.3",
