@@ -2,8 +2,7 @@
   <div class="trade-form mat-elevation-z8">
     <h4>Common</h4>
 
-    <app-common-inputs-panel [form]="commonSubForm"
-    ></app-common-inputs-panel>
+    <app-common-inputs-panel [form]="commonSubForm"></app-common-inputs-panel>
   </div>
 
   <div class="trade-form mat-elevation-z8">
@@ -11,8 +10,7 @@
 
     <app-orders-panel [form]="entriesSubForm"
                       [tradeOrderBase]="tradeInfo?.entries"
-                      (addOrderItemAbove)="addOrderItemAbove(entriesSubForm, $event)"
-                      (addOrderItemBelow)="addOrderItemBelow(entriesSubForm, $event)"
+                      (addOrder)="addOrder(entriesSubForm, $event)"
                       (removeOrderItem)="removeOrderItem(entriesSubForm, $event)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
                       (equalizePercentage)="equalizePercentage(entriesSubForm)"
@@ -24,8 +22,7 @@
 
     <app-orders-panel [form]="stopsSubForm"
                       [tradeOrderBase]="tradeInfo?.stops"
-                      (addOrderItemAbove)="addOrderItemAbove(stopsSubForm, $event)"
-                      (addOrderItemBelow)="addOrderItemBelow(stopsSubForm, $event)"
+                      (addOrder)="addOrder(stopsSubForm, $event)"
                       (removeOrderItem)="removeOrderItem(stopsSubForm, $event)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
                       (equalizePercentage)="equalizePercentage(stopsSubForm)"
@@ -37,8 +34,7 @@
 
     <app-orders-panel [form]="takesSubForm"
                       [tradeOrderBase]="tradeInfo?.takes"
-                      (addOrderItemAbove)="addOrderItemAbove(takesSubForm, $event)"
-                      (addOrderItemBelow)="addOrderItemBelow(takesSubForm, $event)"
+                      (addOrder)="addOrder(takesSubForm, $event)"
                       (removeOrderItem)="removeOrderItem(takesSubForm, $event)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
                       (equalizePercentage)="equalizePercentage(takesSubForm)"

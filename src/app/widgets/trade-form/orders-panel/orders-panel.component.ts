@@ -2,6 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { TradeOrderBase } from '@z-brain/calc';
 
+export interface AddOrderEvent {
+  index: number;
+  place: 'above' | 'below';
+}
+
+
 @Component({
   selector: 'app-orders-panel',
   templateUrl: './orders-panel.component.html',
@@ -16,10 +22,7 @@ export class OrdersPanelComponent {
   public tradeOrderBase: TradeOrderBase[];
 
   @Output()
-  public addOrderItemAbove = new EventEmitter<number>();
-
-  @Output()
-  public addOrderItemBelow = new EventEmitter<number>();
+  public addOrder = new EventEmitter<AddOrderEvent>();
 
   @Output()
   public removeOrderItem = new EventEmitter<number>();
@@ -33,11 +36,11 @@ export class OrdersPanelComponent {
   constructor() { }
 
   public onAddItemAbove(index: number): void {
-    this.addOrderItemAbove.emit(index);
+    this.addOrder.emit({index, place: 'above'});
   }
 
   public onAddItemBelow(index: number): void {
-    this.addOrderItemBelow.emit(index);
+    this.addOrder.emit({index, place: 'below'});
   }
 
   public onRemoveItem(index: number): void {

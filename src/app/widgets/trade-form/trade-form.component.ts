@@ -14,6 +14,7 @@ import { TradeInfo, TradeInfoArgs } from '@z-brain/calc';
 import { TradeFormService } from './trade-form.service';
 import { TradeFormValidatorsService } from './trade-form-validators.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { AddOrderEvent } from './orders-panel/orders-panel.component';
 
 @Component({
   selector: 'app-trade-form',
@@ -50,12 +51,8 @@ export class TradeFormComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {}
 
-  public addOrderItemAbove(form: FormArray, index: number) {
-    this.tradeFormService.addOrderItemAbove(form, index);
-  }
-
-  public addOrderItemBelow(form: FormArray, index: number) {
-    this.tradeFormService.addOrderItemBelow(form, index);
+  public addOrder(form: FormArray, { index, place }: AddOrderEvent) {
+    this.tradeFormService.addOrder({ form, index, place });
   }
 
   public removeOrderItem(form: FormArray, index: number) {

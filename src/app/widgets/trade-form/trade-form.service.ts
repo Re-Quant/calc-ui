@@ -58,19 +58,18 @@ export class TradeFormService {
     );
   }
 
-  public addOrderItemAbove(form: FormArray, index: number): void {
-    form.insert(index, this.createOrderForm(this.defaultItem));
+  public addOrder({ form, place = 'below', index, data }: {
+    form: FormArray,
+    place?: 'above' | 'below',
+    index?: number,
+    data?: OrderFormData,
+  }): void {
+    index = index === undefined ? Math.min(0, form.length - 1) :
+            place === 'above' ? index :
+            index + 1;
+
+    form.insert(index, this.createOrderForm(data || this.defaultItem));
   }
-
-  public addOrderItemBelow(form: FormArray, index: number): void {
-    form.insert(index + 1, this.createOrderForm(this.defaultItem));
-  }
-
-
-
-  // public addOrder(form: FormArray, index: number, place: 'above' | 'below'): void {
-  //   form.insert(place === 'above' ? index : index + 1, this.createOrderForm(this.defaultItem));
-  // }
 
   public removeOrderItem(form: FormArray, index: number): void {
     form.removeAt(index);
@@ -143,32 +142,35 @@ export class TradeFormService {
   }
 
   private fillFormUsingInitialData(): void {
-    this.entriesSubForm.push(
-      this.createOrderForm({
+    this.addOrder({
+      form: this.entriesSubForm,
+      data: {
         activeOrder: true,
         price: '100',
         percent: '10',
         typeOfFee: TypeFee.marketMaker,
-      })
-    );
+      },
+    });
 
-    this.stopsSubForm.push(
-      this.createOrderForm({
+    this.addOrder({
+      form: this.stopsSubForm,
+      data: {
         activeOrder: true,
         price: '90',
         percent: '5',
         typeOfFee: TypeFee.marketTaker,
-      })
-    );
+      },
+    });
 
-    this.takesSubForm.push(
-      this.createOrderForm({
+    this.addOrder({
+      form: this.takesSubForm,
+      data: {
         activeOrder: true,
         price: '150',
         percent: '25',
         typeOfFee: TypeFee.marketTaker,
-      })
-    );
+      },
+    });
   }
 
   private createOrderForm(data: OrderFormData): FormGroup {
