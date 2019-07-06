@@ -5,55 +5,66 @@
        fxLayout.lg="row"
        fxFlexFill
        fxLayoutGap="15px"
+       class="mat-form-field-wrapper"
   >
-    <mat-form-field fxFlex="15">
+    <mat-form-field>
       <span matPrefix>$&nbsp;</span>
       <input type="number" step="100" matInput formControlName="deposit" placeholder="Deposit">
     </mat-form-field>
 
-    <mat-form-field fxFlex="10">
+    <mat-form-field>
       <input type="number" matInput formControlName="risk" placeholder="Risk">
       <span matSuffix>&nbsp;%</span>
     </mat-form-field>
 
-    <div class="leverage-wrapper" fxFlex="10">
-      <mat-checkbox formControlName="leverageAvailable" (change)="onChange()">Leverage</mat-checkbox>
-    </div>
-
-    <mat-form-field fxFlex="5">
-      <input type="number" step="1" matInput formControlName="maxLeverage" placeholder="Max Leverage">
-    </mat-form-field>
-
-    <div fxFlex="7">
-      <mat-checkbox formControlName="feeEnabled" (change)="onChange()">Fee</mat-checkbox>
-    </div>
-
-    <mat-form-field fxFlex="10">
-      <input type="number" step="0.1" matInput formControlName="marketMakerFee" placeholder="Market Maker Fee">
-      <span matSuffix>&nbsp;%</span>
-    </mat-form-field>
-
-    <mat-form-field fxFlex="10">
-      <input type="number" step="0.1" matInput formControlName="marketTakerFee" placeholder="Market Taker Fee">
-      <span matSuffix>&nbsp;%</span>
-    </mat-form-field>
-
-    <mat-form-field fxFlex="10">
+    <mat-form-field>
       <span matPrefix>$&nbsp;</span>
       <input type="number" step="100" matInput formControlName="maxTradeVolumeQuoted" placeholder="Max Trade Sum">
     </mat-form-field>
 
-    <div fxFlex="15" class="mat-form-field-wrapper">
-      <div class="">Trade Type</div>
-      
+    <div class="leverage-wrapper">
+      <mat-checkbox formControlName="leverageAvailable" (change)="onChange()">Leverage</mat-checkbox>
+    </div>
+
+    <mat-form-field>
+      <input type="number" step="1" matInput formControlName="maxLeverage" placeholder="Max Leverage">
+    </mat-form-field>
+
+    <div>
+      <mat-checkbox formControlName="feeEnabled" (change)="onChange()">Fee</mat-checkbox>
+    </div>
+
+    <mat-form-field>
+      <input type="number" step="0.1" matInput formControlName="marketMakerFee" placeholder="Market Maker Fee">
+      <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="number" step="0.1" matInput formControlName="marketTakerFee" placeholder="Market Taker Fee">
+      <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column"
+       fxLayoutAlign="start"
+       fxLayoutAlign.lg="left center"
+       fxLayout.lg="row"
+       fxFlexFill
+       fxLayoutGap="15px"
+       class="mat-form-field-wrapper"
+  >
+    <div>
+      <span class="">Trade Type: </span>
+
       <mat-button-toggle-group formControlName="tradeType" (change)="onChange()">
         <mat-button-toggle value="long">Long</mat-button-toggle>
         <mat-button-toggle value="short">Short</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
 
-    <div fxFlex="10" fxFlex.lg="10" >
-      <div class="">Breakeven Order Type</div>
+    <div>
+      <span class="">Breakeven Order Type: </span>
+
       <mat-button-toggle-group formControlName="breakevenOrderType" (change)="onChange()">
         <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
         <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
