@@ -38,12 +38,6 @@ export class TradeFormService {
         price: '100',
         percent: '10',
         typeOfFee: TypeFee.marketMaker,
-      }),
-      this.createOrderItem({
-        activeOrder: true,
-        price: '100',
-        percent: '10',
-        typeOfFee: TypeFee.marketMaker,
       })
     ]);
     const stopLossConfig = this.fb.array([
