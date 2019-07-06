@@ -12,7 +12,7 @@ export interface OrderFormData {
   typeOfFee: TypeFee;
 }
 
-export interface CommonRiskFormData {
+export interface CommonFormData {
   deposit: string;
   risk: string;
   leverageAvailable: boolean;
@@ -28,8 +28,8 @@ export interface CommonRiskFormData {
   breakevenOrderType: TypeFee;
 }
 
-export interface RiskIncomeFormData {
-  commonPanel: CommonRiskFormData;
+export interface TradeFormData {
+  common: CommonFormData;
   entries: OrderFormData[];
   stops: OrderFormData[];
   takes: OrderFormData[];

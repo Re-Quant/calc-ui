@@ -7,7 +7,7 @@ import { distinctUntilChanged, filter, map, shareReplay, startWith } from 'rxjs/
 import * as _ from 'lodash';
 
 import { TradeFormValidatorsService } from './trade-form-validators.service';
-import { CommonRiskFormData, OrderFormData, RiskIncomeFormData, TypeFee } from './trade-form.models';
+import { CommonFormData, OrderFormData, TradeFormData, TypeFee } from './trade-form.models';
 
 @Injectable()
 export class TradeFormService {
@@ -15,19 +15,23 @@ export class TradeFormService {
   public form: FormGroup;
 
   public get commonSubForm(): FormGroup {
-    return this.form.get('commonPanel') as FormGroup;
+    const name: keyof TradeFormData = 'common';
+    return this.form.get(name) as FormGroup;
   }
 
   public get entriesSubForm(): FormArray {
-    return this.form.get('entries') as FormArray;
+    const name: keyof TradeFormData = 'entries';
+    return this.form.get(name) as FormArray;
   }
 
   public get stopsSubForm(): FormArray {
-    return this.form.get('stops') as FormArray;
+    const name: keyof TradeFormData = 'stops';
+    return this.form.get(name) as FormArray;
   }
 
   public get takesSubForm(): FormArray {
-    return this.form.get('takes') as FormArray;
+    const name: keyof TradeFormData = 'takes';
+    return this.form.get(name) as FormArray;
   }
 
 
@@ -42,78 +46,31 @@ export class TradeFormService {
     private pizzaValidatorsService: TradeFormValidatorsService,
     private fb: FormBuilder
   ) {
-    const commonPanelConfig = this.fb.group({
-      tradeType: [
-        ETradeType.Long, [Validators.required],
-      ],
-      deposit: ['1000', [Validators.required, Validators.min(0.1)]],
-      risk: ['1', [Validators.required, Validators.min(0), Validators.max(100)]],
-      leverageAvailable: [true],
-      maxLeverage: ['5'],
-      feeEnabled: [true],
-      marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
-      marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
-      maxTradeVolumeQuoted: ['5000'],
-      breakevenOrderType: [TypeFee.marketMaker],
-    });
-    const entryPriceConfig = this.fb.array([
-      this.createOrderItem({
-        activeOrder: true,
-        price: '100',
-        percent: '10',
-        typeOfFee: TypeFee.marketMaker,
-      })
-    ]);
-    const stopLossConfig = this.fb.array([
-      this.createOrderItem({
-        activeOrder: true,
-        price: '90',
-        percent: '5',
-        typeOfFee: TypeFee.marketTaker,
-      })
-    ]);
-    const takeProfitConfig = this.fb.array([
-      this.createOrderItem({
-        activeOrder: true,
-        price: '150',
-        percent: '25',
-        typeOfFee: TypeFee.marketTaker,
-      })
-    ]);
-    const config: any = {
-      commonPanel: commonPanelConfig,
-      entries: entryPriceConfig,
-      stops: stopLossConfig,
-      takes: takeProfitConfig,
-    };
-    this.form = this.fb.group(config as any);
+    this.initForm();
+    this.fillFormUsingInitialData();
 
     this.tradeInfo$ = this.form.valueChanges.pipe(
-      startWith(this.form.value as RiskIncomeFormData),
+      startWith(this.form.value as TradeFormData),
       filter(() => this.form.valid),
       distinctUntilChanged((p, q) => _.isEqual(p, q)),
-      map((data: RiskIncomeFormData) => this.convertToTradeInfoArgs(data)),
+      map((data: TradeFormData) => this.convertToTradeInfoArgs(data)),
       shareReplay(1),
     );
   }
 
-  public createOrderItem(data: OrderFormData): FormGroup {
-    return this.fb.group({
-      activeOrder: [data.activeOrder],
-      price: [data.price, [Validators.required]],
-      percent: [data.percent, [Validators.required]],
-      typeOfFee: [data.typeOfFee, [Validators.required]],
-    });
-  }
-
   public addOrderItemAbove(form: FormArray, index: number): void {
-    form.insert(index, this.createOrderItem(this.defaultItem));
-
+    form.insert(index, this.createOrderForm(this.defaultItem));
   }
 
   public addOrderItemBelow(form: FormArray, index: number): void {
-    form.insert(index + 1, this.createOrderItem(this.defaultItem));
+    form.insert(index + 1, this.createOrderForm(this.defaultItem));
   }
+
+
+
+  // public addOrder(form: FormArray, index: number, place: 'above' | 'below'): void {
+  //   form.insert(place === 'above' ? index : index + 1, this.createOrderForm(this.defaultItem));
+  // }
 
   public removeOrderItem(form: FormArray, index: number): void {
     form.removeAt(index);
@@ -133,27 +90,27 @@ export class TradeFormService {
     form.controls.forEach(v => v.patchValue(patch));
   }
 
-  public convertToTradeInfoArgs(value: RiskIncomeFormData): TradeInfoArgs {
+  public convertToTradeInfoArgs(value: TradeFormData): TradeInfoArgs {
     return {
-      deposit: +value.commonPanel.deposit,
-      risk: +value.commonPanel.risk / 100,
+      deposit: +value.common.deposit,
+      risk: +value.common.risk / 100,
 
       leverage: {
-        allow: !!+value.commonPanel.leverageAvailable,
-        max: +value.commonPanel.maxLeverage,
+        allow: !!+value.common.leverageAvailable,
+        max: +value.common.maxLeverage,
       },
 
-      tradeType: value.commonPanel.tradeType,
+      tradeType: value.common.tradeType,
 
       breakeven: {
-        fee: this.getBreakevenFee(value.commonPanel),
+        fee: this.getBreakevenFee(value.common),
       },
 
-      entries: this.formatOrderData(value.entries, value.commonPanel),
-      stops: this.formatOrderData(value.stops, value.commonPanel),
-      takes: this.formatOrderData(value.takes, value.commonPanel),
+      entries: this.formatOrderData(value.entries, value.common),
+      stops: this.formatOrderData(value.stops, value.common),
+      takes: this.formatOrderData(value.takes, value.common),
 
-      maxTradeVolumeQuoted: +value.commonPanel.maxTradeVolumeQuoted,
+      maxTradeVolumeQuoted: +value.common.maxTradeVolumeQuoted,
     };
   }
 
@@ -161,7 +118,71 @@ export class TradeFormService {
     return true;
   }
 
-  private formatOrderData(orderInfo: OrderFormData[], commonData: CommonRiskFormData): TradeOrderArg[] {
+  private initForm(): void {
+    const commonConfig: { [keys in keyof CommonFormData]: any[] } = {
+      deposit: ['1000', [Validators.required, Validators.min(0.1)]],
+      risk: ['1', [Validators.required, Validators.min(0), Validators.max(100)]],
+      leverageAvailable: [true],
+      maxLeverage: ['5'],
+      feeEnabled: [true],
+      marketMakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
+      marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
+      maxTradeVolumeQuoted: ['5000'],
+      tradeType: [ETradeType.Long, [Validators.required]],
+      breakevenOrderType: [TypeFee.marketMaker],
+    };
+
+    const config: { [key in keyof TradeFormData]: FormGroup | FormArray } = {
+      common: this.fb.group(commonConfig),
+      entries: this.fb.array([]),
+      stops: this.fb.array([]),
+      takes: this.fb.array([]),
+    };
+
+    this.form = this.fb.group(config);
+  }
+
+  private fillFormUsingInitialData(): void {
+    this.entriesSubForm.push(
+      this.createOrderForm({
+        activeOrder: true,
+        price: '100',
+        percent: '10',
+        typeOfFee: TypeFee.marketMaker,
+      })
+    );
+
+    this.stopsSubForm.push(
+      this.createOrderForm({
+        activeOrder: true,
+        price: '90',
+        percent: '5',
+        typeOfFee: TypeFee.marketTaker,
+      })
+    );
+
+    this.takesSubForm.push(
+      this.createOrderForm({
+        activeOrder: true,
+        price: '150',
+        percent: '25',
+        typeOfFee: TypeFee.marketTaker,
+      })
+    );
+  }
+
+  private createOrderForm(data: OrderFormData): FormGroup {
+    const config: { [keys in keyof OrderFormData]: any[] } = {
+      activeOrder: [data.activeOrder],
+      price: [data.price, [Validators.required]],
+      percent: [data.percent, [Validators.required]],
+      typeOfFee: [data.typeOfFee, [Validators.required]],
+    };
+
+    return this.fb.group(config);
+  }
+
+  private formatOrderData(orderInfo: OrderFormData[], commonData: CommonFormData): TradeOrderArg[] {
     return orderInfo.map((item: OrderFormData) => {
       return {
         // activeOrder: !!item.activeOrder,
@@ -172,7 +193,7 @@ export class TradeFormService {
     });
   }
 
-  private getOrderFee(item: OrderFormData, commonData: CommonRiskFormData) {
+  private getOrderFee(item: OrderFormData, commonData: CommonFormData) {
     let fee = 0;
 
     if (!!+commonData.feeEnabled) {
@@ -182,7 +203,7 @@ export class TradeFormService {
     return fee;
   }
 
-  private getBreakevenFee(commonData: CommonRiskFormData) {
+  private getBreakevenFee(commonData: CommonFormData) {
     let fee = 0;
 
     if (!!+commonData.feeEnabled) {
