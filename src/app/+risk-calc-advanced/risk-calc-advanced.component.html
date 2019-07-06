@@ -8,5 +8,12 @@
     ></app-trade-form>
   </div>
 
-  <pre>{{ form.form.value | json }}</pre>
+  <div>
+    <h3>Form Value:</h3>
+    <pre>{{ form.form.value | json }}</pre>
+  </div>
+  <div>
+    <h3>Trade Info:</h3>
+    <pre>{{ (data$ | async) | json }}</pre>
+  </div>
 </div>
