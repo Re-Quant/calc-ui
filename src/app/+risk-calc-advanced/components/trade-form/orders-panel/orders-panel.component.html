@@ -3,7 +3,7 @@
     <button mat-stroked-button fxFlexOffset="14.5" (click)="equalize()">Equalize</button>
   </div>
 
-  <div *ngFor="let item of group.controls; let i = index;">
+  <div class="orders-info mat-form-field-wrapper" *ngFor="let item of group.controls; let i = index;">
     <app-order-inputs [group]="group"
                       [formName]="formName"
                       [formGroupIndex]="i"
@@ -14,6 +14,6 @@
                       (dataChange)="onChange()"
     ></app-order-inputs>
 
-    <app-order-outputs *ngIf="tradeOrderBase" [data]="tradeOrderBase[i]"></app-order-outputs>
+    <app-order-outputs class="orders-panel__outputs" *ngIf="tradeOrderBase" [data]="tradeOrderBase[i]"></app-order-outputs>
   </div>
 </div>
