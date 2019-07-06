@@ -7,7 +7,7 @@
        fxLayoutGap="15px"
        [formGroupName]="formGroupIndex"
   >
-    <div fxFlex="2" fxFlex.lg="2">
+    <div>
       <div class="active-item">
         <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
         <div class="active-item__menu">
@@ -30,24 +30,24 @@
       </div>
     </div>
 
-    <mat-form-field fxFlex="12" fxFlex.lg="10.5">
+    <mat-form-field>
       <span matPrefix>$&nbsp;</span>
       <input type="number" step="100" matInput formControlName="price" placeholder="Price">
     </mat-form-field>
 
-    <mat-form-field fxFlex="4" fxFlex.lg="5.5">
+    <mat-form-field>
       <input type="number" matInput formControlName="percent" placeholder="Percent">
       <span matSuffix>&nbsp;%</span>
     </mat-form-field>
 
-    <div fxFlex="40" fxFlex.lg="43" >
+    <div>
       <button mat-stroked-button
               *ngFor="let percent of percentRange"
               (click)="setPercentage(percent)"
       >{{percent}}</button>
     </div>
 
-    <div fxFlex="10" fxFlex.lg="10" >
+    <div>
       <mat-button-toggle-group formControlName="typeOfFee" (change)="onChange()">
         <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
         <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
