@@ -29,27 +29,27 @@ export class TradeInfoDataService {
     );
   }
 
-  public convertToTradeInfoArgs(value: TradeFormData): TradeInfoArgs {
+  public convertToTradeInfoArgs({ common, entries, stops, takes }: TradeFormData): TradeInfoArgs {
     return {
-      deposit: +value.common.deposit,
-      risk: +value.common.risk / 100,
+      deposit: +common.deposit,
+      risk: +common.risk / 100,
 
       leverage: {
-        allow: !!+value.common.leverageAvailable,
-        max: +value.common.maxLeverage,
+        allow: !!+common.leverageAvailable,
+        max: +common.maxLeverage,
       },
 
-      tradeType: value.common.tradeType,
+      tradeType: common.tradeType,
 
       breakeven: {
-        fee: this.getBreakevenFee(value.common),
+        fee: this.getBreakevenFee(common),
       },
 
-      entries: this.formatOrderData(value.entries, value.common),
-      stops: this.formatOrderData(value.stops, value.common),
-      takes: this.formatOrderData(value.takes, value.common),
+      entries: this.formatOrderData(entries, common),
+      stops: this.formatOrderData(stops, common),
+      takes: this.formatOrderData(takes, common),
 
-      maxTradeVolumeQuoted: +value.common.maxTradeVolumeQuoted,
+      maxTradeVolumeQuoted: +common.maxTradeVolumeQuoted,
     };
   }
 
