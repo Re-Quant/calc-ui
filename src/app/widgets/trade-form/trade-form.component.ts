@@ -1,9 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+
+import { TradeInfo, TradeInfoArgs } from '@z-brain/calc';
+
 import { TradeFormService } from './trade-form.service';
 import { TradeFormValidatorsService } from './trade-form-validators.service';
-import { TradeInfo, TradeInfoArgs } from '@z-brain/calc';
-import { RiskIncomeFormData } from './trade-form.models';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-trade-form',
@@ -13,60 +23,50 @@ import { RiskIncomeFormData } from './trade-form.models';
     TradeFormService,
     TradeFormValidatorsService,
   ],
+  exportAs: 'tradeForm',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TradeFormComponent implements OnInit {
+export class TradeFormComponent implements OnInit, OnDestroy {
   @Output()
   public dataChange = new EventEmitter<TradeInfoArgs>();
 
   @Input()
   public tradeInfo: TradeInfo;
 
-  constructor(
+  // @todo: remove `form` from here. Used just for debug.
+  public get form(): FormGroup { return this.tradeFormService.form; }
+  public get commonSubForm()   { return this.tradeFormService.commonSubForm; }
+  public get entriesSubForm()  { return this.tradeFormService.entriesSubForm; }
+  public get stopsSubForm()    { return this.tradeFormService.stopsSubForm; }
+  public get takesSubForm()    { return this.tradeFormService.takesSubForm; }
+
+  public constructor(
     private tradeFormService: TradeFormService,
-  ) { }
+  ) {}
 
-  get form(): FormGroup {
-    return this.tradeFormService.form;
+  public ngOnInit() {
+    this.tradeFormService.tradeInfo$.pipe(untilDestroyed(this)).subscribe(this.dataChange);
   }
 
-  ngOnInit() {
-    this.onChange();
+  public ngOnDestroy() {}
+
+  public addOrderItemAbove(form: FormArray, index: number) {
+    this.tradeFormService.addOrderItemAbove(form, index);
   }
 
-  public onChange(): void {
-    if (this.form.valid) {
-      const value: RiskIncomeFormData = this.form.value;
-      const data: TradeInfoArgs = this.tradeFormService.convertToTradeInfoArgs(value);
-
-      this.dataChange.emit(data);
-    } else {
-      console.log('invalid form');
-    }
+  public addOrderItemBelow(form: FormArray, index: number) {
+    this.tradeFormService.addOrderItemBelow(form, index);
   }
 
-  public addOrderItemAbove(entity: string, index: number) {
-    this.tradeFormService.addOrderItemAbove(entity, index);
-    this.onChange();
-  }
-
-  public addOrderItemBelow(entity: string, index: number) {
-    this.tradeFormService.addOrderItemBelow(entity, index);
-    this.onChange();
-  }
-
-  public removeOrderItem(entity: string, index: number) {
-    this.tradeFormService.removeOrderItem(entity, index);
-    this.onChange();
+  public removeOrderItem(form: FormArray, index: number) {
+    this.tradeFormService.removeOrderItem(form, index);
   }
 
   public onSetOrderItemPercentage(data: { value: string; item: FormGroup }) {
     this.tradeFormService.setOrderItemPercentage(data);
-    this.onChange();
   }
 
-  public equalizePercentage(entity: string) {
-    this.tradeFormService.equalizePercentage(entity);
-    this.onChange();
+  public equalizePercentage(form: FormArray) {
+    this.tradeFormService.equalizePercentage(form);
   }
 }

@@ -1,12 +1,36 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TradeFormValidatorsService } from './trade-form-validators.service';
+
 import { ETradeType, TradeInfoArgs, TradeOrderArg } from '@z-brain/calc';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, shareReplay, startWith } from 'rxjs/operators';
+import * as _ from 'lodash';
+
+import { TradeFormValidatorsService } from './trade-form-validators.service';
 import { CommonRiskFormData, OrderFormData, RiskIncomeFormData, TypeFee } from './trade-form.models';
 
 @Injectable()
 export class TradeFormService {
+  public tradeInfo$: Observable<TradeInfoArgs>;
   public form: FormGroup;
+
+  public get commonSubForm(): FormGroup {
+    return this.form.get('commonPanel') as FormGroup;
+  }
+
+  public get entriesSubForm(): FormArray {
+    return this.form.get('entries') as FormArray;
+  }
+
+  public get stopsSubForm(): FormArray {
+    return this.form.get('stops') as FormArray;
+  }
+
+  public get takesSubForm(): FormArray {
+    return this.form.get('takes') as FormArray;
+  }
+
+
   private defaultItem: OrderFormData = {
     activeOrder: true,
     price: '',
@@ -63,6 +87,14 @@ export class TradeFormService {
       takes: takeProfitConfig,
     };
     this.form = this.fb.group(config as any);
+
+    this.tradeInfo$ = this.form.valueChanges.pipe(
+      startWith(this.form.value as RiskIncomeFormData),
+      filter(() => this.form.valid),
+      distinctUntilChanged((p, q) => _.isEqual(p, q)),
+      map((data: RiskIncomeFormData) => this.convertToTradeInfoArgs(data)),
+      shareReplay(1),
+    );
   }
 
   public createOrderItem(data: OrderFormData): FormGroup {
@@ -74,35 +106,31 @@ export class TradeFormService {
     });
   }
 
-  public addOrderItemAbove(entity: string, index: number): void {
-    this[entity] = this.form.get(entity) as FormArray;
-    this[entity].insert(index, this.createOrderItem(this.defaultItem));
+  public addOrderItemAbove(form: FormArray, index: number): void {
+    form.insert(index, this.createOrderItem(this.defaultItem));
 
   }
 
-  public addOrderItemBelow(entity: string, index: number): void {
-    this[entity] = this.form.get(entity) as FormArray;
-    this[entity].insert(index + 1, this.createOrderItem(this.defaultItem));
+  public addOrderItemBelow(form: FormArray, index: number): void {
+    form.insert(index + 1, this.createOrderItem(this.defaultItem));
   }
 
-  public removeOrderItem(entity: string, index: number): void {
-    this[entity] = this.form.get(entity) as FormArray;
-    this[entity].removeAt(index);
+  public removeOrderItem(form: FormArray, index: number): void {
+    form.removeAt(index);
   }
 
   public setOrderItemPercentage(data: { value: string; item: FormGroup }): void {
     data.item.controls['percent'].setValue(data.value);
   }
 
-  public equalizePercentage(entity: string) {
-    this[entity] = this.form.get(entity) as FormArray;
+  /**
+   * @param form entries or stops or takes sub form
+   */
+  public equalizePercentage(form: FormArray) {
 
-    const countFormGroup: any = this[entity].length;
-    const valueForOneCell: string = this.roundPercentage(countFormGroup);
+    const patch: Pick<{ percent: number }, 'percent'> = { percent: 100 / form.length };
 
-    this[entity].controls.forEach(v => {
-     v.controls.percent.setValue(valueForOneCell);
-    });
+    form.controls.forEach(v => v.patchValue(patch));
   }
 
   public convertToTradeInfoArgs(value: RiskIncomeFormData): TradeInfoArgs {
@@ -127,12 +155,6 @@ export class TradeFormService {
 
       maxTradeVolumeQuoted: +value.commonPanel.maxTradeVolumeQuoted,
     };
-  }
-
-  private roundPercentage(count: number): string {
-    const initValue = '100';
-
-    return count === 1 ? initValue : (100 / count).toString();
   }
 
   get isValid(): boolean {

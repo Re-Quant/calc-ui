@@ -2,8 +2,13 @@
   <div class="left">
     <h2>Risk Calculator Advanced</h2>
 
-    <app-trade-form (dataChange)="formDataChanged($event)"
+    <app-trade-form
+      #form="tradeForm"
+      (dataChange)="formDataChanged($event)"
                     [tradeInfo]="data$ | async"
     ></app-trade-form>
   </div>
+
+<!--  <pre>{{ (data$ | async) | json }}</pre>-->
+  <pre>{{ form.form.value | json }}</pre>
 </div>

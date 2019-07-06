@@ -10,16 +10,10 @@ import { TradeOrderBase } from '@z-brain/calc';
 })
 export class OrdersPanelComponent {
   @Input()
-  public group: FormGroup;
-
-  @Input()
-  public formName: string;
+  public form: FormGroup;
 
   @Input()
   public tradeOrderBase: TradeOrderBase[];
-
-  @Output()
-  public dataChange = new EventEmitter<void>();
 
   @Output()
   public addOrderItemAbove = new EventEmitter<number>();
@@ -31,16 +25,12 @@ export class OrdersPanelComponent {
   public removeOrderItem = new EventEmitter<number>();
 
   @Output()
-  public equalizePercentage = new EventEmitter<string>();
+  public equalizePercentage = new EventEmitter<void>();
 
   @Output()
   public setOrderItemPercentage = new EventEmitter<{ value: string; item: AbstractControl }>();
 
   constructor() { }
-
-  public onChange() {
-    this.dataChange.emit();
-  }
 
   public onAddItemAbove(index: number): void {
     this.addOrderItemAbove.emit(index);
@@ -59,6 +49,6 @@ export class OrdersPanelComponent {
   }
 
   public equalize(): void {
-    this.equalizePercentage.emit(this.formName);
+    this.equalizePercentage.emit();
   }
 }

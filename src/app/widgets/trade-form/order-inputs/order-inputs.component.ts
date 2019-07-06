@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import { AbstractControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-order-inputs',
@@ -10,16 +10,10 @@ import { AbstractControl } from '@angular/forms';
 })
 export class OrderInputsComponent {
   @Input()
-  public group: AbstractControl;
-
-  @Input()
-  public formName: string;
+  public form: FormGroup;
 
   @Input()
   public calculationData: object[];
-
-  @Output()
-  public dataChange = new EventEmitter<void>();
 
   @Output()
   public addOrderItemAbove = new EventEmitter<void>();
@@ -40,10 +34,6 @@ export class OrderInputsComponent {
   public percentRange: string[] = ['10', '20', '25', '50', '75', '80', '100'];
 
   constructor() { }
-
-  public onChange() {
-    this.dataChange.emit();
-  }
 
   public addItemAbove(): void {
     this.addOrderItemAbove.emit();
