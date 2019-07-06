@@ -1,0 +1,56 @@
+<div [formGroup]="group">
+  <div fxLayout="column"
+       fxLayoutAlign="start"
+       fxLayoutAlign.lg="left center"
+       fxLayout.lg="row"
+       fxFlexFill
+       fxLayoutGap="15px"
+  >
+    <div>
+      <div class="active-item">
+        <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
+        <div class="active-item__menu">
+          <div>
+            <div class="active-item__item active-item__item-wrapper" (click)="addItemAbove()">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
+              <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
+            </div>
+
+            <div class="active-item__item active-item__item-wrapper" (click)="addItemBelow()">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
+              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
+            </div>
+          </div>
+
+          <div class="active-item__item" (click)="removeItem()">
+            <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-form-field>
+      <span matPrefix>$&nbsp;</span>
+      <input type="number" step="100" matInput formControlName="price" placeholder="Price">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="number" matInput formControlName="percent" placeholder="Percent">
+      <span matSuffix>&nbsp;%</span>
+    </mat-form-field>
+
+    <div>
+      <button mat-stroked-button
+              *ngFor="let percent of percentRange"
+              (click)="setPercentage(percent)"
+      >{{percent}}</button>
+    </div>
+
+    <div>
+      <mat-button-toggle-group formControlName="typeOfFee" (change)="onChange()">
+        <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
+        <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+</div>

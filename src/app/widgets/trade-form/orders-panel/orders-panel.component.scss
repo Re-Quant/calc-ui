@@ -1,0 +1,10 @@
+.orders-info {
+  display: flex;
+}
+
+.orders-panel {
+  &__outputs {
+    display: flex;
+    align-items: center;
+  }
+}

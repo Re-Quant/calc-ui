@@ -1,0 +1,17 @@
+<div class="orders-panel" [formGroup]="group">
+  <div class="mat-form-field-wrapper">
+    <button mat-stroked-button fxFlexOffset="14.5" (click)="equalize()">Equalize</button>
+  </div>
+
+  <div class="orders-info mat-form-field-wrapper" *ngFor="let item of group.controls; let i = index;">
+    <app-order-inputs [group]="item"
+                      (addOrderItemAbove)="onAddItemAbove(i)"
+                      (addOrderItemBelow)="onAddItemBelow(i)"
+                      (removeOrderItem)="onRemoveItem(i)"
+                      (setOrderItemPercentage)="onSetOrderItemPercentage($event, item)"
+                      (dataChange)="onChange()"
+    ></app-order-inputs>
+
+    <app-order-outputs class="orders-panel__outputs" *ngIf="tradeOrderBase" [data]="tradeOrderBase[i]"></app-order-outputs>
+  </div>
+</div>

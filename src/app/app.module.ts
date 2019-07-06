@@ -11,9 +11,9 @@ import { routes } from './app.routes';
     AppComponent,
   ],
   imports: [
-      BrowserModule,
-      BrowserAnimationsModule,
-      RouterModule.forRoot(routes),
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

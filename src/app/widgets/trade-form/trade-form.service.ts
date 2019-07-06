@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TradeFormValidatorsService } from './trade-form-validators.service';
-import { CommonRiskFormData, OrderFormData, RiskIncomeFormData, TypeFee } from '../models';
 import { ETradeType, TradeInfoArgs, TradeOrderArg } from '@z-brain/calc';
+import { CommonRiskFormData, OrderFormData, RiskIncomeFormData, TypeFee } from './trade-form.models';
 
 @Injectable()
 export class TradeFormService {
@@ -33,12 +33,6 @@ export class TradeFormService {
       breakevenOrderType: [TypeFee.marketMaker],
     });
     const entryPriceConfig = this.fb.array([
-      this.createOrderItem({
-        activeOrder: true,
-        price: '100',
-        percent: '10',
-        typeOfFee: TypeFee.marketMaker,
-      }),
       this.createOrderItem({
         activeOrder: true,
         price: '100',

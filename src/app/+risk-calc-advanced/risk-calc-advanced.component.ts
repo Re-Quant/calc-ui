@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RiskCalcService } from './services/risk-calc.service';
-import { TradeInfoArgs } from '@z-brain/calc';
+import { TradeInfo, TradeInfoArgs } from '@z-brain/calc';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-risk-calc-advanced',
@@ -8,16 +9,28 @@ import { TradeInfoArgs } from '@z-brain/calc';
   styleUrls: ['./risk-calc-advanced.component.scss'],
 })
 export class RiskCalcAdvancedComponent implements OnInit {
+  public data$: Observable<TradeInfo | undefined>;
+
   public constructor(
     private riskCalcService: RiskCalcService,
   ) {
   }
 
-  public ngOnInit() {}
+  public ngOnInit() {
+    this.data$ = this.riskCalcService.data$;
+
+    this.logger();
+  }
 
   public formDataChanged(data: TradeInfoArgs): void {
-    const tradeInfo = this.riskCalcService.calculateTrade(data);
-    console.log(tradeInfo);
+    this.riskCalcService.updateData(data);
+  }
+
+  private logger() {
+    this.riskCalcService.data$
+      .subscribe((data) => {
+        console.table(data);
+      });
   }
 }
 

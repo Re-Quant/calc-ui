@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-common-panel',
-  templateUrl: './common-panel.component.html',
-  styleUrls: ['./common-panel.component.scss'],
+  selector: 'app-common-inputs-panel',
+  templateUrl: './common-inputs-panel.component.html',
+  styleUrls: ['./common-inputs-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommonPanelComponent {
+export class CommonInputsPanelComponent {
   @Input()
   public group: FormGroup;
 

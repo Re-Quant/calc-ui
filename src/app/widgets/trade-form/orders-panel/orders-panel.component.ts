@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { TradeOrderBase } from '@z-brain/calc';
 
 @Component({
-  selector: 'app-entry-price',
-  templateUrl: './entry-price.component.html',
-  styleUrls: ['./entry-price.component.scss'],
+  selector: 'app-orders-panel',
+  templateUrl: './orders-panel.component.html',
+  styleUrls: ['./orders-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EntryPriceComponent {
+export class OrdersPanelComponent {
   @Input()
   public group: FormGroup;
 
@@ -15,7 +16,7 @@ export class EntryPriceComponent {
   public formName: string;
 
   @Input()
-  public calculationData: object[];
+  public tradeOrderBase: TradeOrderBase[];
 
   @Output()
   public dataChange = new EventEmitter<void>();
@@ -33,7 +34,7 @@ export class EntryPriceComponent {
   public equalizePercentage = new EventEmitter<string>();
 
   @Output()
-  public setOrderItemPercentage = new EventEmitter<{ value: string; item: FormGroup }>();
+  public setOrderItemPercentage = new EventEmitter<{ value: string; item: AbstractControl }>();
 
   constructor() { }
 
@@ -53,7 +54,7 @@ export class EntryPriceComponent {
     this.removeOrderItem.emit(index);
   }
 
-  public onSetOrderItemPercentage(value: string, item: FormGroup): void {
+  public onSetOrderItemPercentage(value: string, item: AbstractControl): void {
     this.setOrderItemPercentage.emit({ value, item });
   }
 

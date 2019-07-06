@@ -1,0 +1,7 @@
+<div class="order-outputs">
+  <div class="order-outputs__value">{{ data.volume.order.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</div>
+  <div class="order-outputs__value">{{ data.volume.order.base | number: '0.0-2' }}</div>
+  <div class="order-outputs__value">{{ data.volume.sumWithPrev.orders.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</div>
+  <div class="order-outputs__value">{{ data.volume.sumWithPrev.orders.base | number: '0.0-2' }}</div>
+  <div class="order-outputs__value">{{ data.volume.sumWithPrev.fees.quoted | percent: '0.0-2' }}</div>
+</div>

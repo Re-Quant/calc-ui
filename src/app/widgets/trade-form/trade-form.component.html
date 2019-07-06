@@ -1,0 +1,56 @@
+<form [formGroup]="form" (change)="onChange()">
+  <div class="trade-form mat-elevation-z8">
+    <h4>Common</h4>
+
+    <app-common-inputs-panel [group]="form.get('commonPanel')"
+                      (dataChange)="onChange()"
+    ></app-common-inputs-panel>
+  </div>
+
+  <div class="trade-form mat-elevation-z8">
+    <h4>Entries</h4>
+
+    <app-orders-panel formName="entries"
+                      [group]="form.get('entries')"
+                      [tradeOrderBase]="tradeInfo?.entries"
+                      (addOrderItemAbove)="addOrderItemAbove('entries', $event)"
+                      (addOrderItemBelow)="addOrderItemBelow('entries', $event)"
+                      (removeOrderItem)="removeOrderItem('entries', $event)"
+                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
+                      (equalizePercentage)="equalizePercentage('entries')"
+                      (dataChange)="onChange()"
+    ></app-orders-panel>
+  </div>
+
+  <div class="trade-form mat-elevation-z8">
+    <h4>Stop Losses</h4>
+
+    <app-orders-panel formName="stops"
+                      [group]="form.get('stops')"
+                      [tradeOrderBase]="tradeInfo?.stops"
+                      (addOrderItemAbove)="addOrderItemAbove('stops', $event)"
+                      (addOrderItemBelow)="addOrderItemBelow('stops', $event)"
+                      (removeOrderItem)="removeOrderItem('stops', $event)"
+                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
+                      (equalizePercentage)="equalizePercentage('stops')"
+                      (dataChange)="onChange()"
+    ></app-orders-panel>
+  </div>
+
+  <div class="trade-form mat-elevation-z8">
+    <h4>Take Profits</h4>
+
+    <app-orders-panel formName="takes"
+                      [group]="form.get('takes')"
+                      [tradeOrderBase]="tradeInfo?.takes"
+                      (addOrderItemAbove)="addOrderItemAbove('takes', $event)"
+                      (addOrderItemBelow)="addOrderItemBelow('takes', $event)"
+                      (removeOrderItem)="removeOrderItem('takes', $event)"
+                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
+                      (equalizePercentage)="equalizePercentage('takes')"
+                      (dataChange)="onChange()"
+    ></app-orders-panel>
+  </div>
+
+  <app-trade-info *ngIf="tradeInfo" [data]="tradeInfo"></app-trade-info>
+</form>
