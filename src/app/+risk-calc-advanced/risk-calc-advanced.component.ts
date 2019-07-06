@@ -11,10 +11,13 @@ import { Observable } from 'rxjs';
 export class RiskCalcAdvancedComponent implements OnInit {
   public data$: Observable<TradeInfo | undefined>;
 
+  public get isShowDebugPanels(): boolean {
+    return !!JSON.parse(localStorage.getItem('debug.show-debug-panels'));
+  }
+
   public constructor(
     private riskCalcService: RiskCalcService,
-  ) {
-  }
+  ) {}
 
   public ngOnInit() {
     this.data$ = this.riskCalcService.data$;
