@@ -18,7 +18,7 @@
       <td>Actual Leverage:</td>
       <td>{{ data.leverage.actual }}</td>
       <td>Margin Cell Price:</td>
-      <td></td>
+      <td>{{ data.leverage?.marginCallPrice | currency : 'USD' : 'symbol' : '0.0-2' || 'Margin Call is missing' }}</td>
     </tr>
     <tr>
       <td>Max Loss:</td>
@@ -28,9 +28,9 @@
       <td>Stop:</td>
       <td>{{ data.avgPrices.stop | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
       <td>Risk Ratio:</td>
-      <td>{{ data.risk * 100 }} : </td>
+      <td>{{ data.risk * 100 }} : {{ data.totalVolume.riskRatio | number: '0.0-2' }} </td>
       <td>Breakeven Price: </td>
-      <td></td>
+      <td>{{ data.breakeven.price | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
     </tr>
     <tr>
       <td>Max Profit:</td>
