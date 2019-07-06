@@ -16,10 +16,7 @@ export class OrderInputsComponent {
   public calculationData: object[];
 
   @Output()
-  public addOrderItemAbove = new EventEmitter<void>();
-
-  @Output()
-  public addOrderItemBelow = new EventEmitter<void>();
+  public addOrder = new EventEmitter<'above' | 'below'>();
 
   @Output()
   public removeOrderItem = new EventEmitter<void>();
@@ -33,14 +30,12 @@ export class OrderInputsComponent {
   public faMinusCircle = faMinusCircle;
   public percentRange: string[] = ['10', '20', '25', '50', '75', '80', '100'];
 
-  constructor() { }
-
-  public addItemAbove(): void {
-    this.addOrderItemAbove.emit();
+  public addOrderAbove(): void {
+    this.addOrder.emit('above');
   }
 
-  public addItemBelow(): void {
-    this.addOrderItemBelow.emit();
+  public addOrderBelow(): void {
+    this.addOrder.emit('below');
   }
 
   public removeItem(): void {

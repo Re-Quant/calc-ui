@@ -32,7 +32,7 @@ export class TradeFormComponent implements OnInit, OnDestroy {
   public dataChange = new EventEmitter<TradeInfoArgs>();
 
   @Input()
-  public tradeInfo: TradeInfo;
+  public tradeInfo?: TradeInfo;
 
   // @todo: remove `form` from here. Used just for debug.
   public get form(): FormGroup { return this.tradeFormService.form; }

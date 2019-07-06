@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
-import { TradeOrderBase } from '@z-brain/calc';
+import { AbstractControl, FormArray } from '@angular/forms';
+
+import { TradeOrderBase, zMath } from '@z-brain/calc';
+import { OrderFormData } from '../trade-form.models';
 
 export interface AddOrderEvent {
   index: number;
@@ -15,11 +17,13 @@ export interface AddOrderEvent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersPanelComponent {
-  @Input()
-  public form: FormGroup;
 
   @Input()
-  public tradeOrderBase: TradeOrderBase[];
+  public form: FormArray;
+
+  // @todo: replace with TradeOrder after update @z-brain/calc
+  @Input()
+  public tradeOrders?: TradeOrderBase[];
 
   @Output()
   public addOrder = new EventEmitter<AddOrderEvent>();
@@ -35,12 +39,8 @@ export class OrdersPanelComponent {
 
   constructor() { }
 
-  public onAddItemAbove(index: number): void {
-    this.addOrder.emit({index, place: 'above'});
-  }
-
-  public onAddItemBelow(index: number): void {
-    this.addOrder.emit({index, place: 'below'});
+  public onAddOrder(index: number, place: 'above' | 'below'): void {
+    this.addOrder.emit({ index, place });
   }
 
   public onRemoveItem(index: number): void {
@@ -54,4 +54,26 @@ export class OrdersPanelComponent {
   public equalize(): void {
     this.equalizePercentage.emit();
   }
+
+  public getTradeOrder(index: number): TradeOrderBase | undefined {
+    if (!this.tradeOrders || !this.isOrderValidAndActive(index)) {
+      return undefined;
+    }
+
+    const actualIndex = zMath.sigmaSum(index, i => +this.isOrderValidAndActive(i)) - 1;
+    const order = this.tradeOrders[actualIndex];
+
+    if (!order) {
+      console.warn('getTradeOrder() Wrong actualIndex: ', actualIndex);
+    }
+
+    return order;
+  }
+
+  private isOrderValidAndActive(index: number): boolean {
+    const controlName: keyof OrderFormData = 'activeOrder';
+    const order = this.form.get([index]);
+    return order.valid && order.get(controlName).value;
+  }
+
 }

@@ -9,7 +9,7 @@
     <h4>Entries</h4>
 
     <app-orders-panel [form]="entriesSubForm"
-                      [tradeOrderBase]="tradeInfo?.entries"
+                      [tradeOrders]="tradeInfo?.entries"
                       (addOrder)="addOrder(entriesSubForm, $event)"
                       (removeOrderItem)="removeOrderItem(entriesSubForm, $event)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
@@ -21,7 +21,7 @@
     <h4>Stop Losses</h4>
 
     <app-orders-panel [form]="stopsSubForm"
-                      [tradeOrderBase]="tradeInfo?.stops"
+                      [tradeOrders]="tradeInfo?.stops"
                       (addOrder)="addOrder(stopsSubForm, $event)"
                       (removeOrderItem)="removeOrderItem(stopsSubForm, $event)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
@@ -33,7 +33,7 @@
     <h4>Take Profits</h4>
 
     <app-orders-panel [form]="takesSubForm"
-                      [tradeOrderBase]="tradeInfo?.takes"
+                      [tradeOrders]="tradeInfo?.takes"
                       (addOrder)="addOrder(takesSubForm, $event)"
                       (removeOrderItem)="removeOrderItem(takesSubForm, $event)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event)"

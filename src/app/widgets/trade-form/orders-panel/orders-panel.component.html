@@ -7,15 +7,14 @@
        *ngFor="let orderForm of form.controls; let i = index;"
   >
     <app-order-inputs [form]="orderForm"
-                      (addOrderItemAbove)="onAddItemAbove(i)"
-                      (addOrderItemBelow)="onAddItemBelow(i)"
+                      (addOrder)="onAddOrder(i, $event)"
                       (removeOrderItem)="onRemoveItem(i)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event, orderForm)"
     ></app-order-inputs>
 
     <app-order-outputs class="orders-panel__outputs"
-                       *ngIf="tradeOrderBase"
-                       [data]="tradeOrderBase[i]"
+                       *ngIf="getTradeOrder(i) as order"
+                       [data]="order"
     ></app-order-outputs>
   </div>
 </div>
