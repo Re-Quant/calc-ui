@@ -184,14 +184,15 @@ export class TradeFormService {
   }
 
   private formatOrderData(orderInfo: OrderFormData[], commonData: CommonFormData): TradeOrderArg[] {
-    return orderInfo.map((item: OrderFormData) => {
-      return {
-        // activeOrder: !!item.activeOrder,
-        price: +item.price,
-        volumePart: +item.percent / 100,
-        fee: this.getOrderFee(item, commonData),
-      };
-    });
+    return orderInfo
+      .filter(v => v.activeOrder)
+      .map((item: OrderFormData) => {
+        return {
+          price: +item.price,
+          volumePart: +item.percent / 100,
+          fee: this.getOrderFee(item, commonData),
+        };
+      });
   }
 
   private getOrderFee(item: OrderFormData, commonData: CommonFormData) {
