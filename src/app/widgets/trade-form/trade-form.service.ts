@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ETradeType, TradeInfoArgs, TradeOrderArg } from '@z-brain/calc';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, shareReplay, startWith } from 'rxjs/operators';
-import * as _ from 'lodash';
+import { ETradeType } from '@z-brain/calc';
+
+import { FormGroupConfig } from '../../models/form-group-config';
 
 import { TradeFormValidatorsService } from './trade-form-validators.service';
 import { CommonFormData, OrderFormData, TradeFormData, TypeFee } from './trade-form.models';
-import { FormGroupConfig } from '../../models/form-group-config';
 
 @Injectable()
 export class TradeFormService {
-  public tradeInfo$: Observable<TradeInfoArgs>;
   public form: FormGroup;
 
   public get commonSubForm(): FormGroup {
@@ -48,14 +45,6 @@ export class TradeFormService {
     private fb: FormBuilder
   ) {
     this.initForm();
-
-    this.tradeInfo$ = this.form.valueChanges.pipe(
-      startWith(this.form.value as TradeFormData),
-      filter(() => this.form.valid),
-      distinctUntilChanged((p, q) => _.isEqual(p, q)),
-      map((data: TradeFormData) => this.convertToTradeInfoArgs(data)),
-      shareReplay(1),
-    );
   }
 
   public addOrder({ form, place = 'below', index, data }: {
@@ -82,34 +71,9 @@ export class TradeFormService {
    * @param form entries or stops or takes sub form
    */
   public equalizePercentage(form: FormArray) {
-
-    const patch: Pick<{ percent: number }, 'percent'> = { percent: 100 / form.length };
+    const patch: Pick<OrderFormData, 'percent'> = { percent: String(100 / form.length) };
 
     form.controls.forEach(v => v.patchValue(patch));
-  }
-
-  public convertToTradeInfoArgs(value: TradeFormData): TradeInfoArgs {
-    return {
-      deposit: +value.common.deposit,
-      risk: +value.common.risk / 100,
-
-      leverage: {
-        allow: !!+value.common.leverageAvailable,
-        max: +value.common.maxLeverage,
-      },
-
-      tradeType: value.common.tradeType,
-
-      breakeven: {
-        fee: this.getBreakevenFee(value.common),
-      },
-
-      entries: this.formatOrderData(value.entries, value.common),
-      stops: this.formatOrderData(value.stops, value.common),
-      takes: this.formatOrderData(value.takes, value.common),
-
-      maxTradeVolumeQuoted: +value.common.maxTradeVolumeQuoted,
-    };
   }
 
   get isValid(): boolean {
@@ -179,33 +143,5 @@ export class TradeFormService {
     };
 
     return this.fb.group(config);
-  }
-
-  private formatOrderData(orderInfo: OrderFormData[], commonData: CommonFormData): TradeOrderArg[] {
-    return orderInfo
-      .filter(v => v.activeOrder)
-      .map((item: OrderFormData) => {
-        return {
-          price: +item.price,
-          volumePart: +item.percent / 100,
-          fee: this.getOrderFee(item, commonData),
-        };
-      });
-  }
-
-  private getOrderFee(item: OrderFormData, commonData: CommonFormData) {
-    if (!commonData.feeEnabled) { return 0; }
-
-    return (item.typeOfFee === TypeFee.marketMaker
-             ? +commonData.marketMakerFee
-             : +commonData.marketTakerFee) / 100;
-  }
-
-  private getBreakevenFee(commonData: CommonFormData) {
-    if (!commonData.feeEnabled) { return 0; }
-
-    return (commonData.breakevenOrderType === TypeFee.marketMaker
-           ? +commonData.marketMakerFee
-           : +commonData.marketTakerFee) / 100;
   }
 }

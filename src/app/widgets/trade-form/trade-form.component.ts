@@ -10,10 +10,11 @@ import {
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { TradeInfo, TradeInfoArgs } from '@z-brain/calc';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 import { TradeFormService } from './trade-form.service';
 import { TradeFormValidatorsService } from './trade-form-validators.service';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { TradeInfoDataService } from './trade-info-data.service';
 import { AddOrderEvent } from './orders-panel/orders-panel.component';
 
 @Component({
@@ -22,6 +23,7 @@ import { AddOrderEvent } from './orders-panel/orders-panel.component';
   styleUrls: ['./trade-form.component.scss'],
   providers: [
     TradeFormService,
+    TradeInfoDataService,
     TradeFormValidatorsService,
   ],
   exportAs: 'tradeForm',
@@ -43,10 +45,11 @@ export class TradeFormComponent implements OnInit, OnDestroy {
 
   public constructor(
     private tradeFormService: TradeFormService,
+    private tradeInfoDataService: TradeInfoDataService,
   ) {}
 
   public ngOnInit() {
-    this.tradeFormService.tradeInfo$.pipe(untilDestroyed(this)).subscribe(this.dataChange);
+    this.tradeInfoDataService.tradeInfo$.pipe(untilDestroyed(this)).subscribe(this.dataChange);
   }
 
   public ngOnDestroy() {}
