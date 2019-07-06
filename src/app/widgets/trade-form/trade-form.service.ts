@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 
 import { TradeFormValidatorsService } from './trade-form-validators.service';
 import { CommonFormData, OrderFormData, TradeFormData, TypeFee } from './trade-form.models';
+import { FormGroupConfig } from '../../models/form-group-config';
 
 @Injectable()
 export class TradeFormService {
@@ -117,7 +118,7 @@ export class TradeFormService {
   }
 
   private initForm(): void {
-    const commonConfig: { [keys in keyof CommonFormData]: any[] } = {
+    const commonConfig: FormGroupConfig<CommonFormData> = {
       deposit: ['1000', [Validators.required, Validators.min(0.1)]],
       risk: ['1', [Validators.required, Validators.min(0), Validators.max(100)]],
       leverageAvailable: [true],
@@ -173,7 +174,7 @@ export class TradeFormService {
   }
 
   private createOrderForm(data: OrderFormData): FormGroup {
-    const config: { [keys in keyof OrderFormData]: any[] } = {
+    const config: FormGroupConfig<OrderFormData> = {
       activeOrder: [data.activeOrder],
       price: [data.price, [Validators.required]],
       percent: [data.percent, [Validators.required]],
