@@ -64,9 +64,8 @@ export class TradeFormService {
     index?: number,
     data?: OrderFormData,
   }): void {
-    index = index === undefined ? Math.min(0, form.length - 1) :
-            place === 'above' ? index :
-            index + 1;
+    index = index === undefined ? Math.max(0, form.length - 1) :
+            place === 'above' ? index : index + 1;
 
     form.insert(index, this.createOrderForm(data || this.defaultItem));
   }
