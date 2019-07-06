@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TradeFormService } from './trade-form.service';
-import { TradeFormValidatorsService } from '../../services/trade-form-validators.service';
-import { RiskIncomeFormData } from '../../models';
+import { TradeFormValidatorsService } from './trade-form-validators.service';
 import { TradeInfo, TradeInfoArgs } from '@z-brain/calc';
+import { RiskIncomeFormData } from './trade-form.models';
 
 @Component({
   selector: 'app-trade-form',

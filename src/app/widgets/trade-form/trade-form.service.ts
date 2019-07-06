@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TradeFormValidatorsService } from '../../services/trade-form-validators.service';
-import { CommonRiskFormData, OrderFormData, RiskIncomeFormData, TypeFee } from '../../models';
+import { TradeFormValidatorsService } from './trade-form-validators.service';
 import { ETradeType, TradeInfoArgs, TradeOrderArg } from '@z-brain/calc';
+import { CommonRiskFormData, OrderFormData, RiskIncomeFormData, TypeFee } from './trade-form.models';
 
 @Injectable()
 export class TradeFormService {
