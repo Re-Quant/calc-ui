@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-order-inputs',
@@ -10,13 +10,10 @@ import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortaw
 })
 export class OrderInputsComponent {
   @Input()
-  public group: FormGroup;
+  public group: AbstractControl;
 
   @Input()
   public formName: string;
-
-  @Input()
-  public formGroupIndex: number;
 
   @Input()
   public calculationData: object[];
@@ -25,13 +22,13 @@ export class OrderInputsComponent {
   public dataChange = new EventEmitter<void>();
 
   @Output()
-  public addOrderItemAbove = new EventEmitter<number>();
+  public addOrderItemAbove = new EventEmitter<void>();
 
   @Output()
-  public addOrderItemBelow = new EventEmitter<number>();
+  public addOrderItemBelow = new EventEmitter<void>();
 
   @Output()
-  public removeOrderItem = new EventEmitter<number>();
+  public removeOrderItem = new EventEmitter<void>();
 
   @Output()
   public setOrderItemPercentage = new EventEmitter<string>();
@@ -48,16 +45,16 @@ export class OrderInputsComponent {
     this.dataChange.emit();
   }
 
-  public addItemAbove(index: number): void {
-    this.addOrderItemAbove.emit(index);
+  public addItemAbove(): void {
+    this.addOrderItemAbove.emit();
   }
 
-  public addItemBelow(index: number): void {
-    this.addOrderItemBelow.emit(index);
+  public addItemBelow(): void {
+    this.addOrderItemBelow.emit();
   }
 
-  public removeItem(index: number): void {
-    this.removeOrderItem.emit(index);
+  public removeItem(): void {
+    this.removeOrderItem.emit();
   }
 
   public setPercentage(value: string) {

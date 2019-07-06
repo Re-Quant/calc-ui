@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { TradeOrderBase } from '@z-brain/calc';
 
 @Component({
@@ -34,7 +34,7 @@ export class OrdersPanelComponent {
   public equalizePercentage = new EventEmitter<string>();
 
   @Output()
-  public setOrderItemPercentage = new EventEmitter<{ value: string; item: FormGroup }>();
+  public setOrderItemPercentage = new EventEmitter<{ value: string; item: AbstractControl }>();
 
   constructor() { }
 
@@ -54,7 +54,7 @@ export class OrdersPanelComponent {
     this.removeOrderItem.emit(index);
   }
 
-  public onSetOrderItemPercentage(value: string, item: FormGroup): void {
+  public onSetOrderItemPercentage(value: string, item: AbstractControl): void {
     this.setOrderItemPercentage.emit({ value, item });
   }
 

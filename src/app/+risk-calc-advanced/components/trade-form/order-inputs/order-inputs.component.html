@@ -5,25 +5,24 @@
        fxLayout.lg="row"
        fxFlexFill
        fxLayoutGap="15px"
-       [formGroupName]="formGroupIndex"
   >
     <div>
       <div class="active-item">
         <mat-checkbox class="active-item__checkbox" formControlName="activeOrder" (change)="onChange()"></mat-checkbox>
         <div class="active-item__menu">
           <div>
-            <div class="active-item__item active-item__item-wrapper" (click)="addItemAbove(formGroupIndex)">
+            <div class="active-item__item active-item__item-wrapper" (click)="addItemAbove()">
               <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
               <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
             </div>
 
-            <div class="active-item__item active-item__item-wrapper" (click)="addItemBelow(formGroupIndex)">
+            <div class="active-item__item active-item__item-wrapper" (click)="addItemBelow()">
               <fa-icon class='active-item__icon' size="lg" [icon]="faPlusCircle"></fa-icon>
               <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
             </div>
           </div>
 
-          <div class="active-item__item" (click)="removeItem(formGroupIndex)">
+          <div class="active-item__item" (click)="removeItem()">
             <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
           </div>
         </div>

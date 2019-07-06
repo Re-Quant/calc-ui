@@ -4,12 +4,10 @@
   </div>
 
   <div class="orders-info mat-form-field-wrapper" *ngFor="let item of group.controls; let i = index;">
-    <app-order-inputs [group]="group"
-                      [formName]="formName"
-                      [formGroupIndex]="i"
-                      (addOrderItemAbove)="onAddItemAbove($event)"
-                      (addOrderItemBelow)="onAddItemBelow($event)"
-                      (removeOrderItem)="onRemoveItem($event)"
+    <app-order-inputs [group]="item"
+                      (addOrderItemAbove)="onAddItemAbove(i)"
+                      (addOrderItemBelow)="onAddItemBelow(i)"
+                      (removeOrderItem)="onRemoveItem(i)"
                       (setOrderItemPercentage)="onSetOrderItemPercentage($event, item)"
                       (dataChange)="onChange()"
     ></app-order-inputs>
