@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,14 +9,5 @@ import { FormGroup } from '@angular/forms';
 })
 export class CommonInputsPanelComponent {
   @Input()
-  public group: FormGroup;
-
-  @Output()
-  public dataChange = new EventEmitter<void>();
-
-  constructor() { }
-
-  public onChange() {
-    this.dataChange.emit();
-  }
+  public form: FormGroup;
 }

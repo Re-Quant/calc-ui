@@ -1,4 +1,4 @@
-<div class="common-panel" [formGroup]="group">
+<div class="common-panel" [formGroup]="form">
   <div fxLayout="column"
        fxLayoutAlign="start"
        fxLayoutAlign.lg="left center"
@@ -23,7 +23,7 @@
     </mat-form-field>
 
     <div class="leverage-wrapper">
-      <mat-checkbox formControlName="leverageAvailable" (change)="onChange()">Leverage</mat-checkbox>
+      <mat-checkbox formControlName="leverageAvailable">Leverage</mat-checkbox>
     </div>
 
     <mat-form-field>
@@ -31,7 +31,7 @@
     </mat-form-field>
 
     <div>
-      <mat-checkbox formControlName="feeEnabled" (change)="onChange()">Fee</mat-checkbox>
+      <mat-checkbox formControlName="feeEnabled">Fee</mat-checkbox>
     </div>
 
     <mat-form-field>
@@ -56,7 +56,7 @@
     <div>
       <span class="">Trade Type: </span>
 
-      <mat-button-toggle-group formControlName="tradeType" (change)="onChange()">
+      <mat-button-toggle-group formControlName="tradeType">
         <mat-button-toggle value="long">Long</mat-button-toggle>
         <mat-button-toggle value="short">Short</mat-button-toggle>
       </mat-button-toggle-group>
@@ -65,7 +65,7 @@
     <div>
       <span class="">Breakeven Order Type: </span>
 
-      <mat-button-toggle-group formControlName="breakevenOrderType" (change)="onChange()">
+      <mat-button-toggle-group formControlName="breakevenOrderType">
         <mat-button-toggle value="marketMakerFee">Maker</mat-button-toggle>
         <mat-button-toggle value="marketTakerFee">Taker</mat-button-toggle>
       </mat-button-toggle-group>
