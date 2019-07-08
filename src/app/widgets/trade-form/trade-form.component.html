@@ -11,8 +11,8 @@
     <app-orders-panel [form]="entriesSubForm"
                       [tradeOrders]="tradeInfo?.entries"
                       (addOrder)="addOrder(entriesSubForm, $event)"
-                      (removeOrderItem)="removeOrderItem(entriesSubForm, $event)"
-                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
+                      (removeOrder)="removeOrder(entriesSubForm, $event)"
+                      (setOrderPercentage)="onSetOrderPercentage($event)"
                       (equalizePercentage)="equalizePercentage(entriesSubForm)"
     ></app-orders-panel>
   </div>
@@ -23,8 +23,8 @@
     <app-orders-panel [form]="stopsSubForm"
                       [tradeOrders]="tradeInfo?.stops"
                       (addOrder)="addOrder(stopsSubForm, $event)"
-                      (removeOrderItem)="removeOrderItem(stopsSubForm, $event)"
-                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
+                      (removeOrder)="removeOrder(stopsSubForm, $event)"
+                      (setOrderPercentage)="onSetOrderPercentage($event)"
                       (equalizePercentage)="equalizePercentage(stopsSubForm)"
     ></app-orders-panel>
   </div>
@@ -35,8 +35,8 @@
     <app-orders-panel [form]="takesSubForm"
                       [tradeOrders]="tradeInfo?.takes"
                       (addOrder)="addOrder(takesSubForm, $event)"
-                      (removeOrderItem)="removeOrderItem(takesSubForm, $event)"
-                      (setOrderItemPercentage)="onSetOrderItemPercentage($event)"
+                      (removeOrder)="removeOrder(takesSubForm, $event)"
+                      (setOrderPercentage)="onSetOrderPercentage($event)"
                       (equalizePercentage)="equalizePercentage(takesSubForm)"
     ></app-orders-panel>
   </div>
