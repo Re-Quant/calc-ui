@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RiskCalcService } from './services/risk-calc.service';
+import { RiskCalcService } from './risk-calc.service';
 import { TradeInfo, TradeInfoArgs } from '@z-brain/calc';
 import { Observable } from 'rxjs';
 

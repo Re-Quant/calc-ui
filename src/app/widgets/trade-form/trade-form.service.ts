@@ -59,11 +59,11 @@ export class TradeFormService {
     form.insert(index, this.createOrderForm(data || this.defaultItem));
   }
 
-  public removeOrderItem(form: FormArray, index: number): void {
+  public removeOrder(form: FormArray, index: number): void {
     form.removeAt(index);
   }
 
-  public setOrderItemPercentage(data: { value: string; item: FormGroup }): void {
+  public setOrderPercentage(data: { value: string; item: FormGroup }): void {
     data.item.controls['percent'].setValue(data.value);
   }
 

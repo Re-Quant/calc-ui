@@ -58,12 +58,12 @@ export class TradeFormComponent implements OnInit, OnDestroy {
     this.tradeFormService.addOrder({ form, index, place });
   }
 
-  public removeOrderItem(form: FormArray, index: number) {
-    this.tradeFormService.removeOrderItem(form, index);
+  public removeOrder(form: FormArray, index: number) {
+    this.tradeFormService.removeOrder(form, index);
   }
 
-  public onSetOrderItemPercentage(data: { value: string; item: FormGroup }) {
-    this.tradeFormService.setOrderItemPercentage(data);
+  public onSetOrderPercentage(data: { value: string; item: FormGroup }) {
+    this.tradeFormService.setOrderPercentage(data);
   }
 
   public equalizePercentage(form: FormArray) {

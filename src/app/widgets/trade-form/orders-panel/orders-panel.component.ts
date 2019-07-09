@@ -29,13 +29,13 @@ export class OrdersPanelComponent {
   public addOrder = new EventEmitter<AddOrderEvent>();
 
   @Output()
-  public removeOrderItem = new EventEmitter<number>();
+  public removeOrder = new EventEmitter<number>();
 
   @Output()
   public equalizePercentage = new EventEmitter<void>();
 
   @Output()
-  public setOrderItemPercentage = new EventEmitter<{ value: string; item: AbstractControl }>();
+  public setOrderPercentage = new EventEmitter<{ value: string; item: AbstractControl }>();
 
   constructor() { }
 
@@ -43,12 +43,12 @@ export class OrdersPanelComponent {
     this.addOrder.emit({ index, place });
   }
 
-  public onRemoveItem(index: number): void {
-    this.removeOrderItem.emit(index);
+  public onRemoveOrder(index: number): void {
+    this.removeOrder.emit(index);
   }
 
-  public onSetOrderItemPercentage(value: string, item: AbstractControl): void {
-    this.setOrderItemPercentage.emit({ value, item });
+  public onSetOrderPercentage(value: string, item: AbstractControl): void {
+    this.setOrderPercentage.emit({ value, item });
   }
 
   public equalize(): void {

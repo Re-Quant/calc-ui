@@ -8,8 +8,8 @@
   >
     <app-order-inputs [form]="orderForm"
                       (addOrder)="onAddOrder(i, $event)"
-                      (removeOrderItem)="onRemoveItem(i)"
-                      (setOrderItemPercentage)="onSetOrderItemPercentage($event, orderForm)"
+                      (removeOrder)="onRemoveOrder(i)"
+                      (setOrderPercentage)="onSetOrderPercentage($event, orderForm)"
     ></app-order-inputs>
 
     <app-order-outputs class="orders-panel__outputs"

@@ -19,10 +19,10 @@ export class OrderInputsComponent {
   public addOrder = new EventEmitter<'above' | 'below'>();
 
   @Output()
-  public removeOrderItem = new EventEmitter<void>();
+  public removeOrder = new EventEmitter<void>();
 
   @Output()
-  public setOrderItemPercentage = new EventEmitter<string>();
+  public setOrderPercentage = new EventEmitter<string>();
 
   public faChevronUp = faChevronUp;
   public faChevronDown = faChevronDown;
@@ -39,10 +39,10 @@ export class OrderInputsComponent {
   }
 
   public removeItem(): void {
-    this.removeOrderItem.emit();
+    this.removeOrder.emit();
   }
 
   public setPercentage(value: string) {
-    this.setOrderItemPercentage.emit(value);
+    this.setOrderPercentage.emit(value);
   }
 }
