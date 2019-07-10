@@ -82,14 +82,14 @@ export class TradeFormService {
 
   private initForm(): void {
     const commonConfig: FormGroupConfig<CommonFormData> = {
-      deposit: ['1000', [Validators.required, Validators.min(0.1)]],
-      risk: ['1', [Validators.required, Validators.min(0), Validators.max(100)]],
+      deposit: ['1000', [Validators.required, Validators.min(0)]],
+      risk: ['1', [Validators.required, Validators.min(0), Validators.max(1)]],
       leverageAvailable: [true],
-      maxLeverage: ['5'],
+      maxLeverage: ['5', [Validators.min(0), Validators.max(1000)]],
       feeEnabled: [true],
-      marketMakerFee: ['0.1', [Validators.required, Validators.min(0), Validators.max(100)]],
-      marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
-      maxTradeVolumeQuoted: ['5000'],
+      marketMakerFee: ['0.1', [Validators.required, Validators.min(0), Validators.max(1)]],
+      marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(1)]],
+      maxTradeVolumeQuoted: ['5000', [ Validators.min(0)]],
       tradeType: [ETradeType.Long, [Validators.required]],
       breakevenOrderType: [TypeFee.marketMaker],
     };
