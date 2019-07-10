@@ -109,7 +109,7 @@ export class TradeFormService {
         activeOrder: true,
         price: '100',
         percent: '100',
-        typeOfFee: TypeFee.marketMaker,
+        typeOfFee: TypeFee.marketTaker,
       },
     });
 
@@ -119,7 +119,7 @@ export class TradeFormService {
         activeOrder: true,
         price: '90',
         percent: '100',
-        typeOfFee: TypeFee.marketTaker,
+        typeOfFee: TypeFee.marketMaker,
       },
     });
 
@@ -137,8 +137,8 @@ export class TradeFormService {
   private createOrderForm(data: OrderFormData): FormGroup {
     const config: FormGroupConfig<OrderFormData> = {
       activeOrder: [data.activeOrder],
-      price: [data.price, [Validators.required]],
-      percent: [data.percent, [Validators.required]],
+      price: [data.price, [Validators.required, Validators.min(0)]],
+      percent: [data.percent, [Validators.required, Validators.min(0), Validators.max(100)]],
       typeOfFee: [data.typeOfFee, [Validators.required]],
     };
 
