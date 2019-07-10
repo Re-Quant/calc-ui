@@ -15,6 +15,12 @@ export class OrderInputsComponent {
   @Input()
   public calculationData: object[];
 
+  @Input()
+  public isActiveMoveAbove: boolean;
+
+  @Input()
+  public isActiveMoveBelow: boolean;
+
   @Output()
   public addOrder = new EventEmitter<'above' | 'below'>();
 

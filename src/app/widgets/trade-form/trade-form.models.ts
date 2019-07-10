@@ -28,6 +28,16 @@ export interface CommonFormData {
   breakevenOrderType: TypeFee;
 }
 
+export interface AddOrderEvent {
+  index: number;
+  place: 'above' | 'below';
+}
+
+export interface MoveOrderEvent {
+  index: number;
+  place: 'above' | 'below';
+}
+
 export interface TradeFormData {
   common: CommonFormData;
   entries: OrderFormData[];

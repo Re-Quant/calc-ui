@@ -23,11 +23,20 @@
           </div>
 
           <div class="move-button">
-            <button mat-mini-fab class="active-item__item my-mini-fab move-button__wrap" color="basic" (click)="moveOrderAbove()">
+            <button mat-mini-fab
+                    class="active-item__item my-mini-fab move-button__wrap"
+                    color="basic"
+                    [disabled]="isActiveMoveAbove"
+                    (click)="moveOrderAbove()"
+            >
               <fa-icon class='active-item__icon' size="lg" [icon]="faChevronCircleUp"></fa-icon>
             </button>
 
-            <button mat-mini-fab class="active-item__item my-mini-fab move-button__wrap" color="basic" (click)="moveOrderBelow()">
+            <button mat-mini-fab
+                    class="active-item__item my-mini-fab move-button__wrap"
+                    color="basic"
+                    [disabled]="isActiveMoveBelow"
+                    (click)="moveOrderBelow()">
               <fa-icon class='active-item__icon' size="lg" [icon]="faChevronCircleDown"></fa-icon>
             </button>
           </div>

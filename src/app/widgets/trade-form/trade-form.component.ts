@@ -15,7 +15,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 import { TradeFormService } from './trade-form.service';
 import { TradeFormValidatorsService } from './trade-form-validators.service';
 import { TradeInfoDataService } from './trade-info-data.service';
-import { AddOrderEvent } from './orders-panel/orders-panel.component';
+import { AddOrderEvent, MoveOrderEvent } from './trade-form.models';
 
 @Component({
   selector: 'app-trade-form',
@@ -60,6 +60,11 @@ export class TradeFormComponent implements OnInit, OnDestroy {
 
   public removeOrder(form: FormArray, index: number) {
     this.tradeFormService.removeOrder(form, index);
+  }
+
+  public moveOrder(form: FormArray, { index, place }: MoveOrderEvent) {
+    console.log('move');
+    this.tradeFormService.moveOrder({ form, index, place });
   }
 
   public onSetOrderPercentage(data: { value: string; item: FormGroup }) {

@@ -2,6 +2,7 @@
 @import '../../../../../node_modules/@angular/material/theming';
 
 $color-pink: mat-palette($mat-pink);
+$color-gray: mat-palette($mat-grey);
 
 .active-item {
   position: relative;
@@ -42,6 +43,17 @@ $color-pink: mat-palette($mat-pink);
   &:hover & {
     &__menu {
       display: flex;
+    }
+  }
+}
+
+.active-item__item:disabled {
+  .active-item__icon {
+    color: mat-color($color-gray);
+
+    &:hover {
+      cursor: default;
+      color: mat-color($color-gray);
     }
   }
 }

@@ -63,6 +63,15 @@ export class TradeFormService {
     form.removeAt(index);
   }
 
+  public moveOrder({ form, place = 'below', index }: {
+    form: FormArray,
+    place?: 'above' | 'below',
+    index?: number,
+  }) {
+    const oldIndex = index;
+    const newIndex = place === 'above' ? index : index + 1;
+  }
+
   public setOrderPercentage(data: { value: string; item: FormGroup }): void {
     data.item.controls['percent'].setValue(data.value);
   }
