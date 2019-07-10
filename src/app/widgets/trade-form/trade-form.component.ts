@@ -63,7 +63,6 @@ export class TradeFormComponent implements OnInit, OnDestroy {
   }
 
   public moveOrder(form: FormArray, { index, place }: MoveOrderEvent) {
-    console.log('move');
     this.tradeFormService.moveOrder({ form, index, place });
   }
 

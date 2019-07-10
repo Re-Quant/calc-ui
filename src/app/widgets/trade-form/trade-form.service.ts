@@ -67,9 +67,13 @@ export class TradeFormService {
     form: FormArray,
     place?: 'above' | 'below',
     index?: number,
-  }) {
+  }): void {
     const oldIndex = index;
-    const newIndex = place === 'above' ? index : index + 1;
+    const newIndex = place === 'above' ? index - 1 : index + 1;
+    const formControl = form.at(oldIndex);
+
+    form.removeAt(oldIndex);
+    form.insert(newIndex, formControl);
   }
 
   public setOrderPercentage(data: { value: string; item: FormGroup }): void {
