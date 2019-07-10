@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle, faChevronCircleUp, faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -31,6 +31,8 @@ export class OrderInputsComponent {
   public faChevronDown = faChevronDown;
   public faPlusCircle = faPlusCircle;
   public faMinusCircle = faMinusCircle;
+  public faChevronCircleUp = faChevronCircleUp;
+  public faChevronCircleDown = faChevronCircleDown;
   public percentRange: string[] = ['10', '20', '25', '50', '75', '80', '100'];
 
   public addOrderAbove(): void {

@@ -45,3 +45,25 @@ $color-pink: mat-palette($mat-pink);
     }
   }
 }
+
+.move-button {
+  &__wrap {
+    margin: 2px;
+  }
+}
+
+.my-mini-fab {
+  width: 20px;
+  height: 20px;
+  line-height: 16px;
+  font-size: 16px;
+
+  &::ng-deep .mat-button-wrapper{
+    line-height: 16px;
+    padding: 0;
+
+    .mat-icon {
+      font-size: 16px;
+    }
+  }
+}
