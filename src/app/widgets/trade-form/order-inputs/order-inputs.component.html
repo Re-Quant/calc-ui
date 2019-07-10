@@ -22,8 +22,20 @@
             </div>
           </div>
 
+          <div>
+            <div class="active-item__item active-item__item-wrapper" (click)="moveOrderAbove()">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronUp"></fa-icon>
+            </div>
+
+            <div class="active-item__item active-item__item-wrapper" (click)="moveOrderBelow()">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faChevronDown"></fa-icon>
+            </div>
+          </div>
+
           <div class="active-item__item" (click)="removeItem()">
-            <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
+            <div class="active-item__item-wrapper">
+              <fa-icon class='active-item__icon' size="lg" [icon]="faMinusCircle"></fa-icon>
+            </div>
           </div>
         </div>
       </div>

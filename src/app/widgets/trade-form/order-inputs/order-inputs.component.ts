@@ -19,6 +19,9 @@ export class OrderInputsComponent {
   public addOrder = new EventEmitter<'above' | 'below'>();
 
   @Output()
+  public moveOrder = new EventEmitter<'above' | 'below'>();
+
+  @Output()
   public removeOrder = new EventEmitter<void>();
 
   @Output()
@@ -40,6 +43,14 @@ export class OrderInputsComponent {
 
   public removeItem(): void {
     this.removeOrder.emit();
+  }
+
+  public moveOrderAbove(): void {
+    this.moveOrder.emit('above');
+  }
+
+  public moveOrderBelow(): void {
+    this.moveOrder.emit('below');
   }
 
   public setPercentage(value: string) {
