@@ -2,13 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { AbstractControl, FormArray } from '@angular/forms';
 
 import { TradeOrderBase, zMath } from '@z-brain/calc';
-import { OrderFormData } from '../trade-form.models';
-
-export interface AddOrderEvent {
-  index: number;
-  place: 'above' | 'below';
-}
-
+import { AddOrderEvent, MoveOrderEvent, OrderFormData } from '../trade-form.models';
 
 @Component({
   selector: 'app-orders-panel',
@@ -32,6 +26,9 @@ export class OrdersPanelComponent {
   public removeOrder = new EventEmitter<number>();
 
   @Output()
+  public moveOrder = new EventEmitter<MoveOrderEvent>();
+
+  @Output()
   public equalizePercentage = new EventEmitter<void>();
 
   @Output()
@@ -45,6 +42,10 @@ export class OrdersPanelComponent {
 
   public onRemoveOrder(index: number): void {
     this.removeOrder.emit(index);
+  }
+
+  public onMoveOrder(index: number, place: 'above' | 'below'): void {
+    this.moveOrder.emit({ index, place });
   }
 
   public onSetOrderPercentage(value: string, item: AbstractControl): void {

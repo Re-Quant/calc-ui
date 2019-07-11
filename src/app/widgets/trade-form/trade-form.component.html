@@ -12,6 +12,7 @@
                       [tradeOrders]="tradeInfo?.entries"
                       (addOrder)="addOrder(entriesSubForm, $event)"
                       (removeOrder)="removeOrder(entriesSubForm, $event)"
+                      (moveOrder)="moveOrder(entriesSubForm, $event)"
                       (setOrderPercentage)="onSetOrderPercentage($event)"
                       (equalizePercentage)="equalizePercentage(entriesSubForm)"
     ></app-orders-panel>

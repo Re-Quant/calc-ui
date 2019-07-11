@@ -63,6 +63,19 @@ export class TradeFormService {
     form.removeAt(index);
   }
 
+  public moveOrder({ form, place = 'below', index }: {
+    form: FormArray,
+    place?: 'above' | 'below',
+    index?: number,
+  }): void {
+    const oldIndex = index;
+    const newIndex = place === 'above' ? index - 1 : index + 1;
+    const formControl = form.at(oldIndex);
+
+    form.removeAt(oldIndex);
+    form.insert(newIndex, formControl);
+  }
+
   public setOrderPercentage(data: { value: string; item: FormGroup }): void {
     data.item.controls['percent'].setValue(data.value);
   }
@@ -82,14 +95,14 @@ export class TradeFormService {
 
   private initForm(): void {
     const commonConfig: FormGroupConfig<CommonFormData> = {
-      deposit: ['1000', [Validators.required, Validators.min(0.1)]],
-      risk: ['1', [Validators.required, Validators.min(0), Validators.max(100)]],
+      deposit: ['1000', [Validators.required, Validators.min(0)]],
+      risk: ['1', [Validators.required, Validators.min(0), Validators.max(1)]],
       leverageAvailable: [true],
-      maxLeverage: ['5'],
+      maxLeverage: ['5', [Validators.min(0), Validators.max(1000)]],
       feeEnabled: [true],
-      marketMakerFee: ['0.1', [Validators.required, Validators.min(0), Validators.max(100)]],
-      marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(100)]],
-      maxTradeVolumeQuoted: ['5000'],
+      marketMakerFee: ['0.1', [Validators.required, Validators.min(0), Validators.max(1)]],
+      marketTakerFee: ['0.2', [Validators.required, Validators.min(0), Validators.max(1)]],
+      maxTradeVolumeQuoted: ['5000', [ Validators.min(0)]],
       tradeType: [ETradeType.Long, [Validators.required]],
       breakevenOrderType: [TypeFee.marketMaker],
     };
@@ -109,7 +122,7 @@ export class TradeFormService {
         activeOrder: true,
         price: '100',
         percent: '100',
-        typeOfFee: TypeFee.marketMaker,
+        typeOfFee: TypeFee.marketTaker,
       },
     });
 
@@ -119,7 +132,7 @@ export class TradeFormService {
         activeOrder: true,
         price: '90',
         percent: '100',
-        typeOfFee: TypeFee.marketTaker,
+        typeOfFee: TypeFee.marketMaker,
       },
     });
 
@@ -137,8 +150,8 @@ export class TradeFormService {
   private createOrderForm(data: OrderFormData): FormGroup {
     const config: FormGroupConfig<OrderFormData> = {
       activeOrder: [data.activeOrder],
-      price: [data.price, [Validators.required]],
-      percent: [data.percent, [Validators.required]],
+      price: [data.price, [Validators.required, Validators.min(0)]],
+      percent: [data.percent, [Validators.required, Validators.min(0), Validators.max(100)]],
       typeOfFee: [data.typeOfFee, [Validators.required]],
     };
 

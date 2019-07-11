@@ -7,8 +7,11 @@
        *ngFor="let orderForm of form.controls; let i = index;"
   >
     <app-order-inputs [form]="orderForm"
+                      [isActiveMoveAbove]="i === 0"
+                      [isActiveMoveBelow]="i + 1 === form.controls.length"
                       (addOrder)="onAddOrder(i, $event)"
                       (removeOrder)="onRemoveOrder(i)"
+                      (moveOrder)="onMoveOrder(i, $event)"
                       (setOrderPercentage)="onSetOrderPercentage($event, orderForm)"
     ></app-order-inputs>
 

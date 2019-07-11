@@ -2,6 +2,7 @@
 @import '../../../../../node_modules/@angular/material/theming';
 
 $color-pink: mat-palette($mat-pink);
+$color-gray: mat-palette($mat-grey);
 
 .active-item {
   position: relative;
@@ -13,7 +14,7 @@ $color-pink: mat-palette($mat-pink);
     position: absolute;
     top: -36px;
     left: 16px;
-    width: 51px;
+    width: 77px;
     z-index: 1;
     padding: 0 5px;
     background-color: rgba(255,255,255, 0.85);
@@ -42,6 +43,39 @@ $color-pink: mat-palette($mat-pink);
   &:hover & {
     &__menu {
       display: flex;
+    }
+  }
+}
+
+.active-item__item:disabled {
+  .active-item__icon {
+    color: mat-color($color-gray);
+
+    &:hover {
+      cursor: default;
+      color: mat-color($color-gray);
+    }
+  }
+}
+
+.move-button {
+  &__wrap {
+    margin: 2px;
+  }
+}
+
+.my-mini-fab {
+  width: 20px;
+  height: 20px;
+  line-height: 16px;
+  font-size: 16px;
+
+  &::ng-deep .mat-button-wrapper{
+    line-height: 16px;
+    padding: 0;
+
+    .mat-icon {
+      font-size: 16px;
     }
   }
 }
