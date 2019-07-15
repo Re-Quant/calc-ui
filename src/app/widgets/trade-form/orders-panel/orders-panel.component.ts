@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormArray } from '@angular/forms';
 
-import { TradeOrderBase, zMath } from '@z-brain/calc';
+import { TradeOrderArg, zMath } from '@z-brain/calc';
 import { AddOrderEvent, MoveOrderEvent, OrderFormData } from '../trade-form.models';
 
 @Component({
@@ -17,7 +17,7 @@ export class OrdersPanelComponent {
 
   // @todo: replace with TradeOrder after update @z-brain/calc
   @Input()
-  public tradeOrders?: TradeOrderBase[];
+  public tradeOrders?: TradeOrderArg[];
 
   @Output()
   public addOrder = new EventEmitter<AddOrderEvent>();
@@ -56,7 +56,7 @@ export class OrdersPanelComponent {
     this.equalizePercentage.emit();
   }
 
-  public getTradeOrder(index: number): TradeOrderBase | undefined {
+  public getTradeOrder(index: number): TradeOrderArg | undefined {
     if (!this.tradeOrders || !this.isOrderValidAndActive(index)) {
       return undefined;
     }

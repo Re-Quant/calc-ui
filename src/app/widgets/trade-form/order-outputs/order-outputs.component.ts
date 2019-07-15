@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { TradeOrderBase } from '@z-brain/calc';
+import { TradeOrderArg } from '@z-brain/calc';
 
 @Component({
   selector: 'app-order-outputs',
@@ -9,5 +9,5 @@ import { TradeOrderBase } from '@z-brain/calc';
 })
 export class OrderOutputsComponent {
   @Input()
-  public data: TradeOrderBase;
+  public data: TradeOrderArg;
 }
