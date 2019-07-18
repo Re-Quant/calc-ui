@@ -4,6 +4,7 @@
   <table>
     <tr>
       <th colspan="4">Volumes:</th>
+      <th colspan="2">Fee:</th>
       <th colspan="2">AVG Price:</th>
       <th colspan="2"></th>
       <th colspan="2"></th>
@@ -15,6 +16,8 @@
       <td>{{ tv.entries.orders.percent | percent: '0.0-2' }}</td>
       <td>Entry:</td>
       <td>{{ data.avgPrices.entry | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>Entry:</td>
+      <td>{{ tv.entries.fees.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
       <td>Actual Leverage:</td>
       <td>{{ data.leverage.actual }}</td>
       <td>Margin Cell Price:</td>
@@ -27,6 +30,8 @@
       <td></td>
       <td>Stop:</td>
       <td>{{ data.avgPrices.stop | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>Stop:</td>
+      <td>{{ tv.stops.fees.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
       <td>Risk Ratio:</td>
       <td>{{ data.risk * 100 }} : {{ tv.riskRatio | number: '0.0-2' }} </td>
       <td>Breakeven Price: </td>
@@ -39,6 +44,8 @@
       <td></td>
       <td>Take:</td>
       <td>{{ data.avgPrices.take | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
+      <td>Take:</td>
+      <td>{{ tv.takes.fees.quoted | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
       <td></td>
       <td></td>
       <td></td>
