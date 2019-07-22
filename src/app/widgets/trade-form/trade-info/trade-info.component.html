@@ -33,7 +33,7 @@
       <td>Stop:</td>
       <td>{{ data.avgPrices.stop | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
       <td>Risk Ratio:</td>
-      <td>{{ data.risk * 100 }} : {{ tv.riskRatio | number: '0.0-2' }} </td>
+      <td>1 : {{ tv.riskRatio | number: '0.0-2' }} </td>
       <td>Breakeven Price: </td>
       <td>{{ data.breakeven.price | currency : 'USD' : 'symbol' : '0.0-2' }}</td>
     </tr>
