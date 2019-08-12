@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { TradeFormComponent } from './trade-form.component';
+import { SharedModule } from '../../shared/shared.module';
 import { components } from './components';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { components } from './components';
     MatDividerModule,
 
     FontAwesomeModule,
+    SharedModule,
   ],
   providers: [],
   declarations: [

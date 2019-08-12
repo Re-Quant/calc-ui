@@ -1,0 +1,11 @@
+<mat-form-field>
+  <input type="number" matInput placeholder="Percent" [value]="value">
+  <span matSuffix>&nbsp;%</span>
+</mat-form-field>
+
+<div class="percent-range">
+  <button mat-stroked-button
+          *ngFor="let percent of percentRange"
+          (click)="setPercentage(percent)"
+  >{{percent}}</button>
+</div>
