@@ -43,7 +43,6 @@ export class PercentageComponent implements OnInit {
   }
 
   set value(val: string) {
-    console.log('type of value', typeof val);
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
