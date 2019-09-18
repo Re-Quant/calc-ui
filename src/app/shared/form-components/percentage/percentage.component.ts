@@ -1,9 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  Component, EventEmitter, forwardRef,
+  Component, forwardRef,
   Input,
-  OnInit,
-  Output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -20,23 +18,15 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class PercentageComponent implements OnInit {
+export class PercentageComponent {
   @Input()
   public percentage: string;
-  @Output()
-  public setOrderPercentage: EventEmitter<string> = new EventEmitter<string>();
 
   public percentRange: string[] = ['10', '20', '25', '50', '75', '80', '100'];
 
-  private _value: string;
+  private _value: string = this.percentage || '';
   private onChange: any = () => {};
   private onTouched: any = () => {};
-
-  public constructor() {}
-
-  public ngOnInit() {
-    this.value = this.percentage || '';
-  }
 
   get value() {
     return this._value;
@@ -56,15 +46,20 @@ export class PercentageComponent implements OnInit {
     }
   }
 
-  public registerOnChange(fn): void {
+  public registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
-  public registerOnTouched(fn): void {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  public setPercentage(value: string): void {
-    this.value = value;
+  public setValue(value: string | Event): void {
+    if (value instanceof Event) {
+      const target: any = value.target;
+      this.value = target.value;
+    } else {
+      this.value = value;
+    }
   }
 }
