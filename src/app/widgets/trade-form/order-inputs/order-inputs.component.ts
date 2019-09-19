@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { faChevronUp, faChevronDown, faPlusCircle, faMinusCircle, faChevronCircleUp, faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronUp, faChevronDown, faPlusCircle, faMinusCircle, faChevronCircleUp, faChevronCircleDown
+} from '@fortawesome/free-solid-svg-icons';
 import { FormGroup } from '@angular/forms';
 
 @Component({

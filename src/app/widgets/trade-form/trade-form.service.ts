@@ -81,7 +81,7 @@ export class TradeFormService {
   }
 
   /**
-   * @param form entries or stops or takes sub form
+   * @param form entries or stops or takes sub form-components
    */
   public equalizePercentage(form: FormArray) {
     const patch: Pick<OrderFormData, 'percent'> = { percent: String(100 / form.length) };

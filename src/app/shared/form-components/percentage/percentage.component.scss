@@ -1,0 +1,13 @@
+:host(:hover) {
+  .percent-range {
+    display: flex;
+  }
+}
+
+.percent-range {
+  display: none;
+  position: absolute;
+  top: 58px;
+  background: white;
+  z-index: 1;
+}

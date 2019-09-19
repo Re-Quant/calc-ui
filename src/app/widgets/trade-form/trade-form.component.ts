@@ -36,7 +36,7 @@ export class TradeFormComponent implements OnInit, OnDestroy {
   @Input()
   public tradeInfo?: TradeInfo;
 
-  // @todo: remove `form` from here. Used just for debug.
+  // @todo: remove `form-components` from here. Used just for debug.
   public get form(): FormGroup { return this.tradeFormService.form; }
   public get commonSubForm()   { return this.tradeFormService.commonSubForm; }
   public get entriesSubForm()  { return this.tradeFormService.entriesSubForm; }
